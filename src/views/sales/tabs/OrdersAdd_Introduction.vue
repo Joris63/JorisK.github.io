@@ -11,7 +11,7 @@
 
   // ── Search mode ──────────────────────────────────────────────
   const searchQuery = ref('');
-  const customerFound = ref(false);
+  const customerFound = ref(true);
 
   const mockFoundCustomer = {
     name: 'Joris Kamminga',
@@ -179,7 +179,6 @@
 
       <!-- ── Mode content ──────────────────────────────────────── -->
       <Transition name="fade-slide" mode="out-in">
-
         <!-- Search mode -->
         <div v-if="mode === 'search'" key="search" class="flex flex-col gap-4">
           <div class="flex gap-2">
@@ -204,14 +203,6 @@
               severity="secondary"
               @click="appointmentSearchVisible = true"
             />
-          </div>
-
-          <!-- Found/not-found toggle -->
-          <div class="flex items-center gap-3 py-1">
-            <ToggleSwitch v-model="customerFound" />
-            <span class="text-sm text-gray-600">
-              {{ customerFound ? 'Klant gevonden' : 'Nog aan het zoeken' }}
-            </span>
           </div>
 
           <!-- Address section — only when customer is found -->
@@ -239,9 +230,7 @@
                     />
                     <div class="flex flex-col text-left leading-snug">
                       <span class="text-sm font-medium">{{ addr.street }}</span>
-                      <span class="text-xs text-gray-400"
-                        >{{ addr.postcode }} {{ addr.city }}</span
-                      >
+                      <span class="text-xs text-gray-400">{{ addr.postcode }} {{ addr.city }}</span>
                     </div>
                   </button>
                 </div>
@@ -259,7 +248,10 @@
                     "
                   />
                   <div class="flex flex-col text-left leading-snug">
-                    <span class="text-sm font-medium" :class="{ 'text-gray-500': !addingNewAddress }">
+                    <span
+                      class="text-sm font-medium"
+                      :class="{ 'text-gray-500': !addingNewAddress }"
+                    >
                       Nieuw adres toevoegen
                     </span>
                     <span v-if="addingNewAddress" class="text-xs text-gray-400">
@@ -452,11 +444,7 @@
         </div>
         <div class="form-row">
           <label class="form-label">Referentie</label>
-          <InputText
-            v-model="referentie"
-            class="flex-1"
-            placeholder="Vul hier een referentie in"
-          />
+          <InputText v-model="referentie" class="flex-1" placeholder="Vul hier een referentie in" />
         </div>
         <div class="form-row">
           <label class="form-label">Verkoper</label>

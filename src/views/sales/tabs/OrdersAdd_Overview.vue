@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
+  import { ref } from 'vue';
   import { useOrderCart } from '@/composables/useOrderCart';
   import OrderCartTotals from './OrderCartTotals.vue';
 

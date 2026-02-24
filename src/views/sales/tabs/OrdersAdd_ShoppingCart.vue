@@ -2,7 +2,7 @@
   import { Message } from 'primevue';
   import { ref } from 'vue';
   import { useOrderCart } from '@/composables/useOrderCart';
-  import type { CartItem, CartGroup } from '@/composables/useOrderCart';
+  import type { CartItem } from '@/composables/useOrderCart';
 
   const {
     groups,

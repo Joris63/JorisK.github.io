@@ -5,6 +5,8 @@
 
   const { finalizeMode } = useOrderCart();
 
+  const emit = defineEmits<{ submit: [mode: 'offerte' | 'bestelling'] }>();
+
   // ── Section nav refs ─────────────────────────────────────────
   const sectionPlanning = ref<HTMLElement | null>(null);
   const sectionLevering = ref<HTMLElement | null>(null);
@@ -739,12 +741,14 @@
           label="Opslaan"
           icon="pi pi-save"
           icon-pos="right"
+          @click="emit('submit', 'offerte')"
         />
         <Button
           v-else-if="finalizeMode === 'bestelling'"
           label="Bestelling plaatsen"
           icon="pi pi-check"
           icon-pos="right"
+          @click="emit('submit', 'bestelling')"
         />
       </div>
     </div>

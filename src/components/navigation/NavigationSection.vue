@@ -4,7 +4,8 @@
 
   interface Props {
     section: NavigationSection;
-    index: number
+    index: number;
+    collapsed?: boolean;
   }
 
   const props = defineProps<Props>();
@@ -12,13 +13,19 @@
 
 <template>
   <div class="px-2" :class="index === 0 ? 'mb-2' : 'my-2'">
-    <div v-if="props.section.label" class="px-2 pt-1 pb-1">
+    <div v-if="props.section.label && !collapsed" class="px-2 pt-1 pb-1">
       <span class="text-primary-500 text-xs font-bold tracking-widest uppercase">
         {{ props.section.label }}
       </span>
     </div>
-    <div class="flex flex-col align-baseline just">
-      <NavigationItem v-for="item in props.section.navItems" :key="item.label" :item="item" />
+    <div v-else-if="collapsed && index > 0" class="my-1 border-t border-gray-100" />
+    <div class="flex flex-col">
+      <NavigationItem
+        v-for="item in props.section.navItems"
+        :key="item.label"
+        :item="item"
+        :collapsed="collapsed"
+      />
     </div>
   </div>
 </template>

@@ -547,16 +547,14 @@
       />
     </div>
 
-    <!-- Nav content: fades out when collapsed -->
-    <div
-      class="pt-2 overflow-y-auto flex-1 transition-opacity duration-200"
-      :class="visible ? 'opacity-100' : 'opacity-0 pointer-events-none'"
-    >
+    <!-- Nav content -->
+    <div class="pt-2 overflow-y-auto flex-1">
       <NavigationSection
         v-for="(section, index) in navigationSections"
         :key="section.label ?? `emptySectionLabel-${index}`"
         :section="section"
         :index="index"
+        :collapsed="!visible"
       />
     </div>
   </aside>

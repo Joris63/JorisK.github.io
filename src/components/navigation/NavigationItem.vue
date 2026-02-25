@@ -1,45 +1,65 @@
 <script setup lang="ts">
   import type { NavItem } from '@/types/navigation';
-  import { ref, computed } from 'vue';
-  import { useRouter } from 'vue-router';
+  import { ref, computed, watch } from 'vue';
+  import { useRouter, useRoute } from 'vue-router';
 
   interface Props {
     item: NavItem;
     isChild?: boolean;
+    collapsed?: boolean;
   }
 
   const router = useRouter();
-
+  const route = useRoute();
   const props = defineProps<Props>();
 
   const isOpen = ref(false);
   const hasChildren = computed(() => 'children' in props.item);
-
   const isOldAdminRoute = computed<boolean>(() => 'isOldAdmin' in props.item);
 
+  const isActive = computed(() =>
+    'route' in props.item && route.path === props.item.route,
+  );
+
+  const hasActiveChild = computed(() => {
+    if (!('children' in props.item)) return false;
+    return (props.item as any).children.some(
+      (child: any) => 'route' in child && route.path === child.route,
+    );
+  });
+
+  // Auto-open the group when a child is the active route
+  watch(hasActiveChild, (val) => { if (val) isOpen.value = true; }, { immediate: true });
+
   const goToRoute = () => {
-    if ('route' in props.item) {
-      router.push(props.item.route);
-    }
+    if ('route' in props.item) router.push(props.item.route);
   };
 </script>
 
 <template>
+  <!-- ── Group (has children) ───────────────────────────── -->
   <template v-if="hasChildren">
-    <Button
-      variant="text"
-      severity="contrast"
+    <button
       :class="[
-        'justify-start! w-full! transition-colors duration-150',
-        isOpen ? 'text-primary-600!' : 'text-gray-700!',
+        'nav-btn w-full flex items-center gap-2 px-2 rounded-md',
+        collapsed ? 'justify-center py-2' : 'justify-start py-1.5',
+        hasActiveChild
+          ? 'text-primary-700 bg-primary-50'
+          : 'text-gray-700 hover:bg-gray-100',
       ]"
+      :title="collapsed ? props.item.label : undefined"
       @click="isOpen = !isOpen"
     >
-      <i :class="`pi ${props.item.icon} text-gray-400`"></i>
-      <span class="flex-1 text-left font-medium">{{ props.item.label }}</span>
-      <i :class="`pi ${isOpen ? 'pi-chevron-up' : 'pi-chevron-down'} text-gray-400 text-xs`" />
-    </Button>
+      <i :class="`pi ${props.item.icon} text-sm shrink-0 ${hasActiveChild ? 'text-primary-500' : 'text-gray-400'}`" />
+      <template v-if="!collapsed">
+        <span class="flex-1 text-left text-sm font-medium">{{ props.item.label }}</span>
+        <i :class="`pi ${isOpen ? 'pi-chevron-up' : 'pi-chevron-down'} text-gray-400 text-xs`" />
+      </template>
+    </button>
+
+    <!-- Children (hidden when collapsed) -->
     <div
+      v-if="!collapsed"
       class="grid transition-[grid-template-rows] duration-200 ease-in-out"
       :style="{ gridTemplateRows: isOpen ? '1fr' : '0fr' }"
     >
@@ -55,22 +75,39 @@
       </div>
     </div>
   </template>
-  <Button
+
+  <!-- ── Leaf item ──────────────────────────────────────── -->
+  <button
     v-else
-    variant="text"
-    severity="contrast"
-    :class="['justify-start! w-full!', isChild ? 'text-gray-500! font-normal!' : 'text-gray-700!']"
+    :class="[
+      'nav-btn w-full flex items-center gap-2 rounded-md',
+      collapsed ? 'justify-center py-2 px-2' : 'justify-start py-1.5 px-2',
+      isActive
+        ? 'text-primary-700 bg-primary-50 font-semibold'
+        : isChild
+          ? 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+          : 'text-gray-700 hover:bg-gray-100',
+    ]"
+    :title="collapsed ? props.item.label : undefined"
     @click="goToRoute"
   >
-    <i :class="`pi ${props.item.icon} text-gray-400`"></i>
-    <span class="flex-1 text-left font-medium">{{ props.item.label }}</span>
-    <i v-if="isOldAdminRoute" class="pi pi-external-link text-gray-400 text-xs" />
-  </Button>
+    <i
+      v-if="props.item.icon"
+      :class="`pi ${props.item.icon} text-sm shrink-0 ${isActive ? 'text-primary-500' : 'text-gray-400'}`"
+    />
+    <template v-if="!collapsed">
+      <span class="flex-1 text-left text-sm">{{ props.item.label }}</span>
+      <i v-if="isOldAdminRoute" class="pi pi-external-link text-gray-400 text-xs shrink-0" />
+    </template>
+  </button>
 </template>
 
 <style scoped>
-  :deep(.p-button) {
-    padding-top: 0.35rem;
-    padding-bottom: 0.35rem;
+  .nav-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    text-align: left;
   }
 </style>

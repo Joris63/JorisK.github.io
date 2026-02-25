@@ -6,20 +6,21 @@
   const route = useRoute();
   const home = ref({
     icon: 'pi pi-home',
-    route: '/introduction',
+    route: '/',
   });
 
-  const items = ref(
-    (route.meta.breadcrumbs as string[] | undefined)?.map((label) => ({
-      label,
-    })) ?? []
-  );
+  type BreadcrumbEntry = string | { label: string; route: string };
+
+  function mapCrumbs(crumbs: BreadcrumbEntry[] | undefined) {
+    return (crumbs ?? []).map((entry) =>
+      typeof entry === 'string' ? { label: entry } : entry,
+    );
+  }
+
+  const items = ref(mapCrumbs(route.meta.breadcrumbs as BreadcrumbEntry[] | undefined));
 
   watch(route, (newRoute) => {
-    items.value =
-      (newRoute.meta.breadcrumbs as string[] | undefined)?.map((label) => ({
-        label,
-      })) ?? [];
+    items.value = mapCrumbs(newRoute.meta.breadcrumbs as BreadcrumbEntry[] | undefined);
   });
 </script>
 

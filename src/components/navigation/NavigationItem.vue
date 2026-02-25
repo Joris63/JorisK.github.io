@@ -18,13 +18,20 @@
   const isOldAdminRoute = computed<boolean>(() => 'isOldAdmin' in props.item);
 
   const isActive = computed(() =>
-    'route' in props.item && route.path === props.item.route,
+    'route' in props.item &&
+    !isOldAdminRoute.value &&
+    route.path === props.item.route &&
+    (props.item.route !== '/' || !props.isChild),
   );
 
   const hasActiveChild = computed(() => {
     if (!('children' in props.item)) return false;
     return (props.item as any).children.some(
-      (child: any) => 'route' in child && route.path === child.route,
+      (child: any) =>
+        'route' in child &&
+        !('isOldAdmin' in child) &&
+        child.route !== '/' &&
+        route.path === child.route,
     );
   });
 
@@ -45,14 +52,14 @@
         collapsed ? 'justify-center py-2' : 'justify-start py-1.5',
         hasActiveChild
           ? 'text-primary-700 bg-primary-50'
-          : 'text-gray-700 hover:bg-gray-100',
+          : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700',
       ]"
       :title="collapsed ? props.item.label : undefined"
       @click="isOpen = !isOpen"
     >
       <i :class="`pi ${props.item.icon} text-sm shrink-0 ${hasActiveChild ? 'text-primary-500' : 'text-gray-400'}`" />
       <template v-if="!collapsed">
-        <span class="flex-1 text-left text-sm font-medium">{{ props.item.label }}</span>
+        <span class="flex-1 text-left text-sm font-normal">{{ props.item.label }}</span>
         <i :class="`pi ${isOpen ? 'pi-chevron-up' : 'pi-chevron-down'} text-gray-400 text-xs`" />
       </template>
     </button>

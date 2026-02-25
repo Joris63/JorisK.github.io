@@ -30,6 +30,7 @@ declare module 'vue' {
     InputText: typeof import('primevue/inputtext')['default']
     Menu: typeof import('primevue/menu')['default']
     Message: typeof import('primevue/message')['default']
+    MultiSelect: typeof import('primevue/multiselect')['default']
     Navigation: typeof import('./src/components/navigation/Navigation.vue')['default']
     NavigationBar: typeof import('./src/components/navigation/NavigationBar.vue')['default']
     NavigationItem: typeof import('./src/components/navigation/NavigationItem.vue')['default']

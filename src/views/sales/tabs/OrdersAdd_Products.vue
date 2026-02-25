@@ -95,11 +95,14 @@
           >Product toevoegen</span
         >
         <div class="flex gap-2">
-          <InputText
-            class="flex-1"
-            type="text"
-            placeholder="Zoek op productcode, naam, fabrikantcode of EAN"
-          />
+          <IconField class="grow">
+            <InputIcon class="pi pi-search" />
+            <InputText
+              class="w-full"
+              placeholder="Zoek op productcode, productnaam, fabrikantcode, bestelcode of EAN"
+              autofocus
+            />
+          </IconField>
           <Button label="HM nummer" icon="pi pi-plus" icon-pos="left" class="btn-outlined" />
           <div class="pl-2 border-l border-gray-200">
             <Button icon="pi pi-ellipsis-v" class="btn-outlined" />

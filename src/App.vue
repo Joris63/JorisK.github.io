@@ -10,10 +10,10 @@
       <NavigationTopBar />
       <main class="flex-1 overflow-auto p-5 flex flex-col">
         <Card
-          class="min-h-full shrink-0"
+          class="flex-1 min-h-0"
           :pt="{
-            body: { class: 'grow flex flex-col' },
-            content: { class: 'grow flex flex-col' },
+            body: { class: 'grow flex flex-col min-h-0' },
+            content: { class: 'grow flex flex-col min-h-0' },
           }"
         >
           <template #content>

@@ -213,8 +213,6 @@ function findPath(targetId: number, nodes: Group[], path: Group[] = []): Group[]
   // ── Computed ──────────────────────────────────────────────────────
   const isVerlopen = computed(() => actie.value.status === 'Verlopen');
 
-  const rootGroup = computed(() => groups.value[0] ?? null);
-
   const parentGroupOptions = computed(() => toTreeNodes(groups.value));
 
   // Hide the "Valt onder" field when editing (reparenting not yet supported)

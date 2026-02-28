@@ -4,19 +4,19 @@
 
   const router = useRouter();
 
-  type ActieStatus = 'Actief' | 'Verlopen' | 'Binnenkort gepland';
+  type OfferStatus = 'Actief' | 'Verlopen' | 'Binnenkort gepland';
 
-  interface Actie {
+  interface Offer {
     id: number;
     naam: string;
     startdatum: string;
     einddatum: string;
-    status: ActieStatus;
+    status: OfferStatus;
     sites: string[];
     lastTask: string | null;
   }
 
-  const acties = ref<Actie[]>([
+  const offers = ref<Offer[]>([
     { id: 1,  naam: '2026 Q1: Hansgrohe Raindance actie',  startdatum: '03-02-2026', einddatum: '15-04-2026', status: 'Actief',             sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],                   lastTask: null },
     { id: 2,  naam: '2026 Q1: Grohe Colors BE',            startdatum: '11-02-2026', einddatum: '31-03-2026', status: 'Actief',             sites: ['swbe (fr-BE)', 'swbe (nl-BE)'],                                    lastTask: 'Prijzen bijwerken' },
     { id: 3,  naam: '2026 Q1: SRiho cashback NL',          startdatum: '25-01-2026', einddatum: '30-06-2026', status: 'Actief',             sites: ['swnl (nl_NL)'],                                                    lastTask: null },
@@ -37,7 +37,7 @@
   const totalRecords = ref(106);
 
   // ── Status badge helpers ─────────────────────────────────────────
-  const statusConfig: Record<ActieStatus, { label: string; classes: string }> = {
+  const statusConfig: Record<OfferStatus, { label: string; classes: string }> = {
     Actief:              { label: 'Actief',              classes: 'status-badge--actief'   },
     Verlopen:            { label: 'Verlopen',            classes: 'status-badge--verlopen' },
     'Binnenkort gepland':{ label: 'Binnenkort gepland',  classes: 'status-badge--gepland'  },
@@ -341,8 +341,8 @@
 
     <!-- Table -->
     <DataTable
-      :value="acties"
-      class="acties-table"
+      :value="offers"
+      class="offers-table"
       :pt="{ thead: { class: 'border-b border-gray-200' } }"
     >
       <Column field="naam" header="Naam">
@@ -364,9 +364,9 @@
         <template #body="{ data }">
           <span
             class="status-badge"
-            :class="statusConfig[data.status as ActieStatus].classes"
+            :class="statusConfig[data.status as OfferStatus].classes"
           >
-            {{ statusConfig[data.status as ActieStatus].label }}
+            {{ statusConfig[data.status as OfferStatus].label }}
           </span>
         </template>
       </Column>
@@ -394,7 +394,7 @@
       </Column>
       <Column header="" style="width: 3rem">
         <template #body="{ data }">
-          <Button icon="pi pi-pencil" variant="text" severity="secondary" size="small" rounded @click="router.push({ name: 'ActiesEdit', params: { id: data.id } })" />
+          <Button icon="pi pi-pencil" variant="text" severity="secondary" size="small" rounded @click="router.push({ name: 'OffersEdit', params: { id: data.id } })" />
         </template>
       </Column>
     </DataTable>
@@ -743,7 +743,7 @@
   }
 
   /* ── DataTable ───────────────────────────────────────────── */
-  .acties-table :deep(th) {
+  .offers-table :deep(th) {
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -754,20 +754,20 @@
     padding: 0.625rem 0.75rem;
   }
 
-  .acties-table :deep(td) {
+  .offers-table :deep(td) {
     padding: 0.75rem;
     border-bottom: 1px solid var(--p-surface-100);
   }
 
-  .acties-table :deep(tr:last-child td) {
+  .offers-table :deep(tr:last-child td) {
     border-bottom: none;
   }
 
-  .acties-table :deep(tr:hover td) {
+  .offers-table :deep(tr:hover td) {
     background: var(--p-surface-50);
   }
 
-  .acties-table :deep(.p-datatable-tbody > tr) {
+  .offers-table :deep(.p-datatable-tbody > tr) {
     transition: background 0.1s ease;
   }
 

@@ -4,8 +4,8 @@ import OrdersAdd from '@/views/sales/OrdersAdd.vue';
 import OrdersAdd_Direct from '@/views/sales/OrdersAdd_Direct.vue';
 import OrdersAdd_ThankYou from '@/views/sales/OrdersAdd_ThankYou.vue';
 import CustomersOverview from '@/views/sales/CustomersOverview.vue';
-import ActiesOverview from '@/views/marketing/ActiesOverview.vue';
-import ActiesEdit from '@/views/marketing/ActiesEdit.vue';
+import OffersOverview from '@/views/marketing/OffersOverview.vue';
+import OffersEdit from '@/views/marketing/OffersEdit.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,21 +48,21 @@ const router = createRouter({
       },
     },
     {
-      path: '/marketing/acties',
-      name: 'ActiesOverview',
-      component: ActiesOverview,
+      path: '/marketing/offers',
+      name: 'OffersOverview',
+      component: OffersOverview,
       meta: {
         breadcrumbs: ['Marketing', 'Acties'],
       },
     },
     {
-      path: '/marketing/acties/:id',
-      name: 'ActiesEdit',
-      component: ActiesEdit,
+      path: '/marketing/offers/:id',
+      name: 'OffersEdit',
+      component: OffersEdit,
       meta: {
         breadcrumbs: [
           'Marketing',
-          { label: 'Acties', route: '/marketing/acties' },
+          { label: 'Acties', route: '/marketing/offers' },
           'Actie bewerken',
         ],
       },

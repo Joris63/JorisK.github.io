@@ -410,7 +410,7 @@
             },
             {
               label: 'Acties',
-              route: '/marketing/acties',
+              route: '/marketing/offers',
             },
             {
               label: 'Gewijzigde productattributen',

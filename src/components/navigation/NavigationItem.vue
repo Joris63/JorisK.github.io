@@ -17,11 +17,12 @@
   const hasChildren = computed(() => 'children' in props.item);
   const isOldAdminRoute = computed<boolean>(() => 'isOldAdmin' in props.item);
 
-  const isActive = computed(() =>
-    'route' in props.item &&
-    !isOldAdminRoute.value &&
-    route.path === props.item.route &&
-    (props.item.route !== '/' || !props.isChild),
+  const isActive = computed(
+    () =>
+      'route' in props.item &&
+      !isOldAdminRoute.value &&
+      route.path === props.item.route &&
+      (props.item.route !== '/' || !props.isChild)
   );
 
   const hasActiveChild = computed(() => {
@@ -31,12 +32,18 @@
         'route' in child &&
         !('isOldAdmin' in child) &&
         child.route !== '/' &&
-        route.path === child.route,
+        route.path === child.route
     );
   });
 
   // Auto-open the group when a child is the active route
-  watch(hasActiveChild, (val) => { if (val) isOpen.value = true; }, { immediate: true });
+  watch(
+    hasActiveChild,
+    (val) => {
+      if (val) isOpen.value = true;
+    },
+    { immediate: true }
+  );
 
   const goToRoute = () => {
     if ('route' in props.item) router.push(props.item.route);
@@ -57,7 +64,9 @@
       :title="collapsed ? props.item.label : undefined"
       @click="isOpen = !isOpen"
     >
-      <i :class="`pi ${props.item.icon} text-sm shrink-0 ${hasActiveChild ? 'text-primary-500' : 'text-gray-400'}`" />
+      <i
+        :class="`pi ${props.item.icon} text-sm shrink-0 ${hasActiveChild ? 'text-primary-500' : 'text-gray-400'}`"
+      />
       <template v-if="!collapsed">
         <span class="flex-1 text-left text-sm font-normal">{{ props.item.label }}</span>
         <i :class="`pi ${isOpen ? 'pi-chevron-up' : 'pi-chevron-down'} text-gray-400 text-xs`" />
@@ -114,7 +123,9 @@
     border: none;
     background: transparent;
     cursor: pointer;
-    transition: background 0.15s ease, color 0.15s ease;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
     text-align: left;
   }
 </style>

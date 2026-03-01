@@ -1,5 +1,8 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
 
   interface Customer {
     id: number;
@@ -9,21 +12,86 @@
   }
 
   const customers = ref<Customer[]>([
-    { id: 1,  lastName: 'Bakker',          email: 'thomas.bakker@gmail.com',         lastModified: '3 februari 2026 09:14'  },
-    { id: 2,  lastName: 'de Vries',       email: 'nora.devries@outlook.com',        lastModified: '21 januari 2026 16:42'  },
-    { id: 3,  lastName: 'van Dijk',       email: 'r.vandijk@kpnmail.nl',            lastModified: '14 januari 2026 11:05'  },
-    { id: 4,  lastName: 'Janssen',        email: 'lienekejanssen@hotmail.com',      lastModified: '9 december 2025 08:30'  },
-    { id: 5,  lastName: 'Smit',           email: 'p.smit82@ziggo.nl',               lastModified: '2 december 2025 14:17'  },
-    { id: 6,  lastName: 'Meijer',         email: 'erik.meijer@gmail.com',           lastModified: '18 november 2025 10:55' },
-    { id: 7,  lastName: 'van den Berg',   email: 'anneke.vdberg@live.nl',           lastModified: '5 november 2025 13:22'  },
-    { id: 8,  lastName: 'Visser',         email: 'm.visser@upcmail.nl',             lastModified: '29 oktober 2025 09:48'  },
-    { id: 9,  lastName: 'Mulder',         email: 'hansmulder@gmail.com',            lastModified: '14 oktober 2025 17:03'  },
-    { id: 10, lastName: 'de Boer',        email: 'deboer.sandra@hetnet.nl',         lastModified: '1 oktober 2025 12:30'   },
-    { id: 11, lastName: 'Bos',            email: 'w.bos@planet.nl',                 lastModified: '22 september 2025 08:11'},
-    { id: 12, lastName: 'van Leeuwen',    email: 'cvanleeuwen@gmail.com',           lastModified: '10 september 2025 15:44'},
-    { id: 13, lastName: 'Dekker',         email: 'jos.dekker@xs4all.nl',            lastModified: '28 augustus 2025 11:29' },
-    { id: 14, lastName: 'Hendriks',       email: 'f.hendriks@outlook.com',          lastModified: '15 augustus 2025 09:00' },
-    { id: 15, lastName: 'Peters',         email: 'margriet.peters@gmail.com',       lastModified: '3 augustus 2025 16:58'  },
+    {
+      id: 1,
+      lastName: 'Bakker',
+      email: 'thomas.bakker@gmail.com',
+      lastModified: '3 februari 2026 09:14',
+    },
+    {
+      id: 2,
+      lastName: 'de Vries',
+      email: 'nora.devries@outlook.com',
+      lastModified: '21 januari 2026 16:42',
+    },
+    {
+      id: 3,
+      lastName: 'van Dijk',
+      email: 'r.vandijk@kpnmail.nl',
+      lastModified: '14 januari 2026 11:05',
+    },
+    {
+      id: 4,
+      lastName: 'Janssen',
+      email: 'lienekejanssen@hotmail.com',
+      lastModified: '9 december 2025 08:30',
+    },
+    { id: 5, lastName: 'Smit', email: 'p.smit82@ziggo.nl', lastModified: '2 december 2025 14:17' },
+    {
+      id: 6,
+      lastName: 'Meijer',
+      email: 'erik.meijer@gmail.com',
+      lastModified: '18 november 2025 10:55',
+    },
+    {
+      id: 7,
+      lastName: 'van den Berg',
+      email: 'anneke.vdberg@live.nl',
+      lastModified: '5 november 2025 13:22',
+    },
+    {
+      id: 8,
+      lastName: 'Visser',
+      email: 'm.visser@upcmail.nl',
+      lastModified: '29 oktober 2025 09:48',
+    },
+    {
+      id: 9,
+      lastName: 'Mulder',
+      email: 'hansmulder@gmail.com',
+      lastModified: '14 oktober 2025 17:03',
+    },
+    {
+      id: 10,
+      lastName: 'de Boer',
+      email: 'deboer.sandra@hetnet.nl',
+      lastModified: '1 oktober 2025 12:30',
+    },
+    { id: 11, lastName: 'Bos', email: 'w.bos@planet.nl', lastModified: '22 september 2025 08:11' },
+    {
+      id: 12,
+      lastName: 'van Leeuwen',
+      email: 'cvanleeuwen@gmail.com',
+      lastModified: '10 september 2025 15:44',
+    },
+    {
+      id: 13,
+      lastName: 'Dekker',
+      email: 'jos.dekker@xs4all.nl',
+      lastModified: '28 augustus 2025 11:29',
+    },
+    {
+      id: 14,
+      lastName: 'Hendriks',
+      email: 'f.hendriks@outlook.com',
+      lastModified: '15 augustus 2025 09:00',
+    },
+    {
+      id: 15,
+      lastName: 'Peters',
+      email: 'margriet.peters@gmail.com',
+      lastModified: '3 augustus 2025 16:58',
+    },
   ]);
 
   const totalRecords = ref(1609688);
@@ -39,35 +107,45 @@
   }
 
   const allFilterDefs: FilterConfig[] = [
-    { key: 'email',                label: 'Email',                  type: 'text',    placeholder: 'jan@bedrijf.nl'         },
-    { key: 'achternaam',           label: 'Achternaam',             type: 'text',    placeholder: 'de Vries'               },
-    { key: 'voornaam',             label: 'Voornaam',               type: 'text',    placeholder: 'Jan'                    },
-    { key: 'bedrijfsnaam',         label: 'Bedrijfsnaam',           type: 'text',    placeholder: 'Bouwbedrijf de Vries'   },
-    { key: 'postcode',             label: 'Postcode',               type: 'text',    placeholder: '1234 AB'                },
-    { key: 'huisnummer',           label: 'Huisnummer',             type: 'text',    placeholder: '12'                     },
-    { key: 'huisnummerToevoeging', label: 'Huisnummer toevoeging',  type: 'text',    placeholder: 'A'                      },
-    { key: 'woonplaats',           label: 'Woonplaats',             type: 'text',    placeholder: 'Amsterdam'              },
-    { key: 'telefoonnummer',       label: 'Telefoonnummer',         type: 'text',    placeholder: '06 12345678'            },
-    { key: 'isB2BKlant',           label: 'Is B2B Klant',           type: 'boolean'                                       },
-    { key: 'heeftBedrijf',         label: 'Heeft bedrijf',          type: 'boolean'                                       },
-    { key: 'heeftBestellingen',    label: 'Heeft bestellingen',     type: 'boolean'                                       },
+    { key: 'email', label: 'Email', type: 'text', placeholder: 'jan@bedrijf.nl' },
+    { key: 'achternaam', label: 'Achternaam', type: 'text', placeholder: 'de Vries' },
+    { key: 'voornaam', label: 'Voornaam', type: 'text', placeholder: 'Jan' },
+    {
+      key: 'bedrijfsnaam',
+      label: 'Bedrijfsnaam',
+      type: 'text',
+      placeholder: 'Bouwbedrijf de Vries',
+    },
+    { key: 'postcode', label: 'Postcode', type: 'text', placeholder: '1234 AB' },
+    { key: 'huisnummer', label: 'Huisnummer', type: 'text', placeholder: '12' },
+    { key: 'huisnummerToevoeging', label: 'Huisnummer toevoeging', type: 'text', placeholder: 'A' },
+    { key: 'woonplaats', label: 'Woonplaats', type: 'text', placeholder: 'Amsterdam' },
+    { key: 'telefoonnummer', label: 'Telefoonnummer', type: 'text', placeholder: '06 12345678' },
+    { key: 'isB2BKlant', label: 'Is B2B Klant', type: 'boolean' },
+    { key: 'heeftBedrijf', label: 'Heeft bedrijf', type: 'boolean' },
+    { key: 'heeftBestellingen', label: 'Heeft bestellingen', type: 'boolean' },
   ];
 
   // Which filter keys are currently shown as chips (ordered)
   const activeFilterKeys = ref<string[]>([
-    'email', 'achternaam', 'postcode', 'huisnummer', 'huisnummerToevoeging', 'isB2BKlant',
+    'email',
+    'achternaam',
+    'postcode',
+    'huisnummer',
+    'huisnummerToevoeging',
+    'isB2BKlant',
   ]);
 
   // Derived: only the configs for active keys, in order
   const filterConfigs = computed(() =>
     activeFilterKeys.value
       .map((k) => allFilterDefs.find((f) => f.key === k))
-      .filter((f): f is FilterConfig => f !== undefined),
+      .filter((f): f is FilterConfig => f !== undefined)
   );
 
   // One value slot per possible filter (never shrinks)
   const filterValues = ref<Record<string, string | boolean | null>>(
-    Object.fromEntries(allFilterDefs.map((f) => [f.key, f.type === 'boolean' ? null : ''])),
+    Object.fromEntries(allFilterDefs.map((f) => [f.key, f.type === 'boolean' ? null : '']))
   );
 
   // ── Popover management ──────────────────────────────────────────
@@ -108,15 +186,15 @@
   }
 
   const hasActiveFilters = computed(() =>
-    filterConfigs.value.some((f) => getDisplayValue(f.key) !== null),
+    filterConfigs.value.some((f) => getDisplayValue(f.key) !== null)
   );
 
   // ── Filters beheren dialog ──────────────────────────────────────
-  const dialogVisible    = ref(false);
+  const dialogVisible = ref(false);
   const dialogActiveKeys = ref<string[]>([]);
-  const dialogLeftSel    = ref<string[]>([]);
-  const dialogRightSel   = ref<string[]>([]);
-  const filterSearch     = ref('');
+  const dialogLeftSel = ref<string[]>([]);
+  const dialogRightSel = ref<string[]>([]);
+  const filterSearch = ref('');
 
   const dialogAvailable = computed(() => {
     const activeSet = new Set(dialogActiveKeys.value);
@@ -134,22 +212,21 @@
 
   const canMoveUp = computed(
     () =>
-      dialogLeftSel.value.length === 1 &&
-      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) > 0,
+      dialogLeftSel.value.length === 1 && dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) > 0
   );
 
   const canMoveDown = computed(
     () =>
       dialogLeftSel.value.length === 1 &&
-      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) < dialogActiveKeys.value.length - 1,
+      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) < dialogActiveKeys.value.length - 1
   );
 
   function openDialog() {
     dialogActiveKeys.value = [...activeFilterKeys.value];
-    dialogLeftSel.value    = [];
-    dialogRightSel.value   = [];
-    filterSearch.value     = '';
-    dialogVisible.value    = true;
+    dialogLeftSel.value = [];
+    dialogRightSel.value = [];
+    filterSearch.value = '';
+    dialogVisible.value = true;
   }
 
   function saveDialog() {
@@ -180,7 +257,7 @@
   function addFilters() {
     if (!dialogRightSel.value.length) return;
     dialogActiveKeys.value = [...dialogActiveKeys.value, ...dialogRightSel.value];
-    dialogRightSel.value   = [];
+    dialogRightSel.value = [];
   }
 
   function addFilterDirectly(key: string) {
@@ -190,9 +267,9 @@
 
   function removeFilters() {
     if (!dialogLeftSel.value.length) return;
-    const removeSet        = new Set(dialogLeftSel.value);
+    const removeSet = new Set(dialogLeftSel.value);
     dialogActiveKeys.value = dialogActiveKeys.value.filter((k) => !removeSet.has(k));
-    dialogLeftSel.value    = [];
+    dialogLeftSel.value = [];
   }
 
   function moveUp() {
@@ -215,13 +292,13 @@
 
   function moveToTop() {
     if (dialogLeftSel.value.length !== 1) return;
-    const key              = dialogLeftSel.value[0];
+    const key = dialogLeftSel.value[0];
     dialogActiveKeys.value = [key, ...dialogActiveKeys.value.filter((k) => k !== key)];
   }
 
   function moveToBottom() {
     if (dialogLeftSel.value.length !== 1) return;
-    const key              = dialogLeftSel.value[0];
+    const key = dialogLeftSel.value[0];
     dialogActiveKeys.value = [...dialogActiveKeys.value.filter((k) => k !== key), key];
   }
 
@@ -255,7 +332,9 @@
           <i
             class="pi shrink-0 text-xs ml-0.5"
             :class="getDisplayValue(filter.key) !== null ? 'pi-times' : 'pi-chevron-down'"
-            @click.stop="getDisplayValue(filter.key) !== null ? clearFilter(filter.key, $event) : undefined"
+            @click.stop="
+              getDisplayValue(filter.key) !== null ? clearFilter(filter.key, $event) : undefined
+            "
           />
         </button>
 
@@ -265,7 +344,7 @@
             <span class="popover-filter-label">{{ filter.label }}</span>
             <InputText
               v-if="filter.type === 'text'"
-              v-model="(filterValues[filter.key] as string)"
+              v-model="filterValues[filter.key] as string"
               :placeholder="filter.placeholder"
               class="w-full"
               autofocus
@@ -304,9 +383,7 @@
       </Transition>
 
       <!-- Filters beheren -->
-      <button class="filters-beheren-btn" @click="openDialog">
-        Filters beheren
-      </button>
+      <button class="filters-beheren-btn" @click="openDialog">Filters beheren</button>
     </div>
 
     <!-- Result count + pagination -->
@@ -350,8 +427,15 @@
         </template>
       </Column>
       <Column header="" style="width: 3rem">
-        <template #body>
-          <Button icon="pi pi-pencil" variant="text" severity="secondary" size="small" rounded />
+        <template #body="{ data }">
+          <Button
+            icon="pi pi-pencil"
+            variant="text"
+            severity="secondary"
+            size="small"
+            rounded
+            @click="router.push({ name: 'CustomerEdit', params: { id: data.id } })"
+          />
         </template>
       </Column>
     </DataTable>
@@ -467,20 +551,13 @@
               {{ filteredAvailable.length }} gevonden · {{ hiddenCount }} verborgen
               <button class="dialog-show-all" @click="filterSearch = ''">Alles tonen</button>
             </div>
-            <div v-if="!dialogAvailable.length" class="dialog-empty">
-              Alle filters zijn actief
-            </div>
+            <div v-if="!dialogAvailable.length" class="dialog-empty">Alle filters zijn actief</div>
           </div>
         </div>
       </div>
 
       <template #footer>
-        <Button
-          label="Annuleren"
-          severity="secondary"
-          outlined
-          @click="dialogVisible = false"
-        />
+        <Button label="Annuleren" severity="secondary" outlined @click="dialogVisible = false" />
         <Button label="Opslaan" @click="saveDialog" />
       </template>
     </Dialog>

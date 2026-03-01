@@ -44,5 +44,4 @@
       </StepPanels>
     </Stepper>
   </div>
-
 </template>

@@ -5,7 +5,7 @@ const MyTheme = definePreset(Aura, {
   primitive: {
     // Primary scale — anchor 500: oklch(34.41% .063176 221.179)
     brand: {
-      50:  'oklch(97%    0.008    221.179)',
+      50: 'oklch(97%    0.008    221.179)',
       100: 'oklch(93%    0.018    221.179)',
       200: 'oklch(86%    0.033    221.179)',
       300: 'oklch(73%    0.05     221.179)',
@@ -20,7 +20,7 @@ const MyTheme = definePreset(Aura, {
 
     // Info scale — anchor 500: oklch(57% .16 240) — clean blue, analogous to teal palette
     info: {
-      50:  'oklch(97%    0.015  240)',
+      50: 'oklch(97%    0.015  240)',
       100: 'oklch(93%    0.035  240)',
       200: 'oklch(87%    0.07   240)',
       300: 'oklch(78%    0.11   240)',
@@ -35,7 +35,7 @@ const MyTheme = definePreset(Aura, {
 
     // Secondary scale — anchor 500: oklch(74.91% .0999 204.37)
     secondary: {
-      50:  'oklch(98%    0.012  204.37)',
+      50: 'oklch(98%    0.012  204.37)',
       100: 'oklch(96%    0.025  204.37)',
       200: 'oklch(92%    0.045  204.37)',
       300: 'oklch(87%    0.065  204.37)',
@@ -51,7 +51,7 @@ const MyTheme = definePreset(Aura, {
 
   semantic: {
     primary: {
-      50:  '{brand.50}',
+      50: '{brand.50}',
       100: '{brand.100}',
       200: '{brand.200}',
       300: '{brand.300}',
@@ -71,52 +71,52 @@ const MyTheme = definePreset(Aura, {
         light: {
           root: {
             secondary: {
-              background:       '{secondary.500}',
-              hoverBackground:  '{secondary.600}',
+              background: '{secondary.500}',
+              hoverBackground: '{secondary.600}',
               activeBackground: '{secondary.700}',
-              borderColor:       '{secondary.500}',
-              hoverBorderColor:  '{secondary.600}',
+              borderColor: '{secondary.500}',
+              hoverBorderColor: '{secondary.600}',
               activeBorderColor: '{secondary.700}',
-              color:       '#ffffff',
-              hoverColor:  '#ffffff',
+              color: '#ffffff',
+              hoverColor: '#ffffff',
               activeColor: '#ffffff',
               focusRing: { color: '{secondary.500}', shadow: 'none' },
             },
             info: {
-              background:       '{info.500}',
-              hoverBackground:  '{info.600}',
+              background: '{info.500}',
+              hoverBackground: '{info.600}',
               activeBackground: '{info.700}',
-              borderColor:       '{info.500}',
-              hoverBorderColor:  '{info.600}',
+              borderColor: '{info.500}',
+              hoverBorderColor: '{info.600}',
               activeBorderColor: '{info.700}',
-              color:       '#ffffff',
-              hoverColor:  '#ffffff',
+              color: '#ffffff',
+              hoverColor: '#ffffff',
               activeColor: '#ffffff',
               focusRing: { color: '{info.500}', shadow: 'none' },
             },
           },
           outlined: {
             info: {
-              hoverBackground:  '{info.50}',
+              hoverBackground: '{info.50}',
               activeBackground: '{info.100}',
               borderColor: '{info.300}',
-              color:       '{info.600}',
+              color: '{info.600}',
             },
             secondary: {
-              hoverBackground:  '{secondary.50}',
+              hoverBackground: '{secondary.50}',
               activeBackground: '{secondary.100}',
               borderColor: '{secondary.300}',
-              color:       '{secondary.600}',
+              color: '{secondary.600}',
             },
           },
           text: {
             info: {
-              hoverBackground:  '{info.50}',
+              hoverBackground: '{info.50}',
               activeBackground: '{info.100}',
               color: '{info.600}',
             },
             secondary: {
-              hoverBackground:  '{secondary.50}',
+              hoverBackground: '{secondary.50}',
               activeBackground: '{secondary.100}',
               color: '{secondary.600}',
             },

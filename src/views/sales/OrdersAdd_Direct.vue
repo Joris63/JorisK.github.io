@@ -252,12 +252,13 @@
                   option-value="value"
                   class="w-28"
                   :model-value="'NL'"
-                  ><template #value="{ value }"
-                    ><div class="flex items-center gap-2">
-                      <span :class="`fi fi-${value.toLowerCase()}`" /><span>+31</span>
-                    </div></template
-                  ></Select
                 >
+                  <template #value="{ value }">
+                    <div class="flex items-center gap-2">
+                      <span :class="`fi fi-${value.toLowerCase()}`" /><span>+31</span>
+                    </div>
+                  </template>
+                </Select>
                 <InputText v-model="telefoon" placeholder="6 12345678" class="flex-1" />
               </div>
               <div class="flex gap-1 flex-1">

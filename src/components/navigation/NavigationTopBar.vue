@@ -12,9 +12,7 @@
   type BreadcrumbEntry = string | { label: string; route: string };
 
   function mapCrumbs(crumbs: BreadcrumbEntry[] | undefined) {
-    return (crumbs ?? []).map((entry) =>
-      typeof entry === 'string' ? { label: entry } : entry,
-    );
+    return (crumbs ?? []).map((entry) => (typeof entry === 'string' ? { label: entry } : entry));
   }
 
   const items = ref(mapCrumbs(route.meta.breadcrumbs as BreadcrumbEntry[] | undefined));

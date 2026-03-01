@@ -100,7 +100,9 @@
       />
 
       <div v-for="day in days" :key="day.label" class="flex flex-col gap-2">
-        <span class="text-xs font-bold tracking-wider uppercase text-gray-400">{{ day.label }}</span>
+        <span class="text-xs font-bold tracking-wider uppercase text-gray-400">{{
+          day.label
+        }}</span>
 
         <template v-if="day.appointments.length > 0">
           <button

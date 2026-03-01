@@ -17,30 +17,150 @@
   }
 
   const offers = ref<Offer[]>([
-    { id: 1,  naam: '2026 Q1: Hansgrohe Raindance actie',  startdatum: '03-02-2026', einddatum: '15-04-2026', status: 'Actief',             sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],                   lastTask: null },
-    { id: 2,  naam: '2026 Q1: Grohe Colors BE',            startdatum: '11-02-2026', einddatum: '31-03-2026', status: 'Actief',             sites: ['swbe (fr-BE)', 'swbe (nl-BE)'],                                    lastTask: 'Prijzen bijwerken' },
-    { id: 3,  naam: '2026 Q1: SRiho cashback NL',          startdatum: '25-01-2026', einddatum: '30-06-2026', status: 'Actief',             sites: ['swnl (nl_NL)'],                                                    lastTask: null },
-    { id: 4,  naam: '2026 Q1: Meubelactie Benelux',        startdatum: '04-02-2026', einddatum: '02-03-2026', status: 'Actief',             sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],                   lastTask: 'Producten toevoegen' },
-    { id: 5,  naam: '2026 Q2: Lente badkamer deal',        startdatum: '01-04-2026', einddatum: '30-04-2026', status: 'Binnenkort gepland', sites: ['swbe (nl-BE)', 'swnl (nl_NL)'],                                    lastTask: null },
-    { id: 6,  naam: '2026 Q2: Badkamer week FR',           startdatum: '06-04-2026', einddatum: '13-04-2026', status: 'Binnenkort gepland', sites: ['swfr (fr_FR)'],                                                    lastTask: null },
-    { id: 7,  naam: '2026 Q2: Villeroy & Boch promo',      startdatum: '15-03-2026', einddatum: '15-05-2026', status: 'Binnenkort gepland', sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)', 'swfr (fr_FR)'],   lastTask: null },
-    { id: 8,  naam: '2026 Q1: SOLDES FR',                  startdatum: '10-01-2026', einddatum: '04-02-2026', status: 'Verlopen',           sites: ['swfr (fr_FR)'],                                                    lastTask: null },
-    { id: 9,  naam: '2026 Q1: Solden BE',                  startdatum: '09-01-2026', einddatum: '31-01-2026', status: 'Verlopen',           sites: ['swbe (fr-BE)', 'swbe (nl-BE)'],                                    lastTask: null },
-    { id: 10, naam: '2026 Q1: Douche deal NL',             startdatum: '09-01-2026', einddatum: '31-01-2026', status: 'Verlopen',           sites: ['swnl (nl_NL)'],                                                    lastTask: null },
-    { id: 11, naam: '2025 Q4: Black Friday ALL',           startdatum: '25-11-2025', einddatum: '02-12-2025', status: 'Verlopen',           sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)', 'swfr (fr_FR)'],   lastTask: 'Prijzen herstellen' },
-    { id: 12, naam: '2025 Q4: Winteractie Benelux',        startdatum: '01-12-2025', einddatum: '31-12-2025', status: 'Verlopen',           sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],                   lastTask: null },
-    { id: 13, naam: '2025 Q4: Cyber Monday NL',            startdatum: '02-12-2025', einddatum: '02-12-2025', status: 'Verlopen',           sites: ['swnl (nl_NL)'],                                                    lastTask: null },
-    { id: 14, naam: '2025 Q3: Zomerdeal ALL',              startdatum: '01-07-2025', einddatum: '31-08-2025', status: 'Verlopen',           sites: ['swbe (nl-BE)', 'swnl (nl_NL)', 'swfr (fr_FR)'],                   lastTask: null },
-    { id: 15, naam: '2025 Q2: Geberit Duofix promo',       startdatum: '01-05-2025', einddatum: '30-06-2025', status: 'Verlopen',           sites: ['swbe (nl-BE)', 'swnl (nl_NL)'],                                    lastTask: null },
+    {
+      id: 1,
+      naam: '2026 Q1: Hansgrohe Raindance actie',
+      startdatum: '03-02-2026',
+      einddatum: '15-04-2026',
+      status: 'Actief',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],
+      lastTask: null,
+    },
+    {
+      id: 2,
+      naam: '2026 Q1: Grohe Colors BE',
+      startdatum: '11-02-2026',
+      einddatum: '31-03-2026',
+      status: 'Actief',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)'],
+      lastTask: 'Prijzen bijwerken',
+    },
+    {
+      id: 3,
+      naam: '2026 Q1: SRiho cashback NL',
+      startdatum: '25-01-2026',
+      einddatum: '30-06-2026',
+      status: 'Actief',
+      sites: ['swnl (nl_NL)'],
+      lastTask: null,
+    },
+    {
+      id: 4,
+      naam: '2026 Q1: Meubelactie Benelux',
+      startdatum: '04-02-2026',
+      einddatum: '02-03-2026',
+      status: 'Actief',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],
+      lastTask: 'Producten toevoegen',
+    },
+    {
+      id: 5,
+      naam: '2026 Q2: Lente badkamer deal',
+      startdatum: '01-04-2026',
+      einddatum: '30-04-2026',
+      status: 'Binnenkort gepland',
+      sites: ['swbe (nl-BE)', 'swnl (nl_NL)'],
+      lastTask: null,
+    },
+    {
+      id: 6,
+      naam: '2026 Q2: Badkamer week FR',
+      startdatum: '06-04-2026',
+      einddatum: '13-04-2026',
+      status: 'Binnenkort gepland',
+      sites: ['swfr (fr_FR)'],
+      lastTask: null,
+    },
+    {
+      id: 7,
+      naam: '2026 Q2: Villeroy & Boch promo',
+      startdatum: '15-03-2026',
+      einddatum: '15-05-2026',
+      status: 'Binnenkort gepland',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)', 'swfr (fr_FR)'],
+      lastTask: null,
+    },
+    {
+      id: 8,
+      naam: '2026 Q1: SOLDES FR',
+      startdatum: '10-01-2026',
+      einddatum: '04-02-2026',
+      status: 'Verlopen',
+      sites: ['swfr (fr_FR)'],
+      lastTask: null,
+    },
+    {
+      id: 9,
+      naam: '2026 Q1: Solden BE',
+      startdatum: '09-01-2026',
+      einddatum: '31-01-2026',
+      status: 'Verlopen',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)'],
+      lastTask: null,
+    },
+    {
+      id: 10,
+      naam: '2026 Q1: Douche deal NL',
+      startdatum: '09-01-2026',
+      einddatum: '31-01-2026',
+      status: 'Verlopen',
+      sites: ['swnl (nl_NL)'],
+      lastTask: null,
+    },
+    {
+      id: 11,
+      naam: '2025 Q4: Black Friday ALL',
+      startdatum: '25-11-2025',
+      einddatum: '02-12-2025',
+      status: 'Verlopen',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)', 'swfr (fr_FR)'],
+      lastTask: 'Prijzen herstellen',
+    },
+    {
+      id: 12,
+      naam: '2025 Q4: Winteractie Benelux',
+      startdatum: '01-12-2025',
+      einddatum: '31-12-2025',
+      status: 'Verlopen',
+      sites: ['swbe (fr-BE)', 'swbe (nl-BE)', 'swnl (nl_NL)'],
+      lastTask: null,
+    },
+    {
+      id: 13,
+      naam: '2025 Q4: Cyber Monday NL',
+      startdatum: '02-12-2025',
+      einddatum: '02-12-2025',
+      status: 'Verlopen',
+      sites: ['swnl (nl_NL)'],
+      lastTask: null,
+    },
+    {
+      id: 14,
+      naam: '2025 Q3: Zomerdeal ALL',
+      startdatum: '01-07-2025',
+      einddatum: '31-08-2025',
+      status: 'Verlopen',
+      sites: ['swbe (nl-BE)', 'swnl (nl_NL)', 'swfr (fr_FR)'],
+      lastTask: null,
+    },
+    {
+      id: 15,
+      naam: '2025 Q2: Geberit Duofix promo',
+      startdatum: '01-05-2025',
+      einddatum: '30-06-2025',
+      status: 'Verlopen',
+      sites: ['swbe (nl-BE)', 'swnl (nl_NL)'],
+      lastTask: null,
+    },
   ]);
 
   const totalRecords = ref(106);
 
   // ── Status badge helpers ─────────────────────────────────────────
   const statusConfig: Record<OfferStatus, { label: string; classes: string }> = {
-    Actief:              { label: 'Actief',              classes: 'status-badge--actief'   },
-    Verlopen:            { label: 'Verlopen',            classes: 'status-badge--verlopen' },
-    'Binnenkort gepland':{ label: 'Binnenkort gepland',  classes: 'status-badge--gepland'  },
+    Actief: { label: 'Actief', classes: 'status-badge--actief' },
+    Verlopen: { label: 'Verlopen', classes: 'status-badge--verlopen' },
+    'Binnenkort gepland': { label: 'Binnenkort gepland', classes: 'status-badge--gepland' },
   };
 
   // ── Filter definitions ───────────────────────────────────────────
@@ -55,16 +175,24 @@
   }
 
   const allFilterDefs: FilterConfig[] = [
-    { key: 'naam',    label: 'Naam',    type: 'text',   placeholder: 'Zoek op naam'         },
-    { key: 'status',  label: 'Status',  type: 'select', options: [
-        { label: 'Actief',              value: 'Actief'              },
-        { label: 'Verlopen',            value: 'Verlopen'            },
-        { label: 'Binnenkort gepland',  value: 'Binnenkort gepland'  },
+    { key: 'naam', label: 'Naam', type: 'text', placeholder: 'Zoek op naam' },
+    {
+      key: 'status',
+      label: 'Status',
+      type: 'select',
+      options: [
+        { label: 'Actief', value: 'Actief' },
+        { label: 'Verlopen', value: 'Verlopen' },
+        { label: 'Binnenkort gepland', value: 'Binnenkort gepland' },
       ],
     },
-    { key: 'site',    label: 'Site',    type: 'text',   placeholder: 'bijv. swnl'           },
-    { key: 'jaar',    label: 'Jaar',    type: 'text',   placeholder: 'bijv. 2026'            },
-    { key: 'kwartaal',label: 'Kwartaal',type: 'select', options: [
+    { key: 'site', label: 'Site', type: 'text', placeholder: 'bijv. swnl' },
+    { key: 'jaar', label: 'Jaar', type: 'text', placeholder: 'bijv. 2026' },
+    {
+      key: 'kwartaal',
+      label: 'Kwartaal',
+      type: 'select',
+      options: [
         { label: 'Q1', value: 'Q1' },
         { label: 'Q2', value: 'Q2' },
         { label: 'Q3', value: 'Q3' },
@@ -79,11 +207,11 @@
   const filterConfigs = computed(() =>
     activeFilterKeys.value
       .map((k) => allFilterDefs.find((f) => f.key === k))
-      .filter((f): f is FilterConfig => f !== undefined),
+      .filter((f): f is FilterConfig => f !== undefined)
   );
 
   const filterValues = ref<Record<string, string | null>>(
-    Object.fromEntries(allFilterDefs.map((f) => [f.key, null])),
+    Object.fromEntries(allFilterDefs.map((f) => [f.key, null]))
   );
 
   // ── Popover management ───────────────────────────────────────────
@@ -115,19 +243,21 @@
   }
 
   function clearAllFilters() {
-    allFilterDefs.forEach((f) => { filterValues.value[f.key] = null; });
+    allFilterDefs.forEach((f) => {
+      filterValues.value[f.key] = null;
+    });
   }
 
   const hasActiveFilters = computed(() =>
-    filterConfigs.value.some((f) => getDisplayValue(f.key) !== null),
+    filterConfigs.value.some((f) => getDisplayValue(f.key) !== null)
   );
 
   // ── Filters beheren dialog ───────────────────────────────────────
-  const dialogVisible    = ref(false);
+  const dialogVisible = ref(false);
   const dialogActiveKeys = ref<string[]>([]);
-  const dialogLeftSel    = ref<string[]>([]);
-  const dialogRightSel   = ref<string[]>([]);
-  const filterSearch     = ref('');
+  const dialogLeftSel = ref<string[]>([]);
+  const dialogRightSel = ref<string[]>([]);
+  const filterSearch = ref('');
 
   const dialogAvailable = computed(() => {
     const activeSet = new Set(dialogActiveKeys.value);
@@ -145,22 +275,21 @@
 
   const canMoveUp = computed(
     () =>
-      dialogLeftSel.value.length === 1 &&
-      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) > 0,
+      dialogLeftSel.value.length === 1 && dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) > 0
   );
 
   const canMoveDown = computed(
     () =>
       dialogLeftSel.value.length === 1 &&
-      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) < dialogActiveKeys.value.length - 1,
+      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) < dialogActiveKeys.value.length - 1
   );
 
   function openDialog() {
     dialogActiveKeys.value = [...activeFilterKeys.value];
-    dialogLeftSel.value    = [];
-    dialogRightSel.value   = [];
-    filterSearch.value     = '';
-    dialogVisible.value    = true;
+    dialogLeftSel.value = [];
+    dialogRightSel.value = [];
+    filterSearch.value = '';
+    dialogVisible.value = true;
   }
 
   function saveDialog() {
@@ -188,7 +317,7 @@
   function addFilters() {
     if (!dialogRightSel.value.length) return;
     dialogActiveKeys.value = [...dialogActiveKeys.value, ...dialogRightSel.value];
-    dialogRightSel.value   = [];
+    dialogRightSel.value = [];
   }
 
   function addFilterDirectly(key: string) {
@@ -198,9 +327,9 @@
 
   function removeFilters() {
     if (!dialogLeftSel.value.length) return;
-    const removeSet        = new Set(dialogLeftSel.value);
+    const removeSet = new Set(dialogLeftSel.value);
     dialogActiveKeys.value = dialogActiveKeys.value.filter((k) => !removeSet.has(k));
-    dialogLeftSel.value    = [];
+    dialogLeftSel.value = [];
   }
 
   function moveUp() {
@@ -223,13 +352,13 @@
 
   function moveToTop() {
     if (dialogLeftSel.value.length !== 1) return;
-    const key              = dialogLeftSel.value[0];
+    const key = dialogLeftSel.value[0];
     dialogActiveKeys.value = [key, ...dialogActiveKeys.value.filter((k) => k !== key)];
   }
 
   function moveToBottom() {
     if (dialogLeftSel.value.length !== 1) return;
-    const key              = dialogLeftSel.value[0];
+    const key = dialogLeftSel.value[0];
     dialogActiveKeys.value = [...dialogActiveKeys.value.filter((k) => k !== key), key];
   }
 
@@ -274,7 +403,9 @@
           <i
             class="pi shrink-0 text-xs ml-0.5"
             :class="getDisplayValue(filter.key) !== null ? 'pi-times' : 'pi-chevron-down'"
-            @click.stop="getDisplayValue(filter.key) !== null ? clearFilter(filter.key, $event) : undefined"
+            @click.stop="
+              getDisplayValue(filter.key) !== null ? clearFilter(filter.key, $event) : undefined
+            "
           />
         </button>
 
@@ -284,7 +415,7 @@
             <span class="popover-filter-label">{{ filter.label }}</span>
             <InputText
               v-if="filter.type === 'text'"
-              v-model="(filterValues[filter.key] as string)"
+              v-model="filterValues[filter.key] as string"
               :placeholder="filter.placeholder"
               class="w-full"
               autofocus
@@ -320,9 +451,7 @@
       </Transition>
 
       <!-- Filters beheren -->
-      <button class="filters-beheren-btn" @click="openDialog">
-        Filters beheren
-      </button>
+      <button class="filters-beheren-btn" @click="openDialog">Filters beheren</button>
     </div>
 
     <!-- Result count + pagination -->
@@ -362,10 +491,7 @@
       </Column>
       <Column field="status" header="Status" style="width: 7rem">
         <template #body="{ data }">
-          <span
-            class="status-badge"
-            :class="statusConfig[data.status as OfferStatus].classes"
-          >
+          <span class="status-badge" :class="statusConfig[data.status as OfferStatus].classes">
             {{ statusConfig[data.status as OfferStatus].label }}
           </span>
         </template>
@@ -373,11 +499,7 @@
       <Column field="sites" header="Sites">
         <template #body="{ data }">
           <div class="flex items-center gap-1 flex-wrap">
-            <span
-              v-for="site in visibleSites(data.sites)"
-              :key="site"
-              class="site-tag"
-            >
+            <span v-for="site in visibleSites(data.sites)" :key="site" class="site-tag">
               {{ site }}
             </span>
             <span v-if="extraSiteCount(data.sites) > 0" class="site-tag site-tag--more">
@@ -394,7 +516,14 @@
       </Column>
       <Column header="" style="width: 3rem">
         <template #body="{ data }">
-          <Button icon="pi pi-pencil" variant="text" severity="secondary" size="small" rounded @click="router.push({ name: 'OffersEdit', params: { id: data.id } })" />
+          <Button
+            icon="pi pi-pencil"
+            variant="text"
+            severity="secondary"
+            size="small"
+            rounded
+            @click="router.push({ name: 'OffersEdit', params: { id: data.id } })"
+          />
         </template>
       </Column>
     </DataTable>
@@ -410,10 +539,38 @@
       <div class="flex gap-3" style="height: 22rem">
         <!-- Reorder buttons -->
         <div class="reorder-btns flex flex-col justify-center gap-1">
-          <Button icon="pi pi-angle-double-up" size="small" severity="secondary" outlined :disabled="!canMoveUp" @click="moveToTop" />
-          <Button icon="pi pi-angle-up"        size="small" severity="secondary" outlined :disabled="!canMoveUp" @click="moveUp" />
-          <Button icon="pi pi-angle-down"      size="small" severity="secondary" outlined :disabled="!canMoveDown" @click="moveDown" />
-          <Button icon="pi pi-angle-double-down" size="small" severity="secondary" outlined :disabled="!canMoveDown" @click="moveToBottom" />
+          <Button
+            icon="pi pi-angle-double-up"
+            size="small"
+            severity="secondary"
+            outlined
+            :disabled="!canMoveUp"
+            @click="moveToTop"
+          />
+          <Button
+            icon="pi pi-angle-up"
+            size="small"
+            severity="secondary"
+            outlined
+            :disabled="!canMoveUp"
+            @click="moveUp"
+          />
+          <Button
+            icon="pi pi-angle-down"
+            size="small"
+            severity="secondary"
+            outlined
+            :disabled="!canMoveDown"
+            @click="moveDown"
+          />
+          <Button
+            icon="pi pi-angle-double-down"
+            size="small"
+            severity="secondary"
+            outlined
+            :disabled="!canMoveDown"
+            @click="moveToBottom"
+          />
         </div>
 
         <!-- Left panel: current filters -->
@@ -437,8 +594,20 @@
 
         <!-- Transfer buttons -->
         <div class="transfer-btns flex flex-col justify-center gap-2">
-          <Button icon="pi pi-chevron-right" severity="secondary" outlined :disabled="!dialogLeftSel.length" @click="removeFilters" />
-          <Button icon="pi pi-chevron-left"  severity="secondary" outlined :disabled="!dialogRightSel.length" @click="addFilters" />
+          <Button
+            icon="pi pi-chevron-right"
+            severity="secondary"
+            outlined
+            :disabled="!dialogLeftSel.length"
+            @click="removeFilters"
+          />
+          <Button
+            icon="pi pi-chevron-left"
+            severity="secondary"
+            outlined
+            :disabled="!dialogRightSel.length"
+            @click="addFilters"
+          />
         </div>
 
         <!-- Right panel: available filters -->
@@ -447,7 +616,12 @@
           <div class="dialog-panel__search">
             <IconField>
               <InputIcon class="pi pi-search" />
-              <InputText v-model="filterSearch" placeholder="Zoek een filter" class="w-full" size="small" />
+              <InputText
+                v-model="filterSearch"
+                placeholder="Zoek een filter"
+                class="w-full"
+                size="small"
+              />
             </IconField>
           </div>
           <div class="dialog-panel__body">
@@ -465,9 +639,7 @@
               {{ filteredAvailable.length }} gevonden · {{ hiddenCount }} verborgen
               <button class="dialog-show-all" @click="filterSearch = ''">Alles tonen</button>
             </div>
-            <div v-if="!dialogAvailable.length" class="dialog-empty">
-              Alle filters zijn actief
-            </div>
+            <div v-if="!dialogAvailable.length" class="dialog-empty">Alle filters zijn actief</div>
           </div>
         </div>
       </div>

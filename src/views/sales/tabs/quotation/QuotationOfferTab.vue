@@ -62,7 +62,7 @@
 
       <!-- ── Cart (same in both modes) ───────────────────────────── -->
       <div class="offer-cart">
-        <OrdersAdd_ShoppingCart class="p-2" :readonly="!isEditing" />
+        <OrdersAdd_ShoppingCart class="p-4" :readonly="!isEditing" />
       </div>
     </div>
   </div>

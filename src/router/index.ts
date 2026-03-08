@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import OrdersAdd from '@/views/sales/OrdersAdd.vue';
 import OrdersAdd_Direct from '@/views/sales/OrdersAdd_Direct.vue';
@@ -11,7 +11,7 @@ import QuotationsOverview from '@/views/sales/QuotationsOverview.vue';
 import QuotationEdit from '@/views/sales/QuotationEdit.vue';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',

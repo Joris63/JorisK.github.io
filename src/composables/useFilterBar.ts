@@ -5,225 +5,106 @@ export function useFilterBar(
   allFilterDefs: FilterConfig[],
   defaultActiveKeys: (string | { key: string; value: any })[]
 ) {
-  // Which filter keys are currently shown as chips (ordered)
-  const activeFilterKeys = ref<string[]>([
-    ...defaultActiveKeys.map((item) => (typeof item === 'string' ? item : item.key)),
-  ]);
+  const activeKeys = ref<string[]>(
+    defaultActiveKeys.map((item) => (typeof item === 'string' ? item : item.key))
+  );
 
-  // Derived: only the configs for active keys, in order
   const filterConfigs = computed(() =>
-    activeFilterKeys.value
+    activeKeys.value
       .map((k) => allFilterDefs.find((f) => f.key === k))
       .filter((f): f is FilterConfig => f !== undefined)
   );
 
-  // One value slot per possible filter (never shrinks)
-  const filterValues = ref<Record<string, string | boolean | null>>(
-    Object.fromEntries(
-      allFilterDefs.map((f) => {
-        const defaultActiveKey = defaultActiveKeys.find(
-          (k) => typeof k !== 'string' && k.key === f.key
-        ) as { key: string; value: any } | undefined;
-
-        console.log(f.key, defaultActiveKey?.value);
-        return [
-          f.key,
-          f.type === 'boolean'
-            ? (defaultActiveKey?.value ?? null)
-            : (defaultActiveKey?.value ?? ''),
-        ];
-      })
-    )
-  );
-
-  // ── Popover management ───────────────────────────────────────────
-  const filterPopovers = ref(new Map<string, any>());
-
-  function setFilterPopover(key: string, el: any) {
-    if (el) filterPopovers.value.set(key, el);
-    else filterPopovers.value.delete(key);
-  }
-
-  function toggleFilter(key: string, event: MouseEvent) {
-    filterConfigs.value.forEach((f) => {
-      if (f.key !== key) filterPopovers.value.get(f.key)?.hide();
-    });
-    filterPopovers.value.get(key)?.toggle(event);
-  }
-
-  // ── Filter chip helpers ──────────────────────────────────────────
-  function getDisplayValue(key: string): string | null {
-    const config = allFilterDefs.find((f) => f.key === key)!;
-    const val = filterValues.value[key];
-    if (val === '' || val === null || val === undefined) return null;
-    if (config.type === 'boolean') return val ? 'Ja' : 'Nee';
-    return String(val);
-  }
-
-  function clearFilter(key: string, event?: MouseEvent) {
-    event?.stopPropagation();
-    const config = allFilterDefs.find((f) => f.key === key);
-    filterValues.value[key] = config?.type === 'boolean' ? null : '';
-    filterPopovers.value.get(key)?.hide();
-  }
-
-  function clearAllFilters() {
-    allFilterDefs.forEach((f) => {
-      filterValues.value[f.key] = f.type === 'boolean' ? null : '';
-    });
-  }
-
-  const hasActiveFilters = computed(() =>
-    filterConfigs.value.some((f) => getDisplayValue(f.key) !== null && !f.required)
-  );
-
-  // ── Filters beheren dialog ───────────────────────────────────────
-  const dialogVisible = ref(false);
-  const dialogActiveKeys = ref<string[]>([]);
-  const dialogLeftSel = ref<string[]>([]);
-  const dialogRightSel = ref<string[]>([]);
-  const filterSearch = ref('');
-
-  const dialogAvailable = computed(() => {
-    const activeSet = new Set(dialogActiveKeys.value);
+  const availableFilters = computed(() => {
+    const activeSet = new Set(activeKeys.value);
     return allFilterDefs.filter((f) => !activeSet.has(f.key));
   });
 
-  const filteredAvailable = computed(() => {
-    const q = filterSearch.value.trim().toLowerCase();
-    return q
-      ? dialogAvailable.value.filter((f) => f.label.toLowerCase().includes(q))
-      : dialogAvailable.value;
-  });
-
-  const hiddenCount = computed(() => dialogAvailable.value.length - filteredAvailable.value.length);
-
-  const canMoveUp = computed(
-    () =>
-      dialogLeftSel.value.length === 1 && dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) > 0
-  );
-
-  const canMoveDown = computed(
-    () =>
-      dialogLeftSel.value.length === 1 &&
-      dialogActiveKeys.value.indexOf(dialogLeftSel.value[0]) < dialogActiveKeys.value.length - 1
-  );
-
-  function openDialog() {
-    dialogActiveKeys.value = [...activeFilterKeys.value];
-    dialogLeftSel.value = [];
-    dialogRightSel.value = [];
-    filterSearch.value = '';
-    dialogVisible.value = true;
+  function initValues() {
+    return Object.fromEntries(
+      allFilterDefs.map((f) => {
+        const found = defaultActiveKeys.find(
+          (k) => typeof k !== 'string' && k.key === f.key
+        ) as { key: string; value: any } | undefined;
+        return [f.key, f.type === 'boolean' ? (found?.value ?? null) : (found?.value ?? '')];
+      })
+    );
   }
 
-  function saveDialog() {
-    activeFilterKeys.value = [...dialogActiveKeys.value];
-    allFilterDefs.forEach((f) => {
-      if (!activeFilterKeys.value.includes(f.key)) {
-        filterValues.value[f.key] = f.type === 'boolean' ? null : '';
+  const pendingValues = ref<Record<string, string | boolean | null>>(initValues());
+  const appliedValues = ref<Record<string, string | boolean | null>>(initValues());
+
+  function addFilter(key: string) {
+    if (!activeKeys.value.includes(key)) {
+      activeKeys.value = [...activeKeys.value, key];
+    }
+  }
+
+  function removeFilter(key: string) {
+    const config = allFilterDefs.find((f) => f.key === key);
+    if (config?.required) return;
+    activeKeys.value = activeKeys.value.filter((k) => k !== key);
+    const empty = config?.type === 'boolean' ? null : '';
+    pendingValues.value[key] = empty;
+    appliedValues.value[key] = empty;
+  }
+
+  function applyFilters() {
+    appliedValues.value = { ...pendingValues.value };
+  }
+
+  // Clears all pending values — does NOT auto-apply
+  function clearValues() {
+    filterConfigs.value.forEach((f) => {
+      if (!f.required) {
+        pendingValues.value[f.key] = f.type === 'boolean' ? null : '';
       }
     });
-    dialogVisible.value = false;
   }
 
-  function toggleLeftSel(key: string) {
-    dialogRightSel.value = [];
-    const idx = dialogLeftSel.value.indexOf(key);
-    if (idx >= 0) dialogLeftSel.value.splice(idx, 1);
-    else dialogLeftSel.value.push(key);
+  // Clears a single pending value — does NOT auto-apply
+  function clearPendingFilter(key: string) {
+    const config = allFilterDefs.find((f) => f.key === key);
+    pendingValues.value[key] = config?.type === 'boolean' ? null : '';
   }
 
-  function toggleRightSel(key: string) {
-    dialogLeftSel.value = [];
-    const idx = dialogRightSel.value.indexOf(key);
-    if (idx >= 0) dialogRightSel.value.splice(idx, 1);
-    else dialogRightSel.value.push(key);
+  // Clears a single filter from both pending and applied (for chip removal)
+  function clearAppliedFilter(key: string) {
+    const config = allFilterDefs.find((f) => f.key === key);
+    const empty = config?.type === 'boolean' ? null : '';
+    pendingValues.value[key] = empty;
+    appliedValues.value[key] = empty;
   }
 
-  function addFilters() {
-    if (!dialogRightSel.value.length) return;
-    dialogActiveKeys.value = [...dialogActiveKeys.value, ...dialogRightSel.value];
-    dialogRightSel.value = [];
-  }
+  const hasActiveFilters = computed(() =>
+    filterConfigs.value.some((f) => {
+      if (f.required) return false;
+      const val = appliedValues.value[f.key];
+      return val !== '' && val !== null && val !== undefined;
+    })
+  );
 
-  function addFilterDirectly(key: string) {
-    dialogRightSel.value = [key];
-    addFilters();
-  }
-
-  function removeFilters() {
-    if (!dialogLeftSel.value.length) return;
-    const removeSet = new Set(dialogLeftSel.value);
-    dialogActiveKeys.value = dialogActiveKeys.value.filter((k) => !removeSet.has(k));
-    dialogLeftSel.value = [];
-  }
-
-  function moveUp() {
-    if (!canMoveUp.value) return;
-    const key = dialogLeftSel.value[0];
-    const idx = dialogActiveKeys.value.indexOf(key);
-    const arr = [...dialogActiveKeys.value];
-    [arr[idx - 1], arr[idx]] = [arr[idx], arr[idx - 1]];
-    dialogActiveKeys.value = arr;
-  }
-
-  function moveDown() {
-    if (!canMoveDown.value) return;
-    const key = dialogLeftSel.value[0];
-    const idx = dialogActiveKeys.value.indexOf(key);
-    const arr = [...dialogActiveKeys.value];
-    [arr[idx], arr[idx + 1]] = [arr[idx + 1], arr[idx]];
-    dialogActiveKeys.value = arr;
-  }
-
-  function moveToTop() {
-    if (dialogLeftSel.value.length !== 1) return;
-    const key = dialogLeftSel.value[0];
-    dialogActiveKeys.value = [key, ...dialogActiveKeys.value.filter((k) => k !== key)];
-  }
-
-  function moveToBottom() {
-    if (dialogLeftSel.value.length !== 1) return;
-    const key = dialogLeftSel.value[0];
-    dialogActiveKeys.value = [...dialogActiveKeys.value.filter((k) => k !== key), key];
-  }
-
-  function getLabelForKey(key: string) {
-    return allFilterDefs.find((f) => f.key === key)?.label ?? key;
-  }
+  const hasPendingValues = computed(() =>
+    filterConfigs.value.some((f) => {
+      if (f.required) return false;
+      const val = pendingValues.value[f.key];
+      return val !== '' && val !== null && val !== undefined;
+    })
+  );
 
   return {
     filterConfigs,
-    filterValues,
+    availableFilters,
+    pendingValues,
+    appliedValues,
+    activeKeys,
+    addFilter,
+    removeFilter,
+    applyFilters,
+    clearValues,
+    clearPendingFilter,
+    clearAppliedFilter,
     hasActiveFilters,
-    filterPopovers,
-    setFilterPopover,
-    toggleFilter,
-    getDisplayValue,
-    clearFilter,
-    clearAllFilters,
-    dialogVisible,
-    dialogActiveKeys,
-    dialogLeftSel,
-    dialogRightSel,
-    filterSearch,
-    dialogAvailable,
-    filteredAvailable,
-    hiddenCount,
-    canMoveUp,
-    canMoveDown,
-    openDialog,
-    saveDialog,
-    toggleLeftSel,
-    toggleRightSel,
-    addFilters,
-    addFilterDirectly,
-    removeFilters,
-    moveUp,
-    moveDown,
-    moveToTop,
-    moveToBottom,
-    getLabelForKey,
+    hasPendingValues,
   };
 }

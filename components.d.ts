@@ -26,6 +26,7 @@ declare module 'vue' {
     Divider: typeof import('primevue/divider')['default']
     Drawer: typeof import('primevue/drawer')['default']
     EditableCard: typeof import('./src/components/EditableCard.vue')['default']
+    FilterBar: typeof import('./src/components/FilterBar.vue')['default']
     IconField: typeof import('primevue/iconfield')['default']
     InputIcon: typeof import('primevue/inputicon')['default']
     InputNumber: typeof import('primevue/inputnumber')['default']

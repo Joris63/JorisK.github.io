@@ -2,7 +2,7 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import type { FilterConfig } from '@/types/filters';
-  import { useFilterBar } from '@/composables/useFilterBar';
+  import FilterBar from '@/components/FilterBar.vue';
 
   const router = useRouter();
 
@@ -119,46 +119,19 @@
     { key: 'heeftBestellingen', label: 'Heeft bestellingen', type: 'boolean' },
   ];
 
-  const {
-    filterConfigs,
-    filterValues,
-    hasActiveFilters,
-    setFilterPopover,
-    toggleFilter,
-    getDisplayValue,
-    clearFilter,
-    clearAllFilters,
-    dialogVisible,
-    dialogActiveKeys,
-    dialogLeftSel,
-    dialogRightSel,
-    filterSearch,
-    filterPopovers,
-    dialogAvailable,
-    filteredAvailable,
-    hiddenCount,
-    canMoveUp,
-    canMoveDown,
-    openDialog,
-    saveDialog,
-    toggleLeftSel,
-    toggleRightSel,
-    addFilters,
-    addFilterDirectly,
-    removeFilters,
-    moveUp,
-    moveDown,
-    moveToTop,
-    moveToBottom,
-    getLabelForKey,
-  } = useFilterBar(allFilterDefs, [
+  const defaultActiveKeys = [
     'email',
     'achternaam',
     'postcode',
     'huisnummer',
     'huisnummerToevoeging',
     'isB2BKlant',
-  ]);
+  ];
+
+  function handleFilter(values: Record<string, string | boolean | null>) {
+    // In production: trigger API call with filter values
+    console.log('Filters applied:', values);
+  }
 </script>
 
 <template>
@@ -170,75 +143,11 @@
     </div>
 
     <!-- Filter bar -->
-    <div class="flex items-center gap-2 flex-wrap">
-      <!-- Filter chips -->
-      <template v-for="filter in filterConfigs" :key="filter.key">
-        <button
-          class="filter-chip"
-          :class="{ 'filter-chip--active': getDisplayValue(filter.key) !== null }"
-          @click="toggleFilter(filter.key, $event)"
-        >
-          <span class="chip-label">{{ filter.label }}</span>
-          <template v-if="getDisplayValue(filter.key) !== null">
-            <span class="chip-sep">·</span>
-            <span class="chip-value">{{ getDisplayValue(filter.key) }}</span>
-          </template>
-          <i
-            class="pi shrink-0 text-xs ml-0.5"
-            :class="getDisplayValue(filter.key) !== null ? 'pi-times' : 'pi-chevron-down'"
-            @click.stop="
-              getDisplayValue(filter.key) !== null ? clearFilter(filter.key, $event) : undefined
-            "
-          />
-        </button>
-
-        <!-- Filter popover -->
-        <Popover :ref="(el: any) => setFilterPopover(filter.key, el)">
-          <div class="flex flex-col gap-2" style="min-width: 13rem">
-            <span class="popover-filter-label">{{ filter.label }}</span>
-            <InputText
-              v-if="filter.type === 'text'"
-              v-model="filterValues[filter.key] as string"
-              :placeholder="filter.placeholder"
-              class="w-full"
-              autofocus
-              @keydown.enter="filterPopovers.get(filter.key)?.hide()"
-            />
-            <SelectButton
-              v-else-if="filter.type === 'boolean'"
-              v-model="filterValues[filter.key]"
-              :options="[
-                { label: 'Ja', value: true },
-                { label: 'Nee', value: false },
-              ]"
-              option-label="label"
-              option-value="value"
-            />
-            <button
-              v-if="getDisplayValue(filter.key) !== null"
-              class="clear-value-btn"
-              @click="clearFilter(filter.key)"
-            >
-              Waarde wissen ×
-            </button>
-          </div>
-        </Popover>
-      </template>
-
-      <!-- Separator -->
-      <span class="filter-divider" />
-
-      <!-- Clear all filters -->
-      <Transition name="fade">
-        <button v-if="hasActiveFilters" class="clear-all-btn" @click="clearAllFilters">
-          <i class="pi pi-times" />
-          Alle waardes wissen
-        </button>
-      </Transition>
-
-      <!-- Filters beheren -->
-      <button class="filters-beheren-btn" @click="openDialog">Filters beheren</button>
-    </div>
+    <FilterBar
+      :all-filter-defs="allFilterDefs"
+      :default-active-keys="defaultActiveKeys"
+      @filter="handleFilter"
+    />
 
     <!-- Result count + pagination -->
     <div class="flex items-center justify-between">
@@ -293,348 +202,10 @@
         </template>
       </Column>
     </DataTable>
-
-    <!-- ── Filters beheren dialog ─────────────────────────────── -->
-    <Dialog
-      v-model:visible="dialogVisible"
-      header="Filters beheren"
-      :style="{ width: '50rem' }"
-      modal
-      :draggable="false"
-    >
-      <div class="flex gap-3" style="height: 22rem">
-        <!-- Reorder buttons -->
-        <div class="reorder-btns flex flex-col justify-center gap-1">
-          <Button
-            icon="pi pi-angle-double-up"
-            size="small"
-            severity="secondary"
-            outlined
-            :disabled="!canMoveUp"
-            @click="moveToTop"
-          />
-          <Button
-            icon="pi pi-angle-up"
-            size="small"
-            severity="secondary"
-            outlined
-            :disabled="!canMoveUp"
-            @click="moveUp"
-          />
-          <Button
-            icon="pi pi-angle-down"
-            size="small"
-            severity="secondary"
-            outlined
-            :disabled="!canMoveDown"
-            @click="moveDown"
-          />
-          <Button
-            icon="pi pi-angle-double-down"
-            size="small"
-            severity="secondary"
-            outlined
-            :disabled="!canMoveDown"
-            @click="moveToBottom"
-          />
-        </div>
-
-        <!-- Left panel: current filters -->
-        <div class="dialog-panel flex-1">
-          <div class="dialog-panel__header">Huidige filterset</div>
-          <div class="dialog-panel__body">
-            <button
-              v-for="key in dialogActiveKeys"
-              :key="key"
-              class="dialog-item"
-              :class="{ 'dialog-item--sel': dialogLeftSel.includes(key) }"
-              @click="toggleLeftSel(key)"
-            >
-              {{ getLabelForKey(key) }}
-            </button>
-            <div v-if="!dialogActiveKeys.length" class="dialog-empty">
-              Geen filters geselecteerd
-            </div>
-          </div>
-        </div>
-
-        <!-- Transfer buttons -->
-        <div class="transfer-btns flex flex-col justify-center gap-2">
-          <Button
-            icon="pi pi-chevron-right"
-            severity="secondary"
-            outlined
-            :disabled="!dialogLeftSel.length"
-            @click="removeFilters"
-          />
-          <Button
-            icon="pi pi-chevron-left"
-            severity="secondary"
-            outlined
-            :disabled="!dialogRightSel.length"
-            @click="addFilters"
-          />
-        </div>
-
-        <!-- Right panel: available filters -->
-        <div class="dialog-panel flex-1">
-          <div class="dialog-panel__header">Beschikbare filters</div>
-          <div class="dialog-panel__search">
-            <IconField>
-              <InputIcon class="pi pi-search" />
-              <InputText
-                v-model="filterSearch"
-                placeholder="Zoek een filter"
-                class="w-full"
-                size="small"
-              />
-            </IconField>
-          </div>
-          <div class="dialog-panel__body">
-            <button
-              v-for="filter in filteredAvailable"
-              :key="filter.key"
-              class="dialog-item"
-              :class="{ 'dialog-item--sel': dialogRightSel.includes(filter.key) }"
-              @click="toggleRightSel(filter.key)"
-              @dblclick="addFilterDirectly(filter.key)"
-            >
-              {{ filter.label }}
-            </button>
-            <div v-if="filterSearch && hiddenCount > 0" class="dialog-search-hint">
-              {{ filteredAvailable.length }} gevonden · {{ hiddenCount }} verborgen
-              <button class="dialog-show-all" @click="filterSearch = ''">Alles tonen</button>
-            </div>
-            <div v-if="!dialogAvailable.length" class="dialog-empty">Alle filters zijn actief</div>
-          </div>
-        </div>
-      </div>
-
-      <template #footer>
-        <Button label="Annuleren" severity="secondary" outlined @click="dialogVisible = false" />
-        <Button label="Opslaan" @click="saveDialog" />
-      </template>
-    </Dialog>
   </div>
 </template>
 
 <style scoped>
-  /* ── Filter chips ─────────────────────────────────────────── */
-  .filter-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.375rem 0.75rem;
-    border: 1.5px solid var(--p-gray-200);
-    border-radius: 0.5rem;
-    background: white;
-    cursor: pointer;
-    color: var(--p-gray-600);
-    transition:
-      border-color 0.15s ease,
-      background 0.15s ease,
-      color 0.15s ease;
-    white-space: nowrap;
-  }
-
-  .filter-chip:hover:not(.filter-chip--active) {
-    border-color: var(--p-gray-400);
-    color: var(--p-gray-800);
-  }
-
-  .filter-chip--active {
-    background: var(--p-primary-500);
-    border-color: var(--p-primary-500);
-    color: white;
-  }
-
-  .filter-chip--active:hover {
-    background: var(--p-primary-600);
-    border-color: var(--p-primary-600);
-  }
-
-  .chip-label {
-    font-size: 0.8125rem;
-    font-weight: 500;
-  }
-
-  .chip-sep {
-    font-size: 0.75rem;
-    opacity: 0.6;
-  }
-
-  .chip-value {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    max-width: 8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  /* ── Popover content ─────────────────────────────────────── */
-  .popover-filter-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--p-gray-400);
-  }
-
-  .clear-value-btn {
-    font-size: 0.8125rem;
-    color: var(--p-primary-600);
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    text-align: left;
-    transition: color 0.1s ease;
-  }
-
-  .clear-value-btn:hover {
-    color: var(--p-primary-800);
-    text-decoration: underline;
-  }
-
-  /* ── Filter bar right actions ────────────────────────────── */
-  .filter-divider {
-    align-self: center;
-    height: 1.25rem;
-    border-left: 1.5px solid var(--p-gray-200);
-    margin: 0 0.125rem;
-  }
-
-  .clear-all-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--p-gray-500);
-    background: none;
-    border: 1.5px solid var(--p-gray-200);
-    border-radius: 0.5rem;
-    padding: 0.375rem 0.75rem;
-    cursor: pointer;
-    white-space: nowrap;
-    transition:
-      color 0.15s ease,
-      border-color 0.15s ease;
-  }
-
-  .clear-all-btn:hover {
-    color: var(--p-red-600);
-    border-color: var(--p-red-300);
-  }
-
-  .filters-beheren-btn {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--p-gray-500);
-    background: none;
-    border: none;
-    padding: 0.375rem 0.5rem;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color 0.15s ease;
-  }
-
-  .filters-beheren-btn:hover {
-    color: var(--p-gray-800);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  /* ── Filters beheren dialog panels ──────────────────────── */
-  .dialog-panel {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--p-gray-200);
-    border-radius: 0.5rem;
-    overflow: hidden;
-  }
-
-  .dialog-panel__header {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--p-gray-500);
-    background: var(--p-gray-50);
-    border-bottom: 1px solid var(--p-gray-200);
-    flex-shrink: 0;
-  }
-
-  .dialog-panel__search {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--p-gray-100);
-    flex-shrink: 0;
-  }
-
-  .dialog-panel__body {
-    overflow-y: auto;
-    flex: 1;
-  }
-
-  .dialog-item {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    color: var(--p-gray-700);
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.1s ease;
-  }
-
-  .dialog-item:hover:not(.dialog-item--sel) {
-    background: var(--p-gray-50);
-  }
-
-  .dialog-item--sel {
-    background: var(--p-primary-50);
-    color: var(--p-primary-700);
-    font-weight: 500;
-  }
-
-  .dialog-empty {
-    padding: 1.5rem 1rem;
-    text-align: center;
-    font-size: 0.8125rem;
-    color: var(--p-gray-400);
-    font-style: italic;
-  }
-
-  .dialog-search-hint {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.75rem;
-    color: var(--p-gray-400);
-  }
-
-  .dialog-show-all {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: 0.75rem;
-    color: var(--p-primary-600);
-    margin-left: 0.25rem;
-  }
-
-  .dialog-show-all:hover {
-    text-decoration: underline;
-  }
-
-  /* ── Dialog button disabled state ───────────────────────── */
-  .reorder-btns :deep(.p-button:disabled),
-  .transfer-btns :deep(.p-button:disabled) {
-    opacity: 0.2;
-    cursor: not-allowed;
-  }
-
-  /* ── DataTable ───────────────────────────────────────────── */
   .customers-table :deep(th) {
     font-size: 0.75rem;
     font-weight: 600;
@@ -661,16 +232,5 @@
 
   .customers-table :deep(.p-datatable-tbody > tr) {
     transition: background 0.1s ease;
-  }
-
-  /* ── Transitions ─────────────────────────────────────────── */
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.15s ease;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
   }
 </style>

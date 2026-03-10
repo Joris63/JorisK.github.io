@@ -7,6 +7,7 @@
     allFilterDefs: FilterConfig[];
     defaultActiveKeys: (string | { key: string; value: any })[];
     searchPlaceholder?: string;
+    defaultCollapsed?: boolean;
   }>();
 
   const emit = defineEmits<{
@@ -30,7 +31,7 @@
   const pendingSearch = ref('');
   const appliedSearch = ref('');
   const customizePopoverRef = ref<any>(null);
-  const collapsed = ref(false);
+  const collapsed = ref(props.defaultCollapsed ?? false);
 
   function onCollapseEnter(el: Element, done: () => void) {
     const h = el as HTMLElement;

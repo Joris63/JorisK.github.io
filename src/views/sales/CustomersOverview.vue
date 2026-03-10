@@ -162,6 +162,7 @@
     <FilterBar
       :all-filter-defs="allFilterDefs"
       :default-active-keys="defaultActiveKeys"
+      :default-collapsed="true"
       @filter="handleFilter"
     />
 

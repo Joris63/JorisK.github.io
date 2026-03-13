@@ -22,7 +22,7 @@
           label="Toevoegen"
           icon="pi pi-plus"
           severity="secondary"
-          outlined
+          text
           style="margin-left: auto"
         />
       </div>

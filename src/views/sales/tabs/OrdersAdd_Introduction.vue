@@ -608,7 +608,6 @@
         label="Volgende"
         severity="secondary"
         icon="pi pi-arrow-right"
-        icon-pos="right"
         @click="activateCallback(3)"
       />
     </div>

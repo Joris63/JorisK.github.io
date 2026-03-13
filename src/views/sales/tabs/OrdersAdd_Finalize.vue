@@ -608,14 +608,12 @@
           v-if="finalizeMode === 'offerte'"
           label="Opslaan"
           icon="pi pi-save"
-          icon-pos="right"
           @click="emit('submit', 'offerte')"
         />
         <Button
           v-else-if="finalizeMode === 'bestelling'"
           label="Bestelling plaatsen"
           icon="pi pi-check"
-          icon-pos="right"
           @click="emit('submit', 'bestelling')"
         />
       </div>

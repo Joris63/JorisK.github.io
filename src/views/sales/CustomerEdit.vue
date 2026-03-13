@@ -509,7 +509,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
+    overflow: clip;
   }
 
   /* ── Header ──────────────────────────────────────────────────────────── */
@@ -621,13 +621,13 @@
   .ce-body {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow: clip;
   }
   .ce-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: clip;
   }
   .ce-nav {
     width: 13rem;
@@ -662,7 +662,7 @@
       background 0.1s,
       color 0.1s;
   }
-  .ce-nav-item:hover {
+  .ce-nav-item:not(.ce-nav-item--active):hover {
     background: var(--p-gray-50);
     color: var(--p-surface-800);
   }

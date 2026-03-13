@@ -8,6 +8,7 @@
     defaultActiveKeys: (string | { key: string; value: any })[];
     searchPlaceholder?: string;
     defaultCollapsed?: boolean;
+    showSearch?: boolean;
   }>();
 
   const emit = defineEmits<{
@@ -159,7 +160,7 @@
 <template>
   <div class="filter-bar">
     <!-- ── Search row ─────────────────────────────────────────── -->
-    <div class="search-row">
+    <div v-if="showSearch !== false" class="search-row">
       <IconField class="flex-1">
         <InputIcon class="pi pi-search" />
         <InputText

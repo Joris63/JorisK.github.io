@@ -3,6 +3,7 @@
 
   defineProps<{
     title: string;
+    disabled?: boolean;
   }>();
 
   const emit = defineEmits<{ save: []; cancel: [] }>();
@@ -22,7 +23,7 @@
   <div>
     <div class="view-card-hdr">
       <span class="view-card-title">{{ title }}</span>
-      <template v-if="!editing">
+      <template v-if="!editing && !disabled">
         <Button
           label="Bewerken"
           icon="pi pi-pencil"

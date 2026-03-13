@@ -42,9 +42,9 @@
                 icon="pi pi-print"
                 size="small"
                 severity="secondary"
-                outlined
+                text
               />
-              <Button label="E-mail versturen" icon="pi pi-send" size="small" />
+              <Button label="E-mail versturen" icon="pi pi-send" size="small" outlined />
             </div>
           </div>
           <DataTable :value="quotation.emails" class="ce-table">
@@ -77,7 +77,7 @@
               label="Toevoegen"
               icon="pi pi-plus"
               severity="secondary"
-              outlined
+              text
               style="margin-left: auto"
             />
           </div>
@@ -108,7 +108,7 @@
               label="Toevoegen"
               icon="pi pi-plus"
               severity="secondary"
-              outlined
+              text
               style="margin-left: auto"
             />
           </div>

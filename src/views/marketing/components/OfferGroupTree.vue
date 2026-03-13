@@ -7,6 +7,7 @@
     selectedGroupId: number | null;
     pendingChanges: Record<number, PendingGroupChanges>;
     isVerlopen: boolean;
+    headless?: boolean;
   }>();
 
   const emit = defineEmits<{
@@ -47,8 +48,8 @@
 </script>
 
 <template>
-  <div class="groups-panel">
-    <div class="groups-panel__header">
+  <div class="groups-panel" :class="{ 'groups-panel--headless': headless }">
+    <div v-if="!headless" class="groups-panel__header">
       <span>Groepen</span>
       <button
         v-if="!isVerlopen"
@@ -122,6 +123,12 @@
     flex-direction: column;
     background: white;
     border-right: 1px solid var(--p-gray-100);
+  }
+  .groups-panel--headless {
+    width: 100%;
+    border-right: none;
+    flex: 1;
+    min-height: 0;
   }
 
   .groups-panel__header {

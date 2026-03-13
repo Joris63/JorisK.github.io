@@ -155,7 +155,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-semibold text-surface-800">Klanten</h1>
-      <Button label="Nieuwe klant toevoegen" icon="pi pi-plus" icon-pos="right" />
     </div>
 
     <!-- Filter bar -->
@@ -172,6 +171,7 @@
         {{ filteredCustomers.length.toLocaleString('nl-NL') }} klanten
       </span>
       <Paginator
+        v-if="filteredCustomers.length > 15"
         :rows="15"
         :total-records="filteredCustomers.length"
         :rows-per-page-options="[15, 30, 50]"
@@ -183,7 +183,7 @@
     <!-- Table -->
     <DataTable
       :value="filteredCustomers"
-      class="customers-table"
+      class="overview-table"
       :pt="{ thead: { class: 'border-b border-gray-200' } }"
     >
       <Column field="lastName" header="Achternaam">
@@ -221,33 +221,3 @@
     </DataTable>
   </div>
 </template>
-
-<style scoped>
-  .customers-table :deep(th) {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--p-surface-400);
-    background: transparent;
-    border-bottom: 1px solid var(--p-surface-200);
-    padding: 0.625rem 0.75rem;
-  }
-
-  .customers-table :deep(td) {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--p-surface-100);
-  }
-
-  .customers-table :deep(tr:last-child td) {
-    border-bottom: none;
-  }
-
-  .customers-table :deep(tr:hover td) {
-    background: var(--p-surface-50);
-  }
-
-  .customers-table :deep(.p-datatable-tbody > tr) {
-    transition: background 0.1s ease;
-  }
-</style>

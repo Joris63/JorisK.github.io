@@ -453,7 +453,7 @@
           label="Omzetten"
           icon="pi pi-arrow-right-arrow-left"
           severity="secondary"
-          outlined
+          text
         />
         <Button icon="pi pi-ellipsis-v" severity="secondary" text rounded />
       </div>
@@ -500,7 +500,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: hidden;
+    overflow: clip;
   }
 
   /* ── Header ──────────────────────────────────────────────────────────── */
@@ -622,13 +622,13 @@
   .qe-body {
     display: flex;
     flex: 1;
-    overflow: hidden;
+    overflow: clip;
   }
   .qe-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: clip;
   }
   .qe-nav {
     width: 13rem;

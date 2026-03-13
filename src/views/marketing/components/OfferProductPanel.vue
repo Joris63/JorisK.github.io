@@ -196,22 +196,20 @@
         </div>
         <div class="header-group-actions">
           <Button
+            label="Bewerken"
             icon="pi pi-pencil"
             severity="secondary"
-            variant="text"
+            text
             size="small"
-            rounded
-            title="Groep bewerken"
             @click="emit('edit-group', selectedGroupId!)"
           />
           <Button
             v-if="!isVerlopen"
+            label="Verwijderen"
             icon="pi pi-trash"
             severity="danger"
-            variant="text"
+            text
             size="small"
-            rounded
-            title="Groep verwijderen"
             @click="emit('delete-group', selectedGroupId!)"
           />
         </div>
@@ -520,7 +518,7 @@
     min-width: 0;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: clip;
     position: relative;
   }
 
@@ -529,8 +527,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.5rem 0.75rem 0.5rem 1rem;
+    padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+    min-height: 2.75rem;
     flex-shrink: 0;
+    background: var(--p-gray-50);
+    border-bottom: 1px solid var(--p-gray-100);
   }
 
   .products-toolbar {

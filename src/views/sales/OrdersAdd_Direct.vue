@@ -139,7 +139,6 @@
         <Button
           label="Verkoop"
           icon="pi pi-check"
-          icon-pos="right"
           class="w-full mt-1"
           @click="
             router.push({ name: 'ordersThankYou', query: { mode: 'bestelling', order: 2787188 } })

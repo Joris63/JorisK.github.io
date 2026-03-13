@@ -283,7 +283,7 @@
             },
             {
               label: 'Locaties',
-              route: '/',
+              route: '/logistics/locations',
             },
           ],
           icon: 'pi-truck',

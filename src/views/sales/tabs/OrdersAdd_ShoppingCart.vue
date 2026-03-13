@@ -165,7 +165,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />
@@ -174,7 +173,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />
@@ -183,7 +181,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />
@@ -192,7 +189,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />
@@ -201,7 +197,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />
@@ -210,7 +205,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />
@@ -219,7 +213,6 @@
           variant="text"
           severity="secondary"
           icon="pi pi-plus"
-          icon-pos="right"
           class="justify-start! px-3!"
           size="small"
         />

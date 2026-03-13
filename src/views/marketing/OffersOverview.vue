@@ -231,7 +231,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-semibold text-surface-800">Acties</h1>
-      <Button label="Actie toevoegen" icon="pi pi-plus" icon-pos="right" />
     </div>
 
     <!-- Filter bar -->
@@ -248,6 +247,7 @@
         {{ filteredOffers.length.toLocaleString('nl-NL') }} acties
       </span>
       <Paginator
+        v-if="filteredOffers.length > 15"
         :rows="15"
         :total-records="filteredOffers.length"
         :rows-per-page-options="[15, 30, 50]"
@@ -259,7 +259,7 @@
     <!-- Table -->
     <DataTable
       :value="filteredOffers"
-      class="offers-table"
+      class="overview-table"
       :pt="{ thead: { class: 'border-b border-gray-200' } }"
     >
       <Column field="naam" header="Naam">
@@ -317,80 +317,3 @@
     </DataTable>
   </div>
 </template>
-
-<style scoped>
-  /* ── Status badges ───────────────────────────────────────────── */
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.2rem 0.625rem;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  .status-badge--actief {
-    background: var(--p-green-100);
-    color: var(--p-green-700);
-  }
-
-  .status-badge--verlopen {
-    background: var(--p-gray-100);
-    color: var(--p-gray-500);
-  }
-
-  .status-badge--gepland {
-    background: var(--p-blue-100);
-    color: var(--p-blue-700);
-  }
-
-  /* ── Site tags ───────────────────────────────────────────────── */
-  .site-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.125rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    background: var(--p-gray-100);
-    color: var(--p-gray-600);
-    white-space: nowrap;
-  }
-
-  .site-tag--more {
-    background: transparent;
-    color: var(--p-gray-400);
-    font-weight: 400;
-    padding-left: 0.125rem;
-  }
-
-  /* ── DataTable ───────────────────────────────────────────────── */
-  .offers-table :deep(th) {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--p-surface-400);
-    background: transparent;
-    border-bottom: 1px solid var(--p-surface-200);
-    padding: 0.625rem 0.75rem;
-  }
-
-  .offers-table :deep(td) {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--p-surface-100);
-  }
-
-  .offers-table :deep(tr:last-child td) {
-    border-bottom: none;
-  }
-
-  .offers-table :deep(tr:hover td) {
-    background: var(--p-surface-50);
-  }
-
-  .offers-table :deep(.p-datatable-tbody > tr) {
-    transition: background 0.1s ease;
-  }
-</style>

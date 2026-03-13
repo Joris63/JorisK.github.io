@@ -169,7 +169,6 @@
               severity="secondary"
               size="small"
               icon="pi pi-times"
-              icon-pos="right"
               variant="outlined"
             />
           </div>

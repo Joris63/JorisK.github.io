@@ -1,6 +1,6 @@
 .tab-scroll {
   flex: 1;
-  overflow-y: auto;
+  overflow-y: clip;
   padding: 1.5rem;
   background: var(--p-surface-50);
 }
@@ -15,7 +15,6 @@
   background: white;
   border: 1px solid var(--p-gray-200);
   border-radius: 0.625rem;
-  overflow: hidden;
   margin-bottom: 1.25rem;
 }
 .view-card-hdr {
@@ -26,6 +25,10 @@
   border-bottom: 1px solid var(--p-gray-100);
   background: var(--p-gray-50);
   min-height: 2.75rem;
+  border-radius: 0.625rem 0.625rem 0 0;
+  position: sticky;
+  top: -1.25rem;
+  z-index: 10;
 }
 .view-card-title {
   font-size: 0.75rem;

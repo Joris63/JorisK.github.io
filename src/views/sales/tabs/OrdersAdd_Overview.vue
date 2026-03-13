@@ -233,7 +233,6 @@
           label="Volgende"
           severity="secondary"
           icon="pi pi-arrow-right"
-          icon-pos="right"
           @click="
             () => {
               finalizeMode = null;

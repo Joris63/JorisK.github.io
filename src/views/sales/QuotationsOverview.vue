@@ -104,7 +104,6 @@
     <!-- Header -->
     <div class="flex items-center justify-between">
       <h1 class="text-2xl font-semibold text-surface-800">Offertes</h1>
-      <Button label="Nieuwe offerte toevoegen" icon="pi pi-plus" icon-pos="right" />
     </div>
 
     <!-- Filter bar -->
@@ -120,6 +119,7 @@
         {{ filteredQuotations.length.toLocaleString('nl-NL') }} offertes
       </span>
       <Paginator
+        v-if="filteredQuotations.length > 15"
         :rows="15"
         :total-records="filteredQuotations.length"
         :rows-per-page-options="[15, 30, 50]"
@@ -131,7 +131,7 @@
     <!-- Table -->
     <DataTable
       :value="filteredQuotations"
-      class="quotations-table"
+      class="overview-table"
       :pt="{ thead: { class: 'border-b border-gray-200' } }"
     >
       <Column field="offertenummer" header="Offertenummer">
@@ -174,33 +174,3 @@
     </DataTable>
   </div>
 </template>
-
-<style scoped>
-  .quotations-table :deep(th) {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--p-surface-400);
-    background: transparent;
-    border-bottom: 1px solid var(--p-surface-200);
-    padding: 0.625rem 0.75rem;
-  }
-
-  .quotations-table :deep(td) {
-    padding: 0.75rem;
-    border-bottom: 1px solid var(--p-surface-100);
-  }
-
-  .quotations-table :deep(tr:last-child td) {
-    border-bottom: none;
-  }
-
-  .quotations-table :deep(tr:hover td) {
-    background: var(--p-surface-50);
-  }
-
-  .quotations-table :deep(.p-datatable-tbody > tr) {
-    transition: background 0.1s ease;
-  }
-</style>

@@ -1,6 +1,5 @@
 .tab-scroll {
   flex: 1;
-  overflow-y: clip;
   padding: 1.5rem;
   background: var(--p-surface-50);
 }

@@ -314,7 +314,12 @@
 
     <OverviewHeader :title="currentTab.title">
       <template #actions>
-        <Button :label="currentTab.addLabel" icon="pi pi-plus" icon-pos="right" />
+        <Button
+          :label="currentTab.addLabel"
+          icon="pi pi-plus"
+          icon-pos="right"
+          @click="activeTab === 'stores' ? router.push({ name: 'StoreAdd' }) : undefined"
+        />
       </template>
     </OverviewHeader>
 

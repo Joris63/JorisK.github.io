@@ -11,6 +11,10 @@ declare module 'vue' {
     AccordionContent: typeof import('primevue/accordioncontent')['default']
     AccordionHeader: typeof import('primevue/accordionheader')['default']
     AccordionPanel: typeof import('primevue/accordionpanel')['default']
+    AddPageHeader: typeof import('./src/components/layout/AddPageHeader.vue')['default']
+    AddPageLayout: typeof import('./src/components/layout/AddPageLayout.vue')['default']
+    AddPageNav: typeof import('./src/components/layout/AddPageNav.vue')['default']
+    AddPageSection: typeof import('./src/components/layout/AddPageSection.vue')['default']
     AddressFields: typeof import('./src/components/form/AddressFields.vue')['default']
     Button: typeof import('primevue/button')['default']
     Card: typeof import('primevue/card')['default']
@@ -65,5 +69,8 @@ declare module 'vue' {
     Textarea: typeof import('primevue/textarea')['default']
     ToggleSwitch: typeof import('primevue/toggleswitch')['default']
     TreeSelect: typeof import('primevue/treeselect')['default']
+  }
+  export interface ComponentCustomProperties {
+    Tooltip: typeof import('primevue/tooltip')['default']
   }
 }

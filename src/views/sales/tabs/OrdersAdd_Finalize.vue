@@ -1,41 +1,30 @@
 <script setup lang="ts">
   import { ref, computed } from 'vue';
   import { useOrderCart } from '@/composables/useOrderCart';
-  import { useScrollNav } from '@/composables/useScrollNav';
   import OrderCartTotals from './OrderCartTotals.vue';
   import ContractorSection from '../components/ContractorSection.vue';
+  import AddPageNav from '@/components/layout/AddPageNav.vue';
 
   const { finalizeMode } = useOrderCart();
-  const { scrollTo } = useScrollNav();
-
-  const emit = defineEmits<{ submit: [mode: 'quotation' | 'order'] }>();
-
-  // ── Section nav refs ─────────────────────────────────────────
-  const sectionPlanning = ref<HTMLElement | null>(null);
-  const sectionLevering = ref<HTMLElement | null>(null);
-  const sectionBetaalmethode = ref<HTMLElement | null>(null);
-  const sectionAfspraken = ref<HTMLElement | null>(null);
-  const sectionAfronding = ref<HTMLElement | null>(null);
-  const sectionVoorwaarden = ref<HTMLElement | null>(null);
 
   const navItems = computed(() =>
     finalizeMode.value === 'quotation'
       ? [
-          { label: 'Planning', ref: sectionPlanning },
-          { label: 'Afspraken', ref: sectionAfspraken },
-          { label: 'Afronding', ref: sectionAfronding },
+          { id: 'planning', label: 'Planning', description: 'Datum en aannemer' },
+          { id: 'afspraken', label: 'Afspraken', description: 'Notities en taken' },
+          { id: 'afronding', label: 'Afronding', description: 'Offerte mail' },
         ]
       : finalizeMode.value === 'order'
         ? [
-            { label: 'Planning', ref: sectionPlanning },
-            { label: 'Levering', ref: sectionLevering },
-            { label: 'Betaalmethode', ref: sectionBetaalmethode },
-            { label: 'Afspraken', ref: sectionAfspraken },
-            { label: 'Voorwaarden', ref: sectionVoorwaarden },
+            { id: 'planning', label: 'Planning', description: 'Datum en aannemer' },
+            { id: 'levering', label: 'Levering', description: 'Bezorgmethode' },
+            { id: 'betaalmethode', label: 'Betaalmethode', description: 'Betaalwijze' },
+            { id: 'afspraken', label: 'Afspraken', description: 'Notities en taken' },
+            { id: 'voorwaarden', label: 'Voorwaarden', description: 'Extra voorwaarden' },
           ]
         : [
-            { label: 'Planning', ref: sectionPlanning },
-            { label: 'Afspraken', ref: sectionAfspraken },
+            { id: 'planning', label: 'Planning', description: 'Datum en aannemer' },
+            { id: 'afspraken', label: 'Afspraken', description: 'Notities en taken' },
           ]
   );
 
@@ -180,7 +169,7 @@
 </script>
 
 <template>
-  <StepPanel v-slot="{ activateCallback }" :value="4" class="flex flex-col grow">
+  <StepPanel :value="4" class="flex flex-col grow view-card p-5">
     <!-- ── Choice screen (no mode selected yet) ──────────────── -->
     <div
       v-if="finalizeMode === null"
@@ -202,28 +191,25 @@
     </div>
 
     <!-- ── Form (mode chosen) ─────────────────────────────────── -->
-    <div v-else class="flex grow gap-10 pt-2">
+    <div v-else class="flex grow items-start">
       <!-- Section nav -->
-      <aside class="sticky top-6 self-start flex flex-col gap-1 w-36 shrink-0 pt-1">
-        <button
-          v-for="item in navItems"
-          :key="item.label"
-          class="section-nav-item"
-          @click="scrollTo(item.ref.value)"
-        >
-          {{ item.label }}
-        </button>
-        <Divider class="m-1!" />
-        <button class="change-mind-btn" @click="finalizeMode = null">
-          Toch van mening veranderd?
-        </button>
-      </aside>
+      <AddPageNav :sections="navItems">
+        <Divider class="my-3!" />
+        <div class="px-3">
+          <button class="change-mind-btn" @click="finalizeMode = null">
+            Toch van mening veranderd?
+          </button>
+        </div>
+      </AddPageNav>
 
       <!-- Main content -->
-      <div class="flex flex-col flex-1 min-w-0 pb-4">
+      <div class="flex flex-col flex-1 min-w-0 py-2 pl-5 border-l border-gray-100">
         <!-- ── Planning ────────────────────────────────────────── -->
-        <section ref="sectionPlanning" class="flex flex-col gap-4 py-1 pb-6">
-          <h2 class="section-heading">Planning</h2>
+        <section id="planning" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-calendar add-section-icon" />
+            <div class="add-section-title">Planning</div>
+          </div>
           <div class="flex flex-col gap-4">
             <!-- Wanneer verbouwen — offerte only -->
             <template v-if="finalizeMode === 'quotation'">
@@ -252,15 +238,12 @@
           </div>
         </section>
 
-        <Divider class="my-0!" />
-
         <!-- ── Levering (bestelling only) ─────────────────────── -->
-        <section
-          v-if="finalizeMode === 'order'"
-          ref="sectionLevering"
-          class="flex flex-col gap-4 py-6"
-        >
-          <h2 class="section-heading">Levering</h2>
+        <section v-if="finalizeMode === 'order'" id="levering" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-truck add-section-icon" />
+            <div class="add-section-title">Levering</div>
+          </div>
           <div class="flex flex-col gap-4">
             <div class="form-row items-center">
               <span class="form-label">Eindbestemming</span>
@@ -270,11 +253,7 @@
             <!-- Conditional content based on eindbestemming -->
             <Transition name="fade-slide" mode="out-in">
               <!-- Klantadres: optional different address -->
-              <div
-                v-if="destination === 'Klantadres'"
-                key="klantadres"
-                class="flex flex-col gap-4"
-              >
+              <div v-if="destination === 'Klantadres'" key="klantadres" class="flex flex-col gap-4">
                 <div class="form-row items-center">
                   <span class="form-label" />
                   <div class="flex items-center gap-2">
@@ -286,7 +265,10 @@
                   <div v-if="alternativeDeliveryAddress" class="subform">
                     <div class="form-row items-center">
                       <span class="form-label">Aanhef</span>
-                      <SelectButton v-model="deliverySalutation" :options="deliverySalutationOptions" />
+                      <SelectButton
+                        v-model="deliverySalutation"
+                        :options="deliverySalutationOptions"
+                      />
                     </div>
                     <div class="form-row items-center">
                       <span class="form-label">Ter attentie van</span>
@@ -478,15 +460,12 @@
           </div>
         </section>
 
-        <Divider v-if="finalizeMode === 'order'" class="my-0!" />
-
         <!-- ── Betaalmethode (bestelling only) ────────────────── -->
-        <section
-          v-if="finalizeMode === 'order'"
-          ref="sectionBetaalmethode"
-          class="flex flex-col gap-4 py-6"
-        >
-          <h2 class="section-heading">Betaalmethode</h2>
+        <section v-if="finalizeMode === 'order'" id="betaalmethode" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-credit-card add-section-icon" />
+            <div class="add-section-title">Betaalmethode</div>
+          </div>
           <div>
             <div class="form-row items-center">
               <span class="form-label">Betaalmethode</span>
@@ -495,11 +474,12 @@
           </div>
         </section>
 
-        <Divider class="my-0!" />
-
         <!-- ── Afspraken ───────────────────────────────────────── -->
-        <section ref="sectionAfspraken" class="flex flex-col gap-4 py-6">
-          <h2 class="section-heading">Afspraken</h2>
+        <section id="afspraken" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-comment add-section-icon" />
+            <div class="add-section-title">Afspraken</div>
+          </div>
           <div class="flex flex-col gap-4">
             <div class="form-row">
               <span class="form-label">Wat zullen we afspreken?</span>
@@ -541,15 +521,12 @@
           </div>
         </section>
 
-        <Divider v-if="finalizeMode === 'quotation'" class="my-0!" />
-
         <!-- ── Afronding (offerte only) ────────────────────────── -->
-        <section
-          v-if="finalizeMode === 'quotation'"
-          ref="sectionAfronding"
-          class="flex flex-col gap-4 py-6"
-        >
-          <h2 class="section-heading">Afronding</h2>
+        <section v-if="finalizeMode === 'quotation'" id="afronding" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-check-circle add-section-icon" />
+            <div class="add-section-title">Afronding</div>
+          </div>
           <div>
             <div class="form-row items-center">
               <span class="form-label">Automatische offerte mail</span>
@@ -563,15 +540,12 @@
           </div>
         </section>
 
-        <Divider v-if="finalizeMode === 'order'" class="my-0!" />
-
         <!-- ── Voorwaarden (bestelling only) ──────────────────── -->
-        <section
-          v-if="finalizeMode === 'order'"
-          ref="sectionVoorwaarden"
-          class="flex flex-col gap-4 py-6"
-        >
-          <h2 class="section-heading">Voorwaarden</h2>
+        <section v-if="finalizeMode === 'order'" id="voorwaarden" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-file add-section-icon" />
+            <div class="add-section-title">Voorwaarden</div>
+          </div>
           <div>
             <div class="form-row items-center">
               <span class="form-label">Extra voorwaarden</span>
@@ -588,48 +562,10 @@
       </div>
     </div>
     <!-- end v-else form -->
-
-    <!-- ── Footer ─────────────────────────────────────────────── -->
-    <div class="mt-4 flex flex-col gap-3">
-      <!-- Navigation -->
-      <div class="flex justify-between items-center">
-        <Button
-          label="Terug"
-          class="btn-back"
-          icon="pi pi-arrow-left"
-          @click="
-            () => {
-              finalizeMode = null;
-              activateCallback(3);
-            }
-          "
-        />
-        <Button
-          v-if="finalizeMode === 'quotation'"
-          label="Opslaan"
-          icon="pi pi-save"
-          @click="emit('submit', 'quotation')"
-        />
-        <Button
-          v-else-if="finalizeMode === 'order'"
-          label="Bestelling plaatsen"
-          icon="pi pi-check"
-          @click="emit('submit', 'order')"
-        />
-      </div>
-    </div>
   </StepPanel>
 </template>
 
 <style scoped>
-  /* ── Section headings ─────────────────────────────────────── */
-  .section-heading {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--p-gray-800);
-    margin: 0;
-  }
-
   /* ── Sub-form ─────────────────────────────────────────────── */
   .subform {
     display: flex;
@@ -652,46 +588,6 @@
     font-size: 0.875rem;
     color: var(--p-gray-500);
     padding-top: 0.375rem;
-  }
-
-  /* ── Section nav ─────────────────────────────────────────── */
-  .section-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.8125rem;
-    color: var(--p-surface-500);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition:
-      color 0.15s ease,
-      background 0.15s ease;
-  }
-
-  .section-nav-item::before {
-    content: '›';
-    font-size: 1.1rem;
-    line-height: 1;
-    color: var(--p-surface-400);
-  }
-
-  .section-nav-item:hover {
-    color: var(--p-surface-700);
-    background: var(--p-surface-100);
-  }
-
-  .section-nav-item--active {
-    color: var(--p-primary-700);
-    background: var(--p-primary-50);
-    font-weight: 600;
-  }
-
-  .section-nav-item--active::before {
-    color: var(--p-primary-400);
   }
 
   /* ── Choice cards ────────────────────────────────────────── */

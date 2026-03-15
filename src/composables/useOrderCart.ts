@@ -125,6 +125,31 @@ const orderTotal = computed(() =>
   Math.max(0, cartTotal.value - orderDiscountValue.value + shippingCostValue.value)
 );
 
+// ── Add product to a group ────────────────────────────────────
+function addProductToGroup(
+  product: { code: string; naam: string; prijs: number },
+  groupId: string
+) {
+  const group = groups.value.find((g) => g.id === groupId) ?? groups.value[0];
+  const existing = group.items.find((i) => i.productCode === product.code);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    group.items.push({
+      name: product.naam,
+      productCode: product.code,
+      deliveryTime: '—',
+      stock: 0,
+      imageUrl: undefined,
+      quantity: 1,
+      price: product.prijs,
+      discountPercent: 0,
+      discountAmount: 0,
+      priceCorrection: false,
+    });
+  }
+}
+
 // ── Finalize mode ─────────────────────────────────────────────
 const finalizeMode = ref<FinalizeMode>(null);
 
@@ -160,6 +185,7 @@ export function useOrderCart() {
     rowTotal,
     groupTotal,
     groupItemCount,
+    addProductToGroup,
     finalizeMode,
   };
 }

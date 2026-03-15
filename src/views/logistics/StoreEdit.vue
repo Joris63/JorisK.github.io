@@ -195,7 +195,7 @@
   const activeTab = ref('algemeen');
 
   const tabs: TabDef[] = [
-    { id: 'algemeen', label: 'Algemene informatie', icon: 'pi-building' },
+    { id: 'algemeen', label: 'Algemene informatie', icon: 'pi-shop' },
     { id: 'openingstijden', label: 'Openingstijden', icon: 'pi-clock' },
     { id: 'content', label: 'Content website', icon: 'pi-globe' },
   ];
@@ -282,7 +282,7 @@
       :subtitle="`${store.street} ${store.houseNumber}, ${store.postalCode} ${store.city}`"
       :back="{ name: 'LocationsOverview', query: { tab: 'stores' } }"
     >
-      <template #avatar><i class="pi pi-building" /></template>
+      <template #avatar><i class="pi pi-shop" /></template>
       <template #pills>
         <span class="status-pill status-pill--type">{{ store.abbreviation }}</span>
         <span
@@ -429,21 +429,26 @@
                   <InputText v-model="store.slug" class="flex-1" placeholder="showroom_utr" />
                 </div>
               </div>
-              <div class="fr-row">
-                <label class="fr-label">Hoofdwinkel</label>
-                <ToggleSwitch v-model="store.mainStore" />
-              </div>
-              <div class="fr-row">
-                <label class="fr-label">Actief</label>
-                <ToggleSwitch v-model="store.active" />
-              </div>
-              <div class="fr-row">
-                <label class="fr-label">Outlet</label>
-                <ToggleSwitch v-model="store.outlet" />
-              </div>
-              <div class="fr-row">
-                <label class="fr-label">Binnenkort open</label>
-                <ToggleSwitch v-model="store.openingSoon" />
+              <div class="fr-row fr-row--top">
+                <label class="fr-label" style="padding-top: 0.5rem">Opties</label>
+                <div class="options-grid">
+                  <div class="option-item">
+                    <ToggleSwitch v-model="store.mainStore" inputId="edit-opt-main" />
+                    <label for="edit-opt-main">Hoofdwinkel</label>
+                  </div>
+                  <div class="option-item">
+                    <ToggleSwitch v-model="store.active" inputId="edit-opt-active" />
+                    <label for="edit-opt-active">Actief</label>
+                  </div>
+                  <div class="option-item">
+                    <ToggleSwitch v-model="store.outlet" inputId="edit-opt-outlet" />
+                    <label for="edit-opt-outlet">Outlet</label>
+                  </div>
+                  <div class="option-item">
+                    <ToggleSwitch v-model="store.openingSoon" inputId="edit-opt-soon" />
+                    <label for="edit-opt-soon">Binnenkort open</label>
+                  </div>
+                </div>
               </div>
               <div class="fr-row">
                 <label class="fr-label">Pickup locatie</label>
@@ -1129,6 +1134,27 @@
 </template>
 
 <style scoped>
+  /* ── Options grid (shared with StoreAdd) ─────────────────────────────────── */
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 2.5rem;
+    padding: 0.25rem 0;
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.875rem;
+    color: var(--p-surface-700);
+  }
+
+  .option-item label {
+    cursor: pointer;
+    user-select: none;
+  }
+
   /* ── Exceptions ──────────────────────────────────────────────────────────── */
   .exception-card {
     border: 1px solid var(--p-surface-200);

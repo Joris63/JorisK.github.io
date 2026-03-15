@@ -3,8 +3,11 @@
   import { useRouter } from 'vue-router';
   import OrdersAdd_ShoppingCart from './tabs/OrdersAdd_ShoppingCart.vue';
   import OrdersAdd_CustomerSearch from './sidebars/OrdersAdd_CustomerSearch.vue';
+  import OrdersAdd_ToolbarStrip from './components/OrdersAdd_ToolbarStrip.vue';
   import { useOrderCart } from '@/composables/useOrderCart';
-  import { useScrollNav } from '@/composables/useScrollNav';
+  import AddPageHeader from '@/components/layout/AddPageHeader.vue';
+  import AddPageLayout from '@/components/layout/AddPageLayout.vue';
+  import AddPageNav from '@/components/layout/AddPageNav.vue';
 
   const router = useRouter();
   const {
@@ -16,35 +19,13 @@
     formatPrice,
     cartItemCount,
   } = useOrderCart();
-  const { scrollTo } = useScrollNav();
-
-  // ── Section refs ──────────────────────────────────────────────
-  const sectionWinkelwagen = ref<HTMLElement | null>(null);
-  const sectionGegevens = ref<HTMLElement | null>(null);
-  const sectionLevering = ref<HTMLElement | null>(null);
-  const sectionBetaalmethode = ref<HTMLElement | null>(null);
-  const sectionVoorwaarden = ref<HTMLElement | null>(null);
 
   const navItems = [
-    { label: 'Winkelwagen', ref: sectionWinkelwagen },
-    { label: 'Je gegevens', ref: sectionGegevens },
-    { label: 'Levering', ref: sectionLevering },
-    { label: 'Betaalmethode', ref: sectionBetaalmethode },
-    { label: 'Voorwaarden', ref: sectionVoorwaarden },
-  ];
-
-  // ── Cart config ───────────────────────────────────────────────
-  const selectedSite = ref<number>(1);
-  const siteOptions = [
-    { label: 'SWNL', value: 1 },
-    { label: 'SWBE', value: 2 },
-    { label: 'SWFR', value: 3 },
-    { label: 'SWDE', value: 4 },
-  ];
-  const selectedCustomerType = ref<number>(1);
-  const customerTypes = [
-    { label: 'B2C', value: 1 },
-    { label: 'B2B', value: 2 },
+    { id: 'winkelwagen', label: 'Winkelwagen', description: 'Producten en prijzen' },
+    { id: 'gegevens', label: 'Je gegevens', description: 'Naam en contactgegevens' },
+    { id: 'levering', label: 'Levering', description: 'Bezorgmethode' },
+    { id: 'betaalmethode', label: 'Betaalmethode', description: 'Betaalwijze' },
+    { id: 'voorwaarden', label: 'Voorwaarden', description: 'Extra voorwaarden' },
   ];
 
   // ── Customer mode ─────────────────────────────────────────────
@@ -91,109 +72,76 @@
 </script>
 
 <template>
-  <div class="grow flex flex-col">
-    <div class="flex grow gap-10 pt-2">
-      <!-- ── Sidebar ─────────────────────────────────────────── -->
-      <aside class="sticky top-6 self-start flex flex-col gap-1 w-44 shrink-0 pt-1">
-        <button
-          v-for="item in navItems"
-          :key="item.label"
-          class="section-nav-item"
-          @click="scrollTo(item.ref.value)"
-        >
-          {{ item.label }}
-        </button>
+  <AddPageLayout>
+    <template #header>
+      <AddPageHeader
+        title="Directe verkoop"
+        subtitle="Verkoop direct aan de kassa zonder doorlooptijd"
+        :back="{ name: 'home' }"
+      >
+        <template #icon><i class="pi pi-shopping-bag" /></template>
+      </AddPageHeader>
+    </template>
 
-        <Divider class="m-1!" />
-
-        <!-- Live totals -->
-        <div class="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5">
-          <div class="flex justify-between text-xs text-gray-500">
-            <span>Subtotaal</span>
-            <span class="text-gray-700">{{ formatPrice(cartSubtotal) }}</span>
-          </div>
-          <div v-if="cartDiscount > 0" class="flex justify-between text-xs">
-            <span class="text-gray-500">Korting</span>
-            <span class="font-medium" style="color: #e94b57">{{ formatPrice(-cartDiscount) }}</span>
-          </div>
-          <div v-if="orderDiscountValue > 0" class="flex justify-between text-xs">
-            <span class="text-gray-500">Orderkorting</span>
-            <span class="font-medium" style="color: #e94b57">{{
-              formatPrice(-orderDiscountValue)
-            }}</span>
-          </div>
-          <div class="flex justify-between text-xs text-gray-500">
-            <span>Verzendkosten</span>
-            <span
-              :class="shippingCostValue === 0 ? 'text-primary-600 font-medium' : 'text-gray-700'"
-            >
-              {{ shippingCostValue === 0 ? 'Gratis' : formatPrice(shippingCostValue) }}
-            </span>
-          </div>
-          <div class="border-t border-gray-200 pt-2 flex justify-between items-baseline">
-            <span class="text-xs font-semibold text-gray-600">Totaal</span>
-            <span class="text-sm font-bold text-gray-900">{{ formatPrice(orderTotal) }}</span>
-          </div>
-        </div>
-
-        <Button
-          label="Verkoop"
-          icon="pi pi-check"
-          class="w-full mt-1"
-          @click="
-            router.push({ name: 'ordersThankYou', query: { mode: 'bestelling', order: 2787188 } })
-          "
-        />
-      </aside>
-
-      <!-- ── Main content ─────────────────────────────────────── -->
-      <div class="flex flex-col flex-1 min-w-0">
-        <!-- Winkelwagen ─────────────────────────────────────── -->
-        <section ref="sectionWinkelwagen" class="flex flex-col gap-4 py-1 pb-6">
-          <div class="flex items-center justify-between">
-            <h2 class="section-heading">Winkelwagen</h2>
-            <span class="text-xs text-gray-400"
-              >{{ cartItemCount }} {{ cartItemCount === 1 ? 'product' : 'producten' }}</span
-            >
-          </div>
-          <!-- Site + klanttype -->
-          <div
-            class="grid divide-x divide-gray-200 rounded-xl border border-gray-200 bg-gray-50 overflow-hidden grid-cols-2"
-          >
-            <div class="flex flex-col gap-2 p-4">
-              <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">Site</span>
-              <SelectButton
-                v-model="selectedSite"
-                :allow-empty="false"
-                :options="siteOptions"
-                option-label="label"
-                option-value="value"
-              />
+    <template #nav>
+      <AddPageNav :sections="navItems">
+        <Divider class="my-3!" />
+        <div class="flex flex-col gap-2 px-3">
+          <!-- Live totals -->
+          <div class="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5">
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>Subtotaal</span>
+              <span class="text-gray-700">{{ formatPrice(cartSubtotal) }}</span>
             </div>
-            <div class="flex flex-col gap-2 p-4">
-              <span class="text-xs font-semibold uppercase tracking-wider text-gray-400"
-                >Klanttype</span
+            <div v-if="cartDiscount > 0" class="flex justify-between text-xs">
+              <span class="text-gray-500">Korting</span>
+              <span class="font-medium" style="color: #e94b57">{{
+                formatPrice(-cartDiscount)
+              }}</span>
+            </div>
+            <div v-if="orderDiscountValue > 0" class="flex justify-between text-xs">
+              <span class="text-gray-500">Orderkorting</span>
+              <span class="font-medium" style="color: #e94b57">{{
+                formatPrice(-orderDiscountValue)
+              }}</span>
+            </div>
+            <div class="flex justify-between text-xs text-gray-500">
+              <span>Verzendkosten</span>
+              <span
+                :class="shippingCostValue === 0 ? 'text-primary-600 font-medium' : 'text-gray-700'"
               >
-              <div class="flex gap-3 items-center">
-                <SelectButton
-                  v-model="selectedCustomerType"
-                  :allow-empty="false"
-                  :options="customerTypes"
-                  option-label="label"
-                  option-value="value"
-                />
-                <Button
-                  v-if="selectedCustomerType === 2"
-                  label="B2B klant zoeken"
-                  severity="secondary"
-                  size="small"
-                  icon="pi pi-search"
-                  variant="outlined"
-                />
-              </div>
+                {{ shippingCostValue === 0 ? 'Gratis' : formatPrice(shippingCostValue) }}
+              </span>
+            </div>
+            <div class="border-t border-gray-200 pt-2 flex justify-between items-baseline">
+              <span class="text-xs font-semibold text-gray-600">Totaal</span>
+              <span class="text-sm font-bold text-gray-900">{{ formatPrice(orderTotal) }}</span>
             </div>
           </div>
-          <!-- Product search -->
+          <Button
+            label="Verkoop"
+            icon="pi pi-check"
+            class="w-full mt-1"
+            @click="
+              router.push({ name: 'ordersThankYou', query: { mode: 'bestelling', order: 2787188 } })
+            "
+          />
+        </div>
+      </AddPageNav>
+    </template>
+
+    <div class="flex flex-col border-l border-gray-100 pt-2 pl-5">
+      <!-- Winkelwagen ─────────────────────────────────────── -->
+      <section id="winkelwagen" class="add-section">
+        <div class="add-section-hdr">
+          <i class="pi pi-shopping-cart add-section-icon" />
+          <div class="add-section-title">Winkelwagen</div>
+          <span class="text-xs text-gray-400 ml-auto"
+            >{{ cartItemCount }} {{ cartItemCount === 1 ? 'product' : 'producten' }}</span
+          >
+        </div>
+        <OrdersAdd_ToolbarStrip />
+        <div class="flex flex-col gap-4 mt-4">
           <div class="flex gap-2">
             <IconField class="grow">
               <InputIcon class="pi pi-search" />
@@ -208,18 +156,21 @@
               <Button icon="pi pi-ellipsis-v" class="btn-outlined" />
             </div>
           </div>
-          <!-- Cart -->
-          <OrdersAdd_ShoppingCart class="pt-2" />
-        </section>
+          <OrdersAdd_ShoppingCart />
+        </div>
+      </section>
 
-        <Divider class="my-0!" />
+      <!-- Je gegevens ─────────────────────────────────────── -->
+      <section id="gegevens" class="add-section">
+        <div class="add-section-hdr">
+          <i class="pi pi-user add-section-icon" />
+          <div>
+            <div class="add-section-title">Je gegevens</div>
+            <div class="add-section-desc">Optioneel</div>
+          </div>
+        </div>
 
-        <!-- Je gegevens ─────────────────────────────────────── -->
-        <section ref="sectionGegevens" class="flex flex-col gap-4 py-6">
-          <h2 class="section-heading">
-            Je gegevens <span class="text-xs font-normal text-gray-400 ml-1">(optioneel)</span>
-          </h2>
-
+        <div class="flex flex-col gap-4">
           <!-- Mode cards -->
           <div class="grid grid-cols-2 gap-3">
             <button
@@ -253,7 +204,7 @@
 
           <Transition name="fade-slide" mode="out-in">
             <!-- Search mode -->
-            <div v-if="mode === 'search'" key="search" class="flex flex-col gap-3">
+            <div v-if="mode === 'search'" key="search" class="flex flex-col gap-4">
               <Transition name="fade">
                 <div v-if="customerFound" class="customer-indicator">
                   <div class="customer-indicator__avatar"><i class="pi pi-user" /></div>
@@ -382,76 +333,73 @@
               </div>
             </div>
           </Transition>
+        </div>
+      </section>
+
+      <!-- Levering + Betaalmethode ────────────────────────── -->
+      <div class="add-section grid grid-cols-2 gap-x-12">
+        <section id="levering" class="flex flex-col gap-4">
+          <div class="add-section-hdr">
+            <i class="pi pi-truck add-section-icon" />
+            <div class="add-section-title">Levering</div>
+          </div>
+          <div class="form-row items-center">
+            <span class="form-label">Showroom</span
+            ><Select
+              v-model="selectedShowroom"
+              :options="showroomOptions"
+              option-label="label"
+              option-value="value"
+              class="flex-1"
+            />
+          </div>
+          <div class="form-row items-center">
+            <span class="form-label">Referentie</span
+            ><InputText v-model="reference" placeholder="Vul een referentie in" class="flex-1" />
+          </div>
         </section>
 
-        <Divider class="my-0!" />
-
-        <!-- Levering + Betaalmethode ────────────────────────── -->
-        <div class="grid grid-cols-2 gap-x-12 py-6">
-          <section ref="sectionLevering" class="flex flex-col gap-4">
-            <h2 class="section-heading">Levering</h2>
-            <div class="form-row items-center">
-              <span class="form-label">Showroom</span
-              ><Select
-                v-model="selectedShowroom"
-                :options="showroomOptions"
-                option-label="label"
-                option-value="value"
+        <section id="betaalmethode" class="flex flex-col gap-4">
+          <div class="add-section-hdr">
+            <i class="pi pi-credit-card add-section-icon" />
+            <div class="add-section-title">Betaalmethode</div>
+          </div>
+          <div class="form-row items-center">
+            <span class="form-label">Betaalmethode</span
+            ><SelectButton v-model="paymentMethod" :options="paymentMethodOptions" />
+          </div>
+          <Transition name="fade-slide">
+            <div v-if="paymentMethod === 'Anders'" class="form-row items-center">
+              <span class="form-label" />
+              <Select
+                v-model="otherOption"
+                :options="['Bankoverschrijving', 'Factuur achteraf', 'Rembours']"
+                placeholder="Selecteer een optie"
                 class="flex-1"
               />
             </div>
-            <div class="form-row items-center">
-              <span class="form-label">Referentie</span
-              ><InputText v-model="reference" placeholder="Vul een referentie in" class="flex-1" />
-            </div>
-          </section>
-
-          <section ref="sectionBetaalmethode" class="flex flex-col gap-4">
-            <h2 class="section-heading">Betaalmethode</h2>
-            <div class="form-row items-center">
-              <span class="form-label">Betaalmethode</span
-              ><SelectButton v-model="paymentMethod" :options="paymentMethodOptions" />
-            </div>
-            <Transition name="fade-slide">
-              <div v-if="paymentMethod === 'Anders'" class="form-row items-center">
-                <span class="form-label" />
-                <Select
-                  v-model="otherOption"
-                  :options="['Bankoverschrijving', 'Factuur achteraf', 'Rembours']"
-                  placeholder="Selecteer een optie"
-                  class="flex-1"
-                />
-              </div>
-            </Transition>
-          </section>
-        </div>
-
-        <Divider class="my-0!" />
-
-        <!-- Voorwaarden ─────────────────────────────────────── -->
-        <section ref="sectionVoorwaarden" class="flex flex-col gap-4 py-6">
-          <h2 class="section-heading">Voorwaarden</h2>
-          <div class="form-row items-center">
-            <span class="form-label">Extra voorwaarden</span
-            ><Button label="Kies voorwaarden" class="btn-outlined" />
-          </div>
+          </Transition>
         </section>
       </div>
+
+      <!-- Voorwaarden ─────────────────────────────────────── -->
+      <section id="voorwaarden" class="add-section">
+        <div class="add-section-hdr">
+          <i class="pi pi-file add-section-icon" />
+          <div class="add-section-title">Voorwaarden</div>
+        </div>
+        <div class="form-row items-center">
+          <span class="form-label">Extra voorwaarden</span
+          ><Button label="Kies voorwaarden" class="btn-outlined" />
+        </div>
+      </section>
     </div>
 
     <OrdersAdd_CustomerSearch v-model="customerSearchVisible" />
-  </div>
+  </AddPageLayout>
 </template>
 
 <style scoped>
-  /* ── Section headings ─────────────────────────────────────── */
-  .section-heading {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--p-gray-800);
-    margin: 0;
-  }
-
   /* ── Form layout ──────────────────────────────────────────── */
   .form-row {
     display: grid;
@@ -463,36 +411,6 @@
     font-size: 0.875rem;
     color: var(--p-gray-500);
     padding-top: 0.375rem;
-  }
-
-  /* ── Section nav ─────────────────────────────────────────── */
-  .section-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.8125rem;
-    color: var(--p-surface-500);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition:
-      color 0.15s ease,
-      background 0.15s ease;
-  }
-
-  .section-nav-item::before {
-    content: '›';
-    font-size: 1.1rem;
-    line-height: 1;
-    color: var(--p-surface-400);
-  }
-
-  .section-nav-item:hover {
-    color: var(--p-surface-700);
-    background: var(--p-surface-100);
   }
 
   /* ── Mode cards ───────────────────────────────────────────── */

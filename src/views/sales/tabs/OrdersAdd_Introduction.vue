@@ -1,15 +1,15 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { useScrollNav } from '@/composables/useScrollNav';
   import OrdersAdd_CustomerSearch from '../sidebars/OrdersAdd_CustomerSearch.vue';
-
-  const { scrollTo } = useScrollNav();
-
-  const sectionDetails = ref<HTMLElement | null>(null);
-  const sectionAddress = ref<HTMLElement | null>(null);
-  const sectionChannel = ref<HTMLElement | null>(null);
-  const sectionRecommended = ref<HTMLElement | null>(null);
   import OrdersAdd_AppointmentSearch from '../sidebars/OrdersAdd_AppointmentSearch.vue';
+  import AddPageNav from '@/components/layout/AddPageNav.vue';
+
+  const sections = [
+    { id: 'details', label: 'Je gegevens', description: 'Naam, e-mail en contact' },
+    { id: 'address', label: 'Je adres', description: 'Bezorgadres' },
+    { id: 'channel', label: 'Kanaal', description: 'Verkoop en vestiging' },
+    { id: 'recommended', label: 'Aanbevolen', description: 'Optioneel' },
+  ];
 
   type Mode = 'search' | 'new' | null;
   const mode = ref<Mode>('search');
@@ -118,21 +118,20 @@
 </script>
 
 <template>
-  <StepPanel v-slot="{ activateCallback }" :value="2" class="flex flex-col grow">
-    <div class="flex grow gap-10 pt-2">
+  <StepPanel :value="2" class="flex flex-col grow view-card p-5">
+    <div class="flex grow items-start">
       <!-- ── Section nav ─────────────────────────────────────── -->
-      <aside class="sticky top-6 self-start flex flex-col gap-1 w-36 shrink-0 pt-1">
-        <button class="section-nav-item" @click="scrollTo(sectionDetails)">Je gegevens</button>
-        <button class="section-nav-item" @click="scrollTo(sectionAddress)">Je adres</button>
-        <button class="section-nav-item" @click="scrollTo(sectionChannel)">Kanaal</button>
-        <button class="section-nav-item" @click="scrollTo(sectionRecommended)">Aanbevolen</button>
-      </aside>
+      <AddPageNav :sections="sections" />
 
       <!-- ── Main content ────────────────────────────────────── -->
-      <div class="flex flex-col flex-1 min-w-0 pb-4">
+      <div class="flex flex-col flex-1 min-w-0 py-2 pl-5 border-l border-gray-100">
         <!-- Je gegevens ──────────────────────────────────────── -->
-        <section ref="sectionDetails" class="flex flex-col gap-4 py-1 pb-6">
-          <h2 class="section-heading">Je gegevens</h2>
+        <section id="details" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-user add-section-icon" />
+            <div class="add-section-title">Je gegevens</div>
+          </div>
+          <div class="flex flex-col gap-4">
 
           <div class="grid grid-cols-2 gap-3">
             <button
@@ -294,13 +293,16 @@
               </div>
             </div>
           </Transition>
+          </div>
         </section>
 
-        <Divider class="my-0!" />
-
         <!-- Je adres ──────────────────────────────────────────── -->
-        <section ref="sectionAddress" class="flex flex-col gap-4 py-6">
-          <h2 class="section-heading">Je adres</h2>
+        <section id="address" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-map-marker add-section-icon" />
+            <div class="add-section-title">Je adres</div>
+          </div>
+          <div class="flex flex-col gap-4">
 
           <Transition name="fade-slide" mode="out-in">
             <div v-if="mode === 'search'" key="addr-search" class="flex flex-col gap-2">
@@ -432,13 +434,16 @@
               Selecteer eerst een klant hierboven.
             </p>
           </Transition>
+          </div>
         </section>
 
-        <Divider class="my-0!" />
-
         <!-- Kanaal ───────────────────────────────────────────── -->
-        <section ref="sectionChannel" class="flex flex-col gap-4 py-6">
-          <h2 class="section-heading">Kanaal</h2>
+        <section id="channel" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-send add-section-icon" />
+            <div class="add-section-title">Kanaal</div>
+          </div>
+          <div class="flex flex-col gap-4">
           <div class="form-row items-center">
             <span class="form-label">Kanaal</span
             ><SelectButton
@@ -487,14 +492,16 @@
               class="flex-1"
             />
           </div>
+          </div>
         </section>
 
-        <Divider class="my-0!" />
-
         <!-- Aanbevolen door ───────────────────────────────────── -->
-        <section ref="sectionRecommended" class="flex flex-col gap-4 py-6">
-          <h2 class="section-heading">Ben je aanbevolen door iemand?</h2>
-
+        <section id="recommended" class="add-section">
+          <div class="add-section-hdr">
+            <i class="pi pi-thumbs-up add-section-icon" />
+            <div class="add-section-title">Ben je aanbevolen door iemand?</div>
+          </div>
+          <div class="flex flex-col gap-4">
           <div class="grid grid-cols-2 gap-3">
             <button
               class="mode-card mode-card--neutral"
@@ -598,18 +605,9 @@
               </div>
             </div>
           </Transition>
+          </div>
         </section>
       </div>
-    </div>
-
-    <div class="flex pt-4 justify-between">
-      <Button label="Terug" class="btn-back" icon="pi pi-arrow-left" @click="activateCallback(1)" />
-      <Button
-        label="Volgende"
-        severity="secondary"
-        icon="pi pi-arrow-right"
-        @click="activateCallback(3)"
-      />
     </div>
 
     <OrdersAdd_CustomerSearch v-model="customerSearchVisible" />
@@ -619,13 +617,6 @@
 </template>
 
 <style scoped>
-  .section-heading {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--p-gray-800);
-    margin: 0;
-  }
-
   .form-row {
     display: grid;
     grid-template-columns: 220px 1fr;
@@ -635,33 +626,6 @@
     font-size: 0.875rem;
     color: var(--p-gray-500);
     padding-top: 0.375rem;
-  }
-
-  .section-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.8125rem;
-    color: var(--p-surface-500);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition:
-      color 0.15s ease,
-      background 0.15s ease;
-  }
-  .section-nav-item::before {
-    content: '›';
-    font-size: 1.1rem;
-    line-height: 1;
-    color: var(--p-surface-400);
-  }
-  .section-nav-item:hover {
-    color: var(--p-surface-700);
-    background: var(--p-surface-100);
   }
 
   .mode-card {

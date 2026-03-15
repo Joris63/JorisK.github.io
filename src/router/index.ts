@@ -11,6 +11,7 @@ import QuotationsOverview from '@/views/sales/QuotationsOverview.vue';
 import QuotationEdit from '@/views/sales/QuotationEdit.vue';
 import LocationsOverview from '@/views/logistics/LocationsOverview.vue';
 import StoreEdit from '@/views/logistics/StoreEdit.vue';
+import StoreAdd from '@/views/logistics/StoreAdd.vue';
 import WarehouseEdit from '@/views/logistics/WarehouseEdit.vue';
 
 const router = createRouter({
@@ -87,6 +88,18 @@ const router = createRouter({
       component: LocationsOverview,
       meta: {
         breadcrumbs: ['Logistiek', 'Locaties'],
+      },
+    },
+    {
+      path: '/logistics/locations/stores/new',
+      name: 'StoreAdd',
+      component: StoreAdd,
+      meta: {
+        breadcrumbs: [
+          'Logistiek',
+          { label: 'Locaties', route: '/logistics/locations' },
+          'Nieuwe winkel',
+        ],
       },
     },
     {

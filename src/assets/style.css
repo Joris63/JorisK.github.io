@@ -6,6 +6,7 @@
 @import './drawer.css';
 @import './cards.css';
 @import './edit.css';
+@import './add.css';
 @import './overview.css';
 
 @theme inline {

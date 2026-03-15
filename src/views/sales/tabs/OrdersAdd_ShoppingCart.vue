@@ -4,6 +4,7 @@
   import type { CartItem } from '@/types/orders';
 
   const props = withDefaults(defineProps<{ readonly?: boolean }>(), { readonly: false });
+  const emit = defineEmits<{ addToGroup: [groupId: string] }>();
 
   const {
     groups,
@@ -24,12 +25,22 @@
   } = useOrderCart();
 
   const activeGroups = ref<string[]>(['0', '1', '2']);
+  const activeGroupId = ref<string | null>(null);
+
+  const SUGGESTIONS = [
+    'Badmeubel',
+    'Douche',
+    'Verwarming',
+    'Tegels',
+    'Toilet',
+    'Onderhoudsmiddelen',
+  ];
 
   function scrollToGroup(groupId: string) {
+    activeGroupId.value = groupId;
     if (!activeGroups.value.includes(groupId)) {
       activeGroups.value = [...activeGroups.value, groupId];
     }
-    // Wait for accordion to open before scrolling
     setTimeout(() => {
       document
         .getElementById(`group-${groupId}`)
@@ -41,7 +52,6 @@
   const imageErrors = ref<Record<string, boolean>>({});
 
   // PrimeVue v4 expandedRows object format: { [dataKey]: boolean }
-  // Keyed by group.id → inner object keyed by productCode
   const expandedRows = ref<Record<string, Record<string, boolean>>>({
     '0': {},
     '1': {},
@@ -109,142 +119,124 @@
 </script>
 
 <template>
-  <div class="flex gap-3">
-    <!-- Sidebar -->
-    <div class="w-2/10 flex flex-col">
-      <!-- Groepen header -->
-      <div class="flex items-center justify-between px-1 mb-1">
-        <span class="text-xs font-bold tracking-wider uppercase text-gray-400">Groepen</span>
-        <Button
-          v-if="!props.readonly"
-          rounded
-          icon="pi pi-plus"
-          variant="text"
-          severity="secondary"
-          size="small"
-        />
-      </div>
+  <div class="cart-shell">
+    <!-- ── Sidebar ────────────────────────────────────────────── -->
+    <div class="cart-sidebar flex flex-col shrink-0">
+      <!-- Groups -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-hdr">
+          <span class="sidebar-label">Groepen</span>
+          <Button
+            v-if="!props.readonly"
+            icon="pi pi-plus"
+            variant="text"
+            severity="secondary"
+            rounded
+            size="small"
+            class="sidebar-add-btn"
+            v-tooltip.top="'Groep toevoegen'"
+          />
+        </div>
 
-      <!-- Group nav items -->
-      <Menu ref="groupMenu" :model="groupMenuItems" popup />
-      <div class="flex flex-col gap-0.5">
-        <div
-          v-for="group in groups"
-          :key="group.id"
-          class="group flex items-center rounded-lg hover:bg-gray-100 transition-colors"
-        >
-          <button
-            class="flex items-center flex-1 min-w-0 px-3 py-1.5 text-left border-0 bg-transparent text-gray-600 cursor-pointer"
+        <Menu ref="groupMenu" :model="groupMenuItems" popup />
+        <div class="flex flex-col gap-0.5">
+          <div
+            v-for="group in groups"
+            :key="group.id"
+            class="group sidebar-group-item"
+            :class="{ 'sidebar-group-item--active': activeGroupId === group.id }"
             @click="scrollToGroup(group.id)"
           >
-            <span class="truncate">{{ group.name }}</span>
-            <span
-              v-if="group.items.length > 0"
-              class="ml-2 shrink-0 text-xs rounded-full px-1.5 py-0.5 tabular-nums bg-gray-200 text-gray-500"
-            >
-              {{ group.items.length }}
-            </span>
-          </button>
-          <button
-            v-if="!props.readonly"
-            class="opacity-0 group-hover:opacity-100 mr-1.5 shrink-0 w-5 h-5 flex items-center justify-center rounded hover:bg-gray-200 border-0 bg-transparent cursor-pointer text-gray-400 transition-opacity p-0"
-            @click="toggleGroupMenu($event)"
-          >
-            <i class="pi pi-ellipsis-h text-xs" />
-          </button>
+            <span class="truncate text-sm flex-1">{{ group.name }}</span>
+            <div class="sidebar-item-end">
+              <span v-if="group.items.length > 0" class="sidebar-count group-hover:opacity-0">{{
+                group.items.length
+              }}</span>
+              <button
+                v-if="!props.readonly"
+                class="sidebar-group-menu opacity-0 group-hover:opacity-100"
+                @click.stop="toggleGroupMenu($event)"
+              >
+                <i class="pi pi-ellipsis-h" style="font-size: 0.7rem" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Suggesties header -->
-      <div v-if="!props.readonly" class="px-1 mb-1 mt-4">
-        <span class="text-xs font-bold tracking-wider uppercase text-gray-400">Suggesties</span>
-      </div>
-      <div v-if="!props.readonly" class="flex flex-col">
-        <Button
-          label="Badmeubel"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
-        <Button
-          label="Badmeubel"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
-        <Button
-          label="Douche"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
-        <Button
-          label="Verwarming"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
-        <Button
-          label="Tegels"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
-        <Button
-          label="Toilet"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
-        <Button
-          label="Onderhoudsmiddelen"
-          variant="text"
-          severity="secondary"
-          icon="pi pi-plus"
-          class="justify-start! px-3!"
-          size="small"
-        />
+      <!-- Suggestions -->
+      <div v-if="!props.readonly" class="sidebar-section mt-4">
+        <div class="sidebar-section-hdr">
+          <span class="sidebar-label">Suggesties</span>
+        </div>
+        <div class="flex flex-col">
+          <Button
+            v-for="s in SUGGESTIONS"
+            :key="s"
+            :label="s"
+            variant="text"
+            severity="secondary"
+            icon="pi pi-plus"
+            class="justify-start! px-2!"
+            size="small"
+          />
+        </div>
       </div>
     </div>
 
-    <!-- Shared popup menu for secondary row actions -->
+    <!-- ── Shared popup menus ─────────────────────────────────── -->
     <Menu ref="actionMenu" :model="rowMenuItems" popup />
     <ContextMenu ref="contextMenu" :model="rowMenuItems" />
 
-    <!-- Accordion + DataTable -->
-    <div class="cart-groups w-8/10 flex flex-col gap-3">
+    <!-- ── Accordion + totals ─────────────────────────────────── -->
+    <div class="cart-main">
       <Accordion v-model:value="activeGroups" multiple>
         <AccordionPanel
           v-for="(group, index) in groups"
           :key="group.id"
           :value="group.id"
           :id="`group-${group.id}`"
-          :class="{ 'panel-primary': group.id !== '0', 'panel-default': group.id === '0' }"
+          :class="{
+            'panel-primary': group.id !== '0',
+            'panel-default': group.id === '0',
+          }"
         >
-          <AccordionHeader :pt="{ root: { as: 'div', role: 'button', tabindex: '0' } }">
+          <AccordionHeader
+            :pt="{
+              root: {
+                as: 'div',
+                role: 'button',
+                tabindex: '0',
+                class: 'rounded-none!',
+              },
+            }"
+          >
             <div class="flex items-center gap-2 flex-1 min-w-0">
               <span class="font-semibold truncate">{{ group.name }}</span>
-              <i v-if="group.id === '0'" class="pi pi-info-circle text-gray-400 shrink-0" />
+              <i
+                v-if="group.id === '0'"
+                class="pi pi-info-circle text-gray-400 shrink-0"
+                style="font-size: 0.8rem"
+              />
               <span
                 v-if="group.items.length > 0 && !activeGroups.includes(group.id)"
-                class="ml-2 shrink-0 text-xs rounded-full px-1.5 py-0.5 tabular-nums bg-gray-200 text-gray-500"
+                class="panel-count"
+                >{{ group.items.length }}</span
               >
-                {{ group.items.length }}
-              </span>
             </div>
             <div class="flex items-center shrink-0 gap-1" @click.stop>
+              <template v-if="!props.readonly && !activeGroups.includes(group.id)">
+                <Button
+                  icon="pi pi-plus"
+                  variant="text"
+                  severity="secondary"
+                  rounded
+                  class="header-action-btn"
+                  v-tooltip.top="'Product toevoegen'"
+                  @click="emit('addToGroup', group.id)"
+                />
+                <span class="header-divider" />
+              </template>
               <template v-if="group.id !== '0' && !props.readonly">
                 <Button
                   icon="pi pi-pencil"
@@ -290,7 +282,7 @@
               selection-mode="multiple"
               data-key="productCode"
               class="w-full"
-              :row-class="() => (group.name.includes('Garantie') ? 'row-guarantee' : '')"
+              :row-class="(data: CartItem) => ((data as any).inactive ? 'row-inactive' : '')"
               v-model:expanded-rows="expandedRows[group.id]"
               context-menu
               @row-contextmenu="onRowContextMenu"
@@ -301,9 +293,7 @@
               <Column header="Naam">
                 <template #body="{ data }">
                   <div class="flex items-center gap-3">
-                    <div
-                      class="w-10 h-10 rounded-lg shrink-0 overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center"
-                    >
+                    <div class="prod-thumb">
                       <img
                         v-if="data.imageUrl && !imageErrors[data.productCode]"
                         :src="data.imageUrl"
@@ -311,17 +301,17 @@
                         class="w-full h-full object-cover"
                         @error="imageErrors[data.productCode] = true"
                       />
-                      <i v-else class="pi pi-image text-gray-300 text-sm" />
+                      <i v-else class="pi pi-image text-gray-300" style="font-size: 0.9rem" />
                     </div>
-                    <div class="flex flex-col leading-snug">
-                      <span class="font-medium">{{ data.name }}</span>
+                    <div class="flex flex-col leading-snug min-w-0">
+                      <span class="font-medium text-sm truncate">{{ data.name }}</span>
                       <span class="text-xs text-gray-400">{{ data.productCode }}</span>
                     </div>
                   </div>
                 </template>
               </Column>
 
-              <!-- Beschikbaarheid (voorraad + levertijd merged) -->
+              <!-- Beschikbaarheid -->
               <Column header="Beschikbaarheid">
                 <template #body="{ data }">
                   <div class="flex items-center gap-1.5">
@@ -329,15 +319,16 @@
                       :class="
                         data.stock > 0
                           ? 'pi pi-check-circle text-green-500'
-                          : 'pi pi-times-circle text-red-500'
+                          : 'pi pi-times-circle text-red-400'
                       "
+                      style="font-size: 0.85rem"
                     />
-                    <span class="text-sm text-gray-500">{{ data.deliveryTime }}</span>
+                    <span class="text-xs text-gray-500">{{ data.deliveryTime }}</span>
                   </div>
                 </template>
               </Column>
 
-              <!-- Quantity spinner -->
+              <!-- Quantity -->
               <Column header="Aantal" style="width: 8rem">
                 <template #body="{ data }">
                   <InputNumber
@@ -360,7 +351,7 @@
                       >{{ formatPrice(data.price) }}</span
                     >
                     <span
-                      class="font-medium"
+                      class="text-sm font-medium"
                       :class="
                         data.discountPercent > 0 || data.discountAmount > 0 ? 'discount-price' : ''
                       "
@@ -382,20 +373,19 @@
               <Column header="Totaal">
                 <template #body="{ data }">
                   <span
-                    class="font-semibold"
+                    class="text-sm font-semibold"
                     :class="
                       data.discountPercent > 0 || data.discountAmount > 0 ? 'discount-price' : ''
                     "
+                    >{{ formatPrice(rowTotal(data)) }}</span
                   >
-                    {{ formatPrice(rowTotal(data)) }}
-                  </span>
                 </template>
               </Column>
 
               <!-- Actions -->
               <Column style="width: 1px; white-space: nowrap">
                 <template #body="{ data }">
-                  <div class="flex items-center gap-0.5">
+                  <div class="flex items-center gap-1">
                     <Button
                       icon="pi pi-ellipsis-h"
                       variant="text"
@@ -475,7 +465,7 @@
                         ? `${data.discountPercent} %`
                         : formatPrice(data.discountAmount)
                     }}
-                    <span class="text-xs text-gray-400 mr-auto">korting</span>
+                    <span class="text-xs text-gray-400 ml-1">korting</span>
                   </span>
                   <div
                     v-if="!props.readonly"
@@ -494,32 +484,37 @@
               </template>
             </DataTable>
 
-            <!-- Group subtotal -->
-            <div
-              v-if="groupItemCount(group) > 0"
-              class="flex items-center justify-between px-4 py-2.5 border-t border-gray-200 bg-gray-50 text-sm"
+            <!-- Add product to group -->
+            <button
+              v-if="!props.readonly"
+              class="add-product-row"
+              @click="emit('addToGroup', group.id)"
             >
+              <i class="pi pi-plus" style="font-size: 0.7rem" />
+              <span>Product toevoegen aan groep</span>
+            </button>
+
+            <!-- Group subtotal -->
+            <div v-if="groupItemCount(group) > 0" class="group-subtotal">
               <span class="text-gray-500">
-                Subtotaal, {{ groupItemCount(group) }}
+                Subtotaal — {{ groupItemCount(group) }}
                 {{ groupItemCount(group) === 1 ? 'product' : 'producten' }}
               </span>
-              <span class="font-medium">{{ formatPrice(groupTotal(group)) }}</span>
+              <span class="font-semibold">{{ formatPrice(groupTotal(group)) }}</span>
             </div>
           </AccordionContent>
         </AccordionPanel>
       </Accordion>
 
-      <!-- Cart summary footer -->
-      <div class="rounded-lg border border-gray-200 bg-white mt-1 overflow-hidden">
-        <!-- Expandable order discount row (top) -->
+      <!-- ── Cart totals card ──────────────────────────────────── -->
+      <div class="cart-totals-card">
+        <!-- Expandable order discount / shipping row -->
         <Transition name="fade-slide">
           <div
             v-if="orderDiscountExpanded"
-            class="flex items-center justify-end gap-3 px-4 py-2.5 border-b border-gray-200 bg-gray-50"
+            class="flex items-center justify-end gap-3 px-5 py-3 border-b border-gray-100 bg-gray-50"
           >
-            <span class="text-xs text-gray-400 mr-auto"
-              >Deze korting geldt op de gehele bestelling</span
-            >
+            <span class="text-xs text-gray-400 mr-auto">Korting op gehele bestelling</span>
             <InputNumber
               v-if="!props.readonly"
               v-model="orderDiscountPercent"
@@ -547,7 +542,7 @@
                   ? `${orderDiscountPercent} %`
                   : formatPrice(orderDiscountAmount)
               }}
-              <span class="text-xs text-gray-400 mr-auto">korting</span>
+              <span class="text-xs text-gray-400 ml-1">korting</span>
             </span>
             <div
               v-if="!props.readonly"
@@ -567,66 +562,65 @@
                 :input-style="{ width: '5rem', textAlign: 'right' }"
                 class="discount-input"
               />
-              <span v-if="props.readonly"> {{ formatPrice(shippingCostValue) }}</span>
-              <span class="text-xs text-gray-400">€</span>
+              <span v-if="props.readonly">{{ formatPrice(shippingCostValue) }}</span>
             </div>
             <Button
-              icon="pi pi-minus"
+              icon="pi pi-times"
               variant="text"
               severity="secondary"
               size="small"
               rounded
-              class="shrink-0 ml-1"
+              class="shrink-0"
               @click="orderDiscountExpanded = false"
             />
           </div>
         </Transition>
 
-        <!-- Main row -->
-        <div class="flex items-center justify-between px-4 py-3 gap-6">
-          <!-- Left: item count -->
-          <span class="text-sm text-gray-500 shrink-0 flex items-center">
-            Totaal (incl. BTW), {{ cartItemCount }}
-            {{ cartItemCount === 1 ? 'product' : 'producten' }}
-            <i class="pi pi-info-circle ml-1" />
-          </span>
+        <!-- Summary rows -->
+        <div class="px-5 py-4 flex flex-col gap-1.5">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-gray-400"
+              >{{ cartItemCount }} {{ cartItemCount === 1 ? 'product' : 'producten' }}</span
+            >
+            <Button
+              v-if="!orderDiscountExpanded && !props.readonly"
+              icon="pi pi-plus"
+              icon-pos="left"
+              variant="text"
+              severity="secondary"
+              size="small"
+              class="totals-add-btn"
+              @click="orderDiscountExpanded = true"
+            />
+          </div>
 
-          <!-- Right: price breakdown -->
-          <div class="flex flex-col gap-1 min-w-56">
-            <div class="flex justify-end mb-0.5">
-              <Button
-                v-if="!orderDiscountExpanded"
-                icon="pi pi-plus"
-                variant="text"
-                severity="secondary"
-                size="small"
-                rounded
-                @click="orderDiscountExpanded = true"
-              />
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-gray-500">Subtotaal</span>
-              <span>{{ formatPrice(cartSubtotal) }}</span>
-            </div>
-            <div v-if="cartDiscount > 0" class="flex justify-between text-sm">
-              <span class="text-gray-500">Extra korting</span>
-              <span class="discount-price">{{ formatPrice(-cartDiscount) }}</span>
-            </div>
-            <div v-if="orderDiscountValue > 0" class="flex justify-between text-sm">
-              <span class="text-gray-500">Orderkorting</span>
-              <span class="discount-price">{{ formatPrice(-orderDiscountValue) }}</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="text-gray-500">Verzendkosten</span>
-              <span :class="shippingCostValue === 0 ? 'text-primary font-medium' : ''">
-                {{ shippingCostValue === 0 ? 'Gratis' : formatPrice(shippingCostValue) }}
-              </span>
-            </div>
-            <Divider class="my-1" />
-            <div class="flex justify-between items-baseline">
-              <span class="text-sm font-semibold">Totaal (incl. BTW)</span>
-              <span class="text-lg font-semibold">{{ formatPrice(orderTotal) }}</span>
-            </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-500">Subtotaal</span>
+            <span>{{ formatPrice(cartSubtotal) }}</span>
+          </div>
+          <div v-if="cartDiscount > 0" class="flex justify-between text-sm">
+            <span class="text-gray-500">Kortingen</span>
+            <span class="discount-price">−{{ formatPrice(cartDiscount) }}</span>
+          </div>
+          <div v-if="orderDiscountValue > 0" class="flex justify-between text-sm">
+            <span class="text-gray-500">Orderkorting</span>
+            <span class="discount-price">−{{ formatPrice(orderDiscountValue) }}</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-500">Verzendkosten</span>
+            <span :class="shippingCostValue === 0 ? 'text-primary font-medium' : ''">
+              {{ shippingCostValue === 0 ? 'Gratis' : formatPrice(shippingCostValue) }}
+            </span>
+          </div>
+
+          <Divider class="my-1" />
+
+          <div class="flex justify-between items-baseline">
+            <span class="font-semibold text-gray-800">
+              Totaal
+              <span class="text-xs font-normal text-gray-400 ml-0.5">(incl. BTW)</span>
+            </span>
+            <span class="text-xl font-bold tracking-tight">{{ formatPrice(orderTotal) }}</span>
           </div>
         </div>
       </div>
@@ -635,266 +629,479 @@
 </template>
 
 <style scoped>
-  /* ── Accordion shell ─────────────────────────────────────── */
-  .cart-groups :deep(.p-accordion) {
-    border: none;
-    gap: 0.75rem;
+  /* ── Shell layout ────────────────────────────────────────── */
+  .cart-shell {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────────────── */
+  .cart-sidebar {
+    width: 17rem;
+    flex-shrink: 0;
+    border-right: 1px solid var(--p-gray-200);
+    background: var(--p-gray-50);
+    padding: 0.75rem 0.625rem 0.75rem;
+    overflow-y: auto;
+  }
+
+  .sidebar-section {
     display: flex;
     flex-direction: column;
   }
 
-  /* ── Panel card ──────────────────────────────────────────── */
-  .cart-groups :deep(.p-accordionpanel) {
-    border: 1px solid var(--p-gray-200);
-    border-radius: 0.5rem;
-    overflow: hidden;
+  .sidebar-section-hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem 0.375rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--p-surface-400);
+  }
+
+  .sidebar-add-btn {
+    width: 1.625rem !important;
+    height: 1.625rem !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    font-size: 0.7rem !important;
+  }
+
+  .sidebar-group-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    gap: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    color: var(--p-gray-600);
     transition:
-      border-color 0.15s ease,
-      box-shadow 0.15s ease;
+      background 0.1s ease,
+      color 0.1s ease;
+    font-size: 0.8125rem;
   }
 
-  .cart-groups :deep(.p-accordionpanel:hover) {
-    border-color: var(--p-gray-300);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  .sidebar-group-item:hover {
+    background: var(--p-gray-100);
+    color: var(--p-gray-800);
   }
 
-  .cart-groups :deep(.p-accordionpanel[data-p-active='true']) {
-    border-color: var(--p-gray-300);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  .sidebar-group-item--active {
+    background: var(--p-primary-50);
+    color: var(--p-primary-700);
+  }
+
+  .sidebar-group-item--active:hover {
+    background: var(--p-primary-100);
+  }
+
+  .sidebar-item-end {
+    position: relative;
+    width: 1.375rem;
+    height: 1.375rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+
+  .sidebar-count {
+    font-size: 0.7rem;
+    background: var(--p-gray-200);
+    color: var(--p-gray-500);
+    border-radius: 999px;
+    padding: 0.1rem 0.4rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    transition: opacity 0.1s ease;
+  }
+
+  .sidebar-group-item--active .sidebar-count {
+    background: var(--p-primary-100);
+    color: var(--p-primary-600);
+  }
+
+  .sidebar-group-menu {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    color: var(--p-gray-400);
+    transition:
+      background 0.1s ease,
+      color 0.1s ease,
+      opacity 0.1s ease;
+  }
+
+  .sidebar-group-menu:hover {
+    background: var(--p-gray-200);
+    color: var(--p-gray-700);
+  }
+
+  /* ── Main cart area ──────────────────────────────────────── */
+  .cart-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    overflow-y: auto;
+  }
+
+  /* ── Accordion shell ─────────────────────────────────────── */
+  .cart-main :deep(.p-accordion) {
+    border: none;
+    gap: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Panel — flat section ────────────────────────────────── */
+  .cart-main :deep(.p-accordionpanel) {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--p-gray-100);
+    overflow: hidden;
+    transition: none;
+  }
+
+  .cart-main :deep(.p-accordionpanel:hover) {
+    border-color: var(--p-gray-100);
+    box-shadow: none;
+  }
+
+  .cart-main :deep(.p-accordionpanel[data-p-active='true']) {
+    border-color: var(--p-gray-100);
+    box-shadow: none;
   }
 
   /* ── Header base ─────────────────────────────────────────── */
-  .cart-groups :deep(.p-accordionheader) {
+  .cart-main :deep(.p-accordionheader) {
     gap: 0;
     background: var(--p-gray-0);
     border: none;
-    border-bottom: 1px solid var(--p-gray-200);
+    border-bottom: 1px solid var(--p-gray-100);
+    border-left: 3px solid transparent;
     border-radius: 0;
-    padding: 0.65rem 1rem;
+    padding: 0.6rem 0.875rem;
     font-size: 0.875rem;
-    transition:
-      background 0.15s ease,
-      border-color 0.15s ease;
+    transition: background 0.15s ease;
     cursor: pointer;
   }
 
-  .cart-groups :deep(.p-accordionheader:hover) {
+  .cart-main :deep(.p-accordionheader:hover) {
     background: var(--p-gray-50);
   }
 
-  .cart-groups :deep(.p-accordionpanel[data-p-active='true'] .p-accordionheader) {
+  .cart-main :deep(.p-accordionpanel[data-p-active='true'] .p-accordionheader) {
     background: var(--p-gray-50);
-    border-bottom-color: var(--p-gray-300);
+    border-bottom-color: var(--p-gray-200);
   }
 
   /* ── Toggle chevron ──────────────────────────────────────── */
-  .cart-groups :deep(.p-accordionheader-toggle-icon) {
+  .cart-main :deep(.p-accordionheader-toggle-icon) {
     order: -1;
     margin-right: 0.375rem;
     color: var(--p-gray-400);
-    width: 0.875rem;
-    height: 0.875rem;
-    transition: color 0.15s ease;
+    width: 0.8rem;
+    height: 0.8rem;
   }
 
-  .cart-groups :deep(.p-accordionpanel[data-p-active='true'] .p-accordionheader-toggle-icon) {
-    color: var(--p-gray-600);
+  /* ── Primary panel (named groups) ────────────────────────── */
+  .cart-main :deep(.panel-primary:hover) {
+    border-color: var(--p-gray-100) !important;
+    box-shadow: none !important;
   }
 
-  /* ── Primary panel card ──────────────────────────────────── */
-  .cart-groups :deep(.panel-primary) {
-    border-color: var(--p-primary-200);
+  .cart-main :deep(.panel-primary[data-p-active='true']) {
+    border-color: var(--p-gray-100) !important;
+    box-shadow: none !important;
   }
 
-  .cart-groups :deep(.panel-primary:hover) {
-    border-color: var(--p-primary-300) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
-  }
-
-  .cart-groups :deep(.panel-primary[data-p-active='true']) {
-    border-color: var(--p-primary-300) !important;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-  }
-
-  /* ── Primary header ──────────────────────────────────────── */
-  .cart-groups :deep(.panel-primary .p-accordionheader) {
+  .cart-main :deep(.panel-primary .p-accordionheader) {
     background: var(--p-primary-50);
-    border-bottom-color: var(--p-primary-200);
+    border-bottom-color: var(--p-primary-100);
+    border-left-color: var(--p-primary-400);
     color: var(--p-primary-800);
   }
 
-  .cart-groups :deep(.panel-primary .p-accordionheader:hover) {
+  .cart-main :deep(.panel-primary .p-accordionheader:hover) {
     background: var(--p-primary-100) !important;
-    border-bottom-color: var(--p-primary-200);
   }
 
-  .cart-groups :deep(.panel-primary[data-p-active='true'] .p-accordionheader) {
+  .cart-main :deep(.panel-primary[data-p-active='true'] .p-accordionheader) {
     background: var(--p-primary-100) !important;
-    border-bottom-color: var(--p-primary-300) !important;
-    color: var(--p-primary-900);
+    border-bottom-color: var(--p-primary-200) !important;
   }
 
-  .cart-groups :deep(.panel-primary .p-accordionheader-toggle-icon) {
+  .cart-main :deep(.panel-primary .p-accordionheader-toggle-icon) {
     order: -1;
     color: var(--p-primary-400);
   }
 
-  .cart-groups :deep(.panel-primary[data-p-active='true'] .p-accordionheader-toggle-icon) {
+  .cart-main :deep(.panel-primary[data-p-active='true'] .p-accordionheader-toggle-icon) {
     color: var(--p-primary-600) !important;
   }
 
-  /* ── Default panel card (Ongegroepeerd) ──────────────────── */
-  .cart-groups :deep(.panel-default) {
-    border-color: var(--p-gray-200);
-  }
-
-  .cart-groups :deep(.panel-default:hover) {
-    border-color: var(--p-gray-300) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  .cart-groups :deep(.panel-default[data-p-active='true']) {
-    border-color: var(--p-gray-300) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
-  }
-
-  .cart-groups :deep(.panel-default .p-accordionheader) {
+  /* ── Default panel (Ongegroepeerd) ───────────────────────── */
+  .cart-main :deep(.panel-default .p-accordionheader) {
     background: var(--p-gray-50);
-    border-bottom-color: var(--p-gray-200);
     color: var(--p-gray-700);
+    border-left-color: var(--p-gray-300);
   }
 
-  .cart-groups :deep(.panel-default .p-accordionheader:hover) {
+  .cart-main :deep(.panel-default .p-accordionheader:hover) {
     background: var(--p-gray-100) !important;
-    border-bottom-color: var(--p-gray-200);
   }
 
-  .cart-groups :deep(.panel-default[data-p-active='true'] .p-accordionheader) {
+  .cart-main :deep(.panel-default[data-p-active='true'] .p-accordionheader) {
     background: var(--p-gray-100) !important;
-    border-bottom-color: var(--p-gray-300) !important;
-    color: var(--p-gray-800);
+    border-bottom-color: var(--p-gray-200) !important;
   }
 
-  .cart-groups :deep(.panel-default .p-accordionheader-toggle-icon) {
+  .cart-main :deep(.panel-default .p-accordionheader-toggle-icon) {
     order: -1;
     color: var(--p-gray-400);
   }
 
-  .cart-groups :deep(.panel-default[data-p-active='true'] .p-accordionheader-toggle-icon) {
-    color: var(--p-gray-500) !important;
+  /* ── Header divider ──────────────────────────────────────── */
+  .header-divider {
+    display: inline-block;
+    width: 1px;
+    height: 1rem;
+    background: currentColor;
+    opacity: 0.15;
+    margin: 0 0.125rem;
+    flex-shrink: 0;
   }
 
-  /* ── Action buttons ──────────────────────────────────────── */
-  .cart-groups :deep(.header-action-btn) {
+  /* ── Header action + reorder buttons ─────────────────────── */
+  .cart-main :deep(.header-action-btn) {
     color: var(--p-gray-400) !important;
-    width: 1.75rem !important;
-    height: 1.75rem !important;
+    width: 1.875rem !important;
+    height: 1.875rem !important;
     min-width: 0 !important;
     padding: 0 !important;
-    transition:
-      color 0.15s ease,
-      background 0.15s ease !important;
   }
 
-  .cart-groups :deep(.header-action-btn:hover) {
+  .cart-main :deep(.header-action-btn:hover) {
     color: var(--p-gray-700) !important;
     background: rgba(0, 0, 0, 0.06) !important;
   }
 
-  .cart-groups :deep(.reorder-btn) {
-    width: 1.25rem !important;
-    height: 1.25rem !important;
-    min-width: 0 !important;
-    padding: 0 !important;
-    font-size: 0.55rem;
+  .cart-main :deep(.reorder-btn) {
+    width: 1.375rem !important;
+    height: 1.375rem !important;
+    font-size: 0.6rem;
   }
 
-  .cart-groups :deep(.panel-primary .header-action-btn) {
+  .cart-main :deep(.panel-primary .header-action-btn) {
     color: var(--p-primary-400) !important;
   }
 
-  .cart-groups :deep(.panel-primary .header-action-btn:hover) {
+  .cart-main :deep(.panel-primary .header-action-btn:hover) {
     color: var(--p-primary-700) !important;
     background: rgba(0, 0, 0, 0.07) !important;
   }
 
+  /* ── Panel count badge ───────────────────────────────────── */
+  .panel-count {
+    font-size: 0.7rem;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 999px;
+    padding: 0.1rem 0.45rem;
+    line-height: 1.3;
+  }
+
   /* ── DataTable ───────────────────────────────────────────── */
-  .cart-groups :deep(.p-accordioncontent-content) {
+  .cart-main :deep(.p-accordioncontent-content) {
     padding: 0;
   }
 
-  .cart-groups :deep(.p-datatable-thead > tr > th) {
+  .cart-main :deep(.p-datatable-thead > tr > th) {
     background: transparent;
     border-top: none;
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.75rem;
+    color: var(--p-gray-400);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
-  .cart-groups :deep(.p-datatable-tbody > tr > td) {
-    padding: 0.75rem 1rem;
+  .cart-main :deep(.p-datatable-tbody > tr > td) {
+    padding: 0.625rem 0.875rem;
+    border-bottom-color: var(--p-gray-50);
   }
 
-  /* Expansion row: no hover, no padding (inner div controls layout) */
-  .cart-groups :deep(.p-datatable-row-expansion),
-  .cart-groups :deep(.p-datatable-row-expansion:hover) {
+  /* Expansion row */
+  .cart-main :deep(.p-datatable-row-expansion),
+  .cart-main :deep(.p-datatable-row-expansion:hover) {
     background: transparent !important;
     background-color: transparent !important;
   }
 
-  .cart-groups :deep(.p-datatable-row-expansion > td),
-  .cart-groups :deep(.p-datatable-row-expansion:hover > td) {
+  .cart-main :deep(.p-datatable-row-expansion > td),
+  .cart-main :deep(.p-datatable-row-expansion:hover > td) {
     padding: 0 !important;
     background: transparent !important;
     background-color: transparent !important;
   }
 
-  /* ── Guarantee row highlight ─────────────────────────────── */
-  .cart-groups :deep(.row-guarantee > td) {
+  /* ── Inactive product row (yellow) ───────────────────────── */
+  .cart-main :deep(.row-inactive > td) {
     background-color: #fffbeb !important;
   }
 
+  /* ── Product thumbnail ───────────────────────────────────── */
+  .prod-thumb {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.375rem;
+    border: 1px solid var(--p-gray-200);
+    background: var(--p-gray-50);
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   /* ── Row action buttons ──────────────────────────────────── */
-  .cart-groups :deep(.row-action-btn) {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
+  .cart-main :deep(.row-action-btn) {
+    width: 1.875rem !important;
+    height: 1.875rem !important;
     min-width: 0 !important;
     padding: 0 !important;
   }
 
   /* ── Quantity spinner ────────────────────────────────────── */
-  .cart-groups :deep(.item-quantity.p-inputnumber) {
+  .cart-main :deep(.item-quantity.p-inputnumber) {
     display: flex;
     align-items: stretch;
-    height: 2.75rem;
+    height: 2.5rem;
   }
 
-  .cart-groups :deep(.item-quantity .p-inputnumber-input) {
-    width: 3.5rem;
+  .cart-main :deep(.item-quantity .p-inputnumber-input) {
+    width: 3rem;
     height: 100%;
-    padding: 0 0.375rem;
+    padding: 0 0.25rem;
     text-align: center;
     box-sizing: border-box;
   }
 
-  .cart-groups :deep(.item-quantity .p-inputnumber-button-group) {
+  .cart-main :deep(.item-quantity .p-inputnumber-button-group) {
     display: flex;
     flex-direction: column;
     height: 100%;
   }
 
-  .cart-groups :deep(.item-quantity .p-inputnumber-button) {
-    width: 1.75rem;
+  .cart-main :deep(.item-quantity .p-inputnumber-button) {
+    width: 1.625rem;
     flex: 1 1 0;
     min-height: 0;
     padding: 0;
   }
 
-  /* ── Discount section ────────────────────────────────────── */
-  .cart-groups :deep(.discount-input .p-inputnumber-input),
+  /* ── Add product row ─────────────────────────────────────── */
+  .add-product-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0.875rem;
+    border: none;
+    background: transparent;
+    color: var(--p-gray-500);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-top: 1px dashed var(--p-gray-200);
+    transition:
+      color 0.1s ease,
+      background 0.1s ease;
+    text-align: left;
+  }
+
+  .add-product-row:hover {
+    color: var(--p-primary-600);
+    background: var(--p-primary-50);
+  }
+
+  /* ── Group subtotal ──────────────────────────────────────── */
+  .group-subtotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.875rem;
+    border-top: 1px solid var(--p-gray-200);
+    background: var(--p-gray-50);
+    font-size: 0.8125rem;
+  }
+
+  /* ── Discount inputs ─────────────────────────────────────── */
+  .cart-main :deep(.discount-input .p-inputnumber-input),
   :deep(.discount-input .p-inputnumber-input) {
     padding: 0.25rem 0.5rem;
   }
 
+  /* ── Cart totals card ────────────────────────────────────── */
+  .cart-totals-card {
+    border: none;
+    border-top: 1px solid var(--p-gray-200);
+    background: var(--p-gray-50);
+    overflow: hidden;
+  }
+
+  .totals-add-btn {
+    font-size: 0.75rem !important;
+    padding: 0.2rem 0.5rem !important;
+    height: auto !important;
+  }
+
+  /* ── Discount/price colors ───────────────────────────────── */
   .discount-price {
     color: #e94b57;
+  }
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  .fade-slide-enter-active {
+    overflow: hidden;
+    max-height: 8rem;
+    transition:
+      opacity 0.2s ease-out,
+      max-height 0.2s ease-out,
+      transform 0.2s ease-out;
+  }
+  .fade-slide-leave-active {
+    overflow: hidden;
+    max-height: 8rem;
+    transition:
+      opacity 0.18s ease-in,
+      max-height 0.18s ease-in;
+  }
+  .fade-slide-enter-from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-4px);
+  }
+  .fade-slide-leave-to {
+    opacity: 0;
+    max-height: 0;
   }
 </style>

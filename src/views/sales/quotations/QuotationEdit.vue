@@ -140,7 +140,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* ── Avatar color (layout handled by shared .edit-hdr-avatar) ────────── */
   :deep(.qe-avatar) {
     background: linear-gradient(135deg, var(--p-primary-400) 0%, var(--p-primary-600) 100%);

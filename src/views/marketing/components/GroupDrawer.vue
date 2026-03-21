@@ -135,7 +135,7 @@
   <Drawer
     v-model:visible="visible"
     position="right"
-    :style="{ width: '34rem' }"
+    class="w-[34rem]!"
     :pt="{ content: { class: 'flex flex-col gap-0 p-0! overflow-hidden' } }"
   >
     <template #header>
@@ -220,7 +220,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .drw-section-hdr--tight {
     @apply -mb-3;
   }

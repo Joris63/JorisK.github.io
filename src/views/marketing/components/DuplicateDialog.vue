@@ -177,7 +177,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* ── Header ────────────────────────────────────────────────────────── */
   :deep(.dlg-hdr-wrap) {
     @apply pb-3.5;

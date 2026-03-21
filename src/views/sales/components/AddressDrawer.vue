@@ -48,7 +48,7 @@
     v-model:visible="visible"
     :header="isEdit ? 'Adres bewerken' : 'Nieuw adres toevoegen'"
     position="right"
-    :style="{ width: '34rem' }"
+    class="w-[34rem]!"
     :pt="{ content: { class: 'flex flex-col gap-0 p-0! overflow-hidden' } }"
   >
     <div class="drw-scroll">

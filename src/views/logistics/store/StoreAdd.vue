@@ -226,7 +226,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .options-grid {
     @apply grid grid-cols-2 gap-y-3 gap-x-10 py-1;
   }

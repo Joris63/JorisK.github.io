@@ -132,7 +132,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .comm-layout {
     @apply flex flex-col flex-1 overflow-hidden;
   }

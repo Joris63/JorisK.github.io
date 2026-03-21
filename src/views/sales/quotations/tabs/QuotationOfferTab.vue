@@ -69,7 +69,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .offer-card {
     @apply flex flex-col;
   }

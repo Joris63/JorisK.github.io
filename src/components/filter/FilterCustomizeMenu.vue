@@ -65,7 +65,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .customize-btn {
     @apply flex items-center justify-center border-none bg-none text-(--sw-text-muted) cursor-pointer rounded-md shrink-0 w-8 h-8 text-[0.9rem];
     transition: color var(--sw-duration-base), background var(--sw-duration-base);

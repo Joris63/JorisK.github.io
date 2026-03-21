@@ -232,7 +232,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* ── Search dropdown ─────────────────────────────────────── */
   .search-dropdown {
     @apply max-h-[18rem] overflow-y-auto;

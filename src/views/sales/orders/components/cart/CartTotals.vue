@@ -141,7 +141,7 @@ const {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 .cart-totals-card {
   @apply border-0 border-t border-(--p-gray-200) bg-(--p-gray-50) overflow-hidden;
 }

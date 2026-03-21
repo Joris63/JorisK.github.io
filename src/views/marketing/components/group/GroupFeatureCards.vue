@@ -238,7 +238,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .drw-site {
     @apply font-medium text-(--sw-text-label) text-[0.8125rem];
   }

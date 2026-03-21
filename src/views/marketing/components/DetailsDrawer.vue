@@ -63,7 +63,7 @@
   <Drawer
     v-model:visible="visible"
     position="right"
-    :style="{ width: '30rem' }"
+    class="w-[30rem]!"
     :pt="{ content: { class: 'flex flex-col gap-0 p-0! overflow-hidden' } }"
   >
     <template #header>
@@ -121,7 +121,7 @@
             :disabled="isVerlopen"
             placeholder="Startdatum"
           />
-          <span class="text-gray-300 text-sm shrink-0">→</span>
+          <span class="text-(--sw-border-input) text-sm shrink-0">→</span>
           <DatePicker
             v-model="form.einddatum"
             date-format="dd-mm-yy"
@@ -154,27 +154,3 @@
   </Drawer>
 </template>
 
-<style scoped>
-@reference "tailwindcss";
-  .drw-pending-sites {
-    @apply flex items-start flex-wrap gap-2;
-  }
-  .drw-pending-label {
-    @apply text-xs text-[var(--p-gray-400)] whitespace-nowrap pt-1;
-  }
-  .drw-pending-chips {
-    @apply flex flex-wrap;
-    gap: 0.35rem;
-  }
-  .drw-pending-chip {
-    @apply inline-flex items-center rounded-full text-xs font-medium border border-transparent;
-    gap: 0.3rem;
-    padding: 0.175rem 0.5rem;
-  }
-  .drw-pending-chip--remove {
-    @apply bg-[var(--p-red-50)] text-[var(--p-red-600)] border-[var(--p-red-200)];
-  }
-  .drw-pending-chip--add {
-    @apply bg-[var(--p-green-50)] text-[var(--p-green-700)] border-[var(--p-green-200)];
-  }
-</style>

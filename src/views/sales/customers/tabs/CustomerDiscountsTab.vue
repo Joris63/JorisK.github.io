@@ -163,7 +163,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .kort-filter-bar {
     @apply flex items-center border-b border-(--p-gray-100) py-2.5 px-4;
   }

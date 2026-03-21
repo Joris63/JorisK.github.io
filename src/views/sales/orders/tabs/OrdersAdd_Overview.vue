@@ -186,7 +186,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* ── Step wrapper ─────────────────────────────────────────── */
   .ov-step {
     @apply bg-(--p-surface-50)!;

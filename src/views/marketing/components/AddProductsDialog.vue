@@ -72,7 +72,7 @@
   <Drawer
     v-model:visible="visible"
     position="right"
-    :style="{ width: '42rem' }"
+    class="w-[42rem]!"
     :pt="{ content: { class: 'flex flex-col gap-0 p-0! overflow-hidden' } }"
   >
     <template #header>
@@ -167,7 +167,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .drw-section--compact {
     @apply gap-2.5 px-6 py-3;
   }

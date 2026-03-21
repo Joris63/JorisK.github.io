@@ -108,7 +108,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .acct-status-badge {
     @apply w-fit inline-flex rounded bg-(--p-green-100) text-(--p-green-700) font-semibold py-0.5 px-2 text-sm;
   }

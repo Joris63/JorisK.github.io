@@ -122,7 +122,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .nav-btn {
     @apply border-none bg-transparent cursor-pointer text-left;
     transition:

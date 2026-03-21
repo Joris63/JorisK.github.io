@@ -135,7 +135,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .wijz-strip { @apply shrink-0 border-b border-[var(--p-gray-100)]; }
   .wijz-hdr { @apply flex items-center justify-between w-full cursor-pointer text-left py-1.5 px-4; background: none; border: none; transition: background var(--sw-duration-fast); }
   .wijz-hdr:hover { background: var(--p-gray-50); }

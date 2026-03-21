@@ -32,7 +32,7 @@
 }
 
 .drw-req {
-  @apply text-(--p-red-500);
+  color: var(--p-red-500);
 }
 
 /* 2-column form grid */
@@ -55,6 +55,10 @@
   @apply text-xs text-(--sw-text-muted) mt-0.5;
 }
 
+.drw-empty {
+  @apply text-sm text-(--sw-text-muted) italic;
+}
+
 /* ── Composites ──────────────────────────────────────────────────────── */
 
 /* Label + toggle/action side-by-side */
@@ -70,4 +74,57 @@
 /* Inline group label chip (used in drawer header subtitles) */
 .drw-group-chip {
   @apply inline-block py-0.5 px-1.5 bg-[var(--p-primary-50)] text-[var(--p-primary-700)] rounded font-medium;
+}
+
+/* ── Selectable list items ────────────────────────────────────────────── */
+
+.drw-list {
+  @apply flex flex-col gap-1.5;
+}
+
+.drw-list-item {
+  @apply flex items-center gap-3 px-4 py-3 rounded-lg border border-(--sw-border-md) text-left w-full bg-(--sw-bg) cursor-pointer;
+  transition: border-color var(--sw-duration-fast) var(--sw-ease), background var(--sw-duration-fast) var(--sw-ease);
+}
+
+.drw-list-item:hover {
+  @apply border-primary-300 bg-primary-50;
+}
+
+.drw-list-item__time {
+  @apply text-sm font-medium tabular-nums text-(--sw-text-muted) shrink-0 w-10;
+}
+
+.drw-list-item__sep {
+  @apply w-px h-4 bg-(--sw-border-md) shrink-0;
+}
+
+.drw-list-item__name {
+  @apply text-sm text-(--sw-text-sub);
+}
+
+/* ── Pending change chips ─────────────────────────────────────────────── */
+
+.drw-pending-sites {
+  @apply flex items-start flex-wrap gap-2;
+}
+
+.drw-pending-label {
+  @apply text-xs text-(--sw-text-muted) whitespace-nowrap pt-1;
+}
+
+.drw-pending-chips {
+  @apply flex flex-wrap gap-1.5;
+}
+
+.drw-pending-chip {
+  @apply inline-flex items-center gap-1 rounded-full text-xs font-medium border border-transparent py-[0.175rem] px-2;
+}
+
+.drw-pending-chip--remove {
+  @apply bg-[var(--p-red-50)] text-[var(--p-red-600)] border-[var(--p-red-200)];
+}
+
+.drw-pending-chip--add {
+  @apply bg-[var(--p-green-50)] text-[var(--p-green-700)] border-[var(--p-green-200)];
 }

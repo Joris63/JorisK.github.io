@@ -175,7 +175,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* Linked customer profile */
   .klant-profile {
     @apply flex items-center border-b border-gray-100 gap-3.5 pb-3.5 mb-3;

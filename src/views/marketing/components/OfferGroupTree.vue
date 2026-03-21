@@ -116,7 +116,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .groups-panel {
     @apply w-[420px] shrink-0 flex flex-col bg-(--sw-bg) border-r border-(--sw-border);
   }

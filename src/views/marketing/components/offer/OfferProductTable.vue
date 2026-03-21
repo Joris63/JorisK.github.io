@@ -161,7 +161,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .products-toolbar { @apply flex items-center border-b border-[var(--p-gray-100)] shrink-0 gap-2 py-1.5 px-3; }
   .products-pager { @apply border-b border-[var(--p-surface-100)] bg-transparent shrink-0 py-0.5 px-2; }
   .products-pager :deep(.p-paginator-page), .products-pager :deep(.p-paginator-first), .products-pager :deep(.p-paginator-prev), .products-pager :deep(.p-paginator-next), .products-pager :deep(.p-paginator-last) { min-width: 2rem; height: 2rem; font-size: 0.8125rem; }

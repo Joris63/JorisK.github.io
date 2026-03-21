@@ -313,7 +313,7 @@ const deferredProcessing = ref(false);
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 .subform {
   @apply flex flex-col bg-(--p-gray-50) border border-(--p-gray-200) rounded-[0.625rem] gap-4 py-5 px-6;
 }

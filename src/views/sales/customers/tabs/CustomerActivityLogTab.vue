@@ -87,7 +87,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .log-prop {
     font-family: ui-monospace, monospace;
     @apply inline-block rounded-[3px] bg-(--p-gray-100) text-(--p-surface-600) py-0.5 px-1.5 text-sm;

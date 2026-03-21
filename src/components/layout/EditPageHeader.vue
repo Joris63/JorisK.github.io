@@ -42,7 +42,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .edit-hdr-actions {
     @apply ml-auto flex items-center gap-2;
   }

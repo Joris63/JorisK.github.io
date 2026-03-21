@@ -167,7 +167,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .drw-method-hdr {
     @apply flex items-center justify-between;
   }

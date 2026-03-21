@@ -88,7 +88,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .products-panel { @apply flex-1 min-w-0 flex flex-col overflow-clip relative; }
   .products-panel__header { @apply flex items-center justify-between shrink-0 bg-[var(--p-gray-50)] border-b border-[var(--p-gray-100)] gap-3 py-2 pr-3 pl-5; min-height: 2.75rem; }
   .products-nav { @apply flex items-center flex-1 min-w-0 gap-1.5; }

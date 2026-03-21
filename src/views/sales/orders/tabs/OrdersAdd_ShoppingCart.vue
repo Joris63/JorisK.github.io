@@ -48,7 +48,7 @@ function scrollToGroup(groupId: string) {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 /* ── Shell layout ────────────────────────────────────────── */
 .cart-shell {
   @apply flex flex-1 min-h-0;

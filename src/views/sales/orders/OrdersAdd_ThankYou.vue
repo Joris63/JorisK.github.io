@@ -239,7 +239,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .thank-you-page {
     background: linear-gradient(160deg, #f0fdf4 0%, #ffffff 45%, #eff6ff 100%);
     @apply relative flex flex-col grow items-center justify-center overflow-hidden;

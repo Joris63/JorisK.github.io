@@ -171,7 +171,7 @@ const city = ref('');
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 .form-row {
   grid-template-columns: 220px 1fr;
   @apply grid gap-2;

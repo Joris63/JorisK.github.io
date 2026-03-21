@@ -41,7 +41,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .toolbar-strip {
     @apply flex items-center border-b border-(--p-gray-100) bg-(--p-gray-50) shrink-0 flex-wrap gap-4 py-2.5 px-6;
   }

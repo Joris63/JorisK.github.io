@@ -52,7 +52,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .method-grid {
     @apply grid gap-2.5;
     grid-template-columns: repeat(3, 1fr);

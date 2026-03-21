@@ -357,7 +357,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .view-card-toggle-lbl {
     @apply text-(--p-surface-500) text-sm;
   }

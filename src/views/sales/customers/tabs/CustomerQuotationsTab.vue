@@ -105,7 +105,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .offerte-badge {
     @apply inline-flex rounded-full font-semibold border border-solid py-0.5 px-2.5 text-xs;
   }

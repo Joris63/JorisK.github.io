@@ -154,7 +154,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .addr-topbar {
     @apply flex justify-end mb-4;
   }

@@ -73,7 +73,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .task-link {
     @apply text-[var(--p-primary-600)] no-underline font-medium text-sm;
   }

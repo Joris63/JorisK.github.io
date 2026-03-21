@@ -149,7 +149,7 @@ const navItems = computed(() =>
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 /* ── Form layout ──────────────────────────────────────────── */
 .form-row {
   grid-template-columns: 220px 1fr;

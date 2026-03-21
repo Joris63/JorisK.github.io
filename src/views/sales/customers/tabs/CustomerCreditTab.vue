@@ -272,7 +272,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .kred-summary {
     grid-template-columns: 1fr auto 1fr auto 1fr;
     @apply grid gap-0 p-5;

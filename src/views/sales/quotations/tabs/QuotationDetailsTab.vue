@@ -117,7 +117,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .verbouwen-grid {
     @apply grid grid-cols-2 gap-2;
   }

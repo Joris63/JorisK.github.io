@@ -100,25 +100,23 @@
       />
 
       <div v-for="day in days" :key="day.label" class="flex flex-col gap-2">
-        <span class="text-xs font-bold tracking-wider uppercase text-gray-400">{{
-          day.label
-        }}</span>
+        <span class="drw-section-hdr">{{ day.label }}</span>
 
         <template v-if="day.appointments.length > 0">
-          <button
-            v-for="(appt, i) in day.appointments"
-            :key="i"
-            class="flex items-center gap-3 px-4 py-3 rounded-lg border border-gray-200 text-left hover:border-primary-300 hover:bg-primary-50 transition-colors cursor-pointer bg-white w-full"
-          >
-            <span class="text-sm font-medium tabular-nums text-gray-500 shrink-0 w-10">{{
-              appt.time
-            }}</span>
-            <span class="w-px h-4 bg-gray-200 shrink-0" />
-            <span class="text-sm">{{ appt.name }}</span>
-          </button>
+          <div class="drw-list">
+            <button
+              v-for="(appt, i) in day.appointments"
+              :key="i"
+              class="drw-list-item"
+            >
+              <span class="drw-list-item__time">{{ appt.time }}</span>
+              <span class="drw-list-item__sep" />
+              <span class="drw-list-item__name">{{ appt.name }}</span>
+            </button>
+          </div>
         </template>
 
-        <p v-else class="text-sm text-gray-400 italic">Geen afspraken.</p>
+        <p v-else class="drw-empty">Geen afspraken.</p>
       </div>
     </div>
   </Drawer>

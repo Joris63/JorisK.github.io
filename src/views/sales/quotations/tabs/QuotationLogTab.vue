@@ -93,7 +93,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .log-layout {
     @apply flex flex-col flex-1 overflow-hidden;
   }

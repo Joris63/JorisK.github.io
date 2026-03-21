@@ -277,7 +277,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* Enforce consistent sizing for inputs inside modules (requires :deep) */
   .filter-module :deep(.p-inputtext) {
     @apply min-w-[9rem];

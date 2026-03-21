@@ -101,7 +101,7 @@ function toggleGroupMenu(event: Event) {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 .cart-sidebar {
   @apply w-[17rem] shrink-0 border-r border-(--p-gray-200) bg-(--p-gray-50) overflow-y-auto py-3 px-2.5;
 }

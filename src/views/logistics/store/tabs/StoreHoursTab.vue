@@ -142,7 +142,7 @@ function formatDate(date: Date | null) {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 .exception-card {
   @apply border border-(--sw-border-md) rounded-lg overflow-hidden mb-2.5;
 }

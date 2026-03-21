@@ -218,7 +218,7 @@ function applyImageFile(file: File | undefined, setter: (url: string) => void) {
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
 .content-img {
   @apply w-full max-w-[28rem] h-auto rounded-lg border border-gray-200 block;
 }

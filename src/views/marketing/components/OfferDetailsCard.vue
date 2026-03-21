@@ -191,7 +191,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   /* ── Pending sites ────────────────────────────────────────────── */
   .pending-sites {
     @apply flex items-start flex-wrap gap-2;

@@ -53,7 +53,7 @@
 </template>
 
 <style scoped>
-@reference "tailwindcss";
+@reference "@/assets/style.css";
   .discount-value {
     @apply text-[#e94b57] font-medium;
   }

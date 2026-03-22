@@ -119,7 +119,7 @@
       <div v-else class="csv-file-row">
         <div class="csv-file-icon"><i class="pi pi-file" /></div>
         <div class="flex flex-col gap-0.5">
-          <span class="text-sm font-medium text-surface-700">{{ exclusionCsvFile.name }}</span>
+          <span class="text-base font-medium text-surface-700">{{ exclusionCsvFile.name }}</span>
           <span class="text-xs text-surface-400">Uitsluitingen via CSV</span>
         </div>
         <button
@@ -171,7 +171,7 @@
 
   .drw-info {
     @apply flex items-start text-[var(--p-gray-500)] leading-[1.5] bg-[var(--p-blue-50)] rounded-lg border border-[var(--p-blue-100)] gap-2 px-4 py-3;
-    font-size: 0.8125rem;
+    @apply text-base;
   }
 
   .excl-grid {
@@ -180,11 +180,11 @@
     gap: 0.5rem 1.5rem;
   }
   .excl-item {
-    @apply flex items-center cursor-pointer text-sm text-[var(--p-surface-700)] gap-2;
+    @apply flex items-center cursor-pointer text-base text-[var(--p-surface-700)] gap-2;
   }
   .excl-csv-drop {
     @apply flex items-center bg-[var(--p-gray-50)] cursor-pointer text-[var(--p-gray-400)] gap-2 mt-1.5 py-2 px-3.5 rounded-lg;
-    font-size: 0.8125rem;
+    @apply text-base;
     border: 1.5px dashed var(--p-gray-200);
     transition:
       border-color var(--sw-duration-base),
@@ -196,7 +196,7 @@
     background: var(--p-primary-50);
   }
   .csv-select-btn {
-    @apply text-sm font-semibold text-[var(--p-primary-600)] cursor-pointer;
+    @apply text-base font-semibold text-[var(--p-primary-600)] cursor-pointer;
     background: none;
     border: none;
     padding: 0;

@@ -34,7 +34,7 @@ const selectedCompanyType = ref(null);
       >
         <div class="mode-card__icon mode-card__icon--neutral"><i class="pi pi-search" /></div>
         <div class="flex flex-col text-left">
-          <span class="font-semibold text-sm">Bestaande klant zoeken</span
+          <span class="font-semibold text-base">Bestaande klant zoeken</span
           ><span class="text-xs text-gray-400 mt-0.5">Zoek op e-mail</span>
         </div>
         <i
@@ -49,7 +49,7 @@ const selectedCompanyType = ref(null);
       >
         <div class="mode-card__icon mode-card__icon--neutral"><i class="pi pi-pencil" /></div>
         <div class="flex flex-col text-left">
-          <span class="font-semibold text-sm">Handmatig invoeren</span
+          <span class="font-semibold text-base">Handmatig invoeren</span
           ><span class="text-xs text-gray-400 mt-0.5">Vul de gegevens handmatig in</span>
         </div>
         <i
@@ -83,7 +83,7 @@ const selectedCompanyType = ref(null);
           <div v-if="recommendedFound" class="customer-indicator">
             <div class="customer-indicator__avatar"><i class="pi pi-user" /></div>
             <div class="flex flex-col leading-snug">
-              <span class="text-sm font-semibold">{{ mockRecommendedCustomer.name }}</span
+              <span class="text-base font-semibold">{{ mockRecommendedCustomer.name }}</span
               ><span class="text-xs text-gray-400">{{ mockRecommendedCustomer.email }}</span>
             </div>
             <Button
@@ -142,7 +142,7 @@ const selectedCompanyType = ref(null);
 }
 
 .form-label {
-  @apply text-(--sw-text-label) text-sm pt-1.5;
+  @apply text-(--sw-text-label) text-base pt-1.5;
 }
 
 .mode-card {
@@ -163,7 +163,7 @@ const selectedCompanyType = ref(null);
 }
 
 .mode-card__icon {
-  font-size: 0.95rem;
+  @apply text-base;
   transition: background var(--sw-duration-base) var(--sw-ease);
   @apply rounded-full flex items-center justify-center shrink-0 w-9 h-9;
 }
@@ -181,7 +181,7 @@ const selectedCompanyType = ref(null);
 }
 
 .customer-indicator__avatar {
-  @apply rounded-full bg-(--sw-border-md) text-(--sw-text-sub) flex items-center justify-center shrink-0 w-8 h-8 text-sm;
+  @apply rounded-full bg-(--sw-border-md) text-(--sw-text-sub) flex items-center justify-center shrink-0 w-8 h-8 text-base;
 }
 
 .fade-enter-active,

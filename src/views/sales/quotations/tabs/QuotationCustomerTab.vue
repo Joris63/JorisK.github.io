@@ -182,19 +182,19 @@
   }
   .klant-avatar {
     background: linear-gradient(135deg, var(--p-primary-400) 0%, var(--p-primary-600) 100%);
-    @apply rounded-full text-white font-bold flex items-center justify-center shrink-0 tracking-[0.03em] w-11 h-11 text-sm;
+    @apply rounded-full text-white font-bold flex items-center justify-center shrink-0 tracking-[0.03em] w-11 h-11 text-base;
   }
   .klant-info {
     @apply flex flex-col min-w-0 gap-0.5;
   }
   .klant-name {
-    @apply font-semibold text-[var(--p-surface-800)] text-base;
+    @apply font-semibold text-(--p-surface-800) text-base;
   }
   .klant-email-row {
     @apply flex items-center gap-0.5;
   }
   .klant-email {
-    @apply text-[var(--p-surface-500)] text-sm;
+    @apply text-(--p-surface-500) text-base;
   }
   .klant-meta {
     @apply flex items-center gap-0;
@@ -206,10 +206,10 @@
     @apply pl-4;
   }
   .klant-meta-label {
-    @apply text-[var(--p-surface-400)] text-sm;
+    @apply text-(--p-surface-400) text-base;
   }
   .klant-meta-val {
-    @apply text-[var(--p-surface-700)] font-medium text-sm;
+    @apply text-(--p-surface-700) font-medium text-base;
   }
   .klant-meta-sep {
     @apply w-px bg-gray-200 shrink-0 h-5;

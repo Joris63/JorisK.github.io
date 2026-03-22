@@ -19,7 +19,7 @@
       <DataTable :value="customer.cart" class="ce-table">
         <Column field="name" header="Naam">
           <template #body="{ data }">
-            <a href="#" class="text-primary-600 hover:underline text-sm">{{ data.name }}</a>
+            <a href="#" class="text-primary-600 hover:underline text-base">{{ data.name }}</a>
           </template>
         </Column>
         <Column field="productCode" header="Productcode" style="width: 10rem" />

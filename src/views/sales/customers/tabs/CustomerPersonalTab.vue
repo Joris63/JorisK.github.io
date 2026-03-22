@@ -291,7 +291,7 @@
             <label class="fr-label">Nieuwsbrief</label>
             <div class="flex items-center gap-2">
               <Checkbox v-model="customer.newsletter" binary input-id="nieuwsbrief" />
-              <label for="nieuwsbrief" class="text-sm text-surface-600 cursor-pointer"
+              <label for="nieuwsbrief" class="text-base text-surface-600 cursor-pointer"
                 >Aangemeld voor nieuwsbrief</label
               >
             </div>
@@ -359,12 +359,12 @@
 <style scoped>
 @reference "@/assets/style.css";
   .view-card-toggle-lbl {
-    @apply text-(--p-surface-500) text-sm;
+    @apply text-(--p-surface-500) text-base;
   }
   .url-row {
     @apply flex items-center min-w-0 gap-1;
   }
   .url-text {
-    @apply overflow-hidden text-ellipsis whitespace-nowrap text-[var(--p-primary-600)] text-sm;
+    @apply overflow-hidden text-ellipsis whitespace-nowrap text-(--p-primary-600) text-base;
   }
 </style>

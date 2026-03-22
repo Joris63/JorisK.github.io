@@ -28,7 +28,7 @@
 }
 
 .drw-label {
-  @apply text-sm font-medium text-(--sw-text-strong);
+  @apply text-base font-medium text-(--sw-text-strong);
 }
 
 .drw-req {
@@ -44,7 +44,7 @@
 /* ── Typography ──────────────────────────────────────────────────────── */
 
 .drw-section-hdr {
-  @apply sw-nano text-(--sw-text-muted);
+  @apply sw-title text-(--sw-text-muted);
 }
 
 .drw-hint {
@@ -56,7 +56,7 @@
 }
 
 .drw-empty {
-  @apply text-sm text-(--sw-text-muted) italic;
+  @apply text-base text-(--sw-text-muted) italic;
 }
 
 /* ── Composites ──────────────────────────────────────────────────────── */
@@ -92,7 +92,7 @@
 }
 
 .drw-list-item__time {
-  @apply text-sm font-medium tabular-nums text-(--sw-text-muted) shrink-0 w-10;
+  @apply text-base font-medium tabular-nums text-(--sw-text-muted) shrink-0 w-10;
 }
 
 .drw-list-item__sep {
@@ -100,7 +100,7 @@
 }
 
 .drw-list-item__name {
-  @apply text-sm text-(--sw-text-sub);
+  @apply text-base text-(--sw-text-sub);
 }
 
 /* ── Pending change chips ─────────────────────────────────────────────── */

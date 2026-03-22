@@ -232,7 +232,7 @@
   }
 
   .option-item {
-    @apply flex items-center text-sm text-(--sw-text) gap-2.5;
+    @apply flex items-center text-base text-(--sw-text) gap-2.5;
   }
 
   .option-item label {

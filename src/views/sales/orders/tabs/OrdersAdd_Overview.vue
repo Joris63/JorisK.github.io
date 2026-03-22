@@ -50,7 +50,7 @@
               <i v-else class="pi pi-image text-gray-300" style="font-size: 1rem" />
             </div>
             <div class="flex flex-col gap-1.5 flex-1">
-              <span class="font-semibold text-sm">
+              <span class="font-semibold text-base">
                 {{ cartItemCount }} product{{ cartItemCount !== 1 ? 'en' : '' }}
               </span>
               <div class="flex items-center gap-1.5 flex-wrap">
@@ -70,7 +70,7 @@
             </div>
             <div class="text-right shrink-0">
               <div class="text-xs text-gray-400 font-medium mb-0.5 uppercase tracking-wide">Eerst mogelijke datum</div>
-              <div class="text-sm font-bold text-primary-700">{{ indicatieDatum }}</div>
+              <div class="text-base font-bold text-primary-700">{{ indicatieDatum }}</div>
             </div>
           </div>
         </div>

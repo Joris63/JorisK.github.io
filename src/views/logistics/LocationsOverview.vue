@@ -178,7 +178,7 @@
       <OverviewTable :value="warehouseGroups">
         <Column field="abbreviation" header="Afkorting" style="width: 8rem">
           <template #body="{ data }">
-            <span class="font-mono text-sm font-medium text-surface-600">{{ data.abbreviation }}</span>
+            <span class="font-mono text-base font-medium text-surface-600">{{ data.abbreviation }}</span>
           </template>
         </Column>
         <Column field="name" header="Naam">
@@ -210,12 +210,12 @@
         </Column>
         <Column field="address" header="Adres">
           <template #body="{ data }">
-            <span class="text-surface-600 text-sm">{{ data.address }}</span>
+            <span class="text-surface-600 text-base">{{ data.address }}</span>
           </template>
         </Column>
         <Column field="phoneNumber" header="Telefoonnummer" style="width: 11rem">
           <template #body="{ data }">
-            <span class="text-surface-600 text-sm tabular-nums">{{ data.phoneNumber }}</span>
+            <span class="text-surface-600 text-base tabular-nums">{{ data.phoneNumber }}</span>
           </template>
         </Column>
         <Column header="" style="width: 3rem">

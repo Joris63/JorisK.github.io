@@ -130,7 +130,7 @@
       </Column>
       <Column field="datum" header="Datum">
         <template #body="{ data }">
-          <span class="text-surface-400 text-sm">{{ data.datum }}</span>
+          <span class="text-surface-400 text-base">{{ data.datum }}</span>
         </template>
       </Column>
       <Column field="prijs" header="Prijs">

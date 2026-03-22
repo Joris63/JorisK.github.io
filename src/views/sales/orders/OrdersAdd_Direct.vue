@@ -101,7 +101,7 @@
             </div>
             <div class="border-t border-(--sw-border-md) pt-2 flex justify-between items-baseline">
               <span class="text-xs font-semibold text-gray-600">Totaal</span>
-              <span class="text-sm font-bold text-gray-900">{{ formatPrice(orderTotal) }}</span>
+              <span class="text-base font-bold text-gray-900">{{ formatPrice(orderTotal) }}</span>
             </div>
           </div>
           <Button
@@ -203,6 +203,6 @@
   }
 
   .form-label {
-    @apply text-(--p-gray-500) text-sm pt-1.5;
+    @apply text-(--p-gray-500) text-base pt-1.5;
   }
 </style>

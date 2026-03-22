@@ -39,7 +39,7 @@ const navItems = computed(() =>
       v-if="finalizeMode === null"
       class="flex flex-col items-center justify-center grow gap-6 py-8"
     >
-      <p class="text-sm text-gray-500">Hoe wil je doorgaan met dit overzicht?</p>
+      <p class="text-base text-gray-500">Hoe wil je doorgaan met dit overzicht?</p>
       <div class="flex gap-4">
         <button class="choice-card" @click="finalizeMode = 'quotation'">
           <i class="pi pi-file-edit choice-card__icon" style="font-size: 2.5rem" />
@@ -115,7 +115,7 @@ const navItems = computed(() =>
               <span class="form-label">Automatische offerte mail</span>
               <div class="flex items-center gap-2.5">
                 <ToggleSwitch :model-value="true" />
-                <span class="text-sm text-gray-500">
+                <span class="text-base text-gray-500">
                   Moet er een automatische offerte mail verstuurd worden?
                 </span>
               </div>
@@ -157,7 +157,7 @@ const navItems = computed(() =>
 }
 
 .form-label {
-  @apply text-(--p-gray-500) text-sm pt-1.5;
+  @apply text-(--p-gray-500) text-base pt-1.5;
 }
 
 /* ── Choice cards ────────────────────────────────────────── */
@@ -171,11 +171,11 @@ const navItems = computed(() =>
 
 .choice-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  @apply border-[var(--p-primary-400)] bg-[var(--p-primary-50)];
+  @apply border-(--p-primary-400) bg-(--p-primary-50);
 }
 
 .choice-card__icon {
-  @apply text-[var(--p-primary-500)];
+  @apply text-(--p-primary-500);
 }
 
 .choice-card__title {
@@ -183,7 +183,7 @@ const navItems = computed(() =>
 }
 
 .choice-card__desc {
-  @apply text-(--p-gray-500) leading-[1.4] text-sm;
+  @apply text-(--p-gray-500) leading-[1.4] text-base;
 }
 
 /* ── Change-mind link ─────────────────────────────────────── */
@@ -191,10 +191,10 @@ const navItems = computed(() =>
   transition:
     color 0.15s ease,
     background 0.15s ease;
-  @apply border-0 bg-transparent cursor-pointer text-[var(--p-primary-500)] text-left leading-[1.4] rounded underline underline-offset-2 decoration-[var(--p-primary-300)] py-1.5 px-2 text-sm;
+  @apply border-0 bg-transparent cursor-pointer text-(--p-primary-500) text-left leading-[1.4] rounded underline underline-offset-2 decoration-(--p-primary-300) py-1.5 px-2 text-base;
 }
 
 .change-mind-btn:hover {
-  @apply text-[var(--p-primary-700)] bg-[var(--p-primary-50)] decoration-[var(--p-primary-500)];
+  @apply text-(--p-primary-700) bg-(--p-primary-50) decoration-(--p-primary-500);
 }
 </style>

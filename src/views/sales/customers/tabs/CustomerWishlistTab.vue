@@ -32,7 +32,7 @@
       <DataTable v-if="selectedWishlist" :value="selectedWishlist.items" class="ce-table">
         <Column field="name" header="Naam">
           <template #body="{ data }">
-            <a href="#" class="text-primary-600 hover:underline text-sm">{{ data.name }}</a>
+            <a href="#" class="text-primary-600 hover:underline text-base">{{ data.name }}</a>
           </template>
         </Column>
         <Column field="productCode" header="Productcode" style="width: 10rem" />
@@ -83,18 +83,18 @@
 @reference "@/assets/style.css";
   .wl-tab {
     transition: all var(--sw-duration-fast);
-    @apply inline-flex items-center rounded-full border border-(--p-gray-200) bg-white text-(--p-surface-600) cursor-pointer gap-1.5 py-0.5 px-3 text-sm;
+    @apply inline-flex items-center rounded-full border border-(--p-gray-200) bg-white text-(--p-surface-600) cursor-pointer gap-1.5 py-0.5 px-3 text-base;
   }
   .wl-tab:hover {
     @apply bg-(--p-gray-50) border-(--p-gray-300);
   }
   .wl-tab--active {
-    @apply bg-[var(--p-primary-50)] border-[var(--p-primary-200)] text-[var(--p-primary-700)];
+    @apply bg-(--p-primary-50) border-(--p-primary-200) text-(--p-primary-700);
   }
   .wl-tab-count {
     @apply font-semibold bg-(--p-gray-100) text-(--p-surface-500) rounded-full text-xs px-1.5;
   }
   .wl-tab--active .wl-tab-count {
-    @apply bg-[var(--p-primary-100)] text-[var(--p-primary-600)];
+    @apply bg-(--p-primary-100) text-(--p-primary-600);
   }
 </style>

@@ -79,14 +79,14 @@
           :model-value="'NL'"
           :pt="{
             root: 'bg-transparent! border-white/20! hover:border-white/40! shadow-none! transition-colors duration-150',
-            label: 'text-white! py-1.5! pl-2! pr-1! text-sm!',
+            label: 'text-white! py-1.5! pl-2! pr-1! text-base!',
             dropdown: 'text-white/60! w-6! px-0!',
           }"
         >
           <template #value="{ value }">
             <div class="flex items-center gap-2">
               <span :class="`fi fi-${value.toLowerCase()}`" />
-              <span class="text-white text-sm font-medium">{{ value }}</span>
+              <span class="text-white text-base font-medium">{{ value }}</span>
             </div>
           </template>
         </Select>

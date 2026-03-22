@@ -284,7 +284,7 @@
     @apply font-semibold uppercase tracking-[0.05em] text-(--p-surface-400) text-xs mb-3;
   }
   .kred-sum-row {
-    @apply flex justify-between items-center text-(--p-surface-600) border-b border-(--p-gray-100) text-sm py-1;
+    @apply flex justify-between items-center text-(--p-surface-600) border-b border-(--p-gray-100) text-base py-1;
   }
   .kred-sum-row:last-child {
     @apply border-b-0;
@@ -299,7 +299,7 @@
     @apply py-2.5 px-4;
   }
   .kred-footer-row {
-    @apply flex justify-between text-(--p-surface-600) text-sm py-0.5;
+    @apply flex justify-between text-(--p-surface-600) text-base py-0.5;
   }
   .kred-footer-row:first-child {
     @apply font-semibold text-(--p-surface-800);

@@ -125,7 +125,7 @@
   }
 
   .groups-panel__header {
-    @apply sw-nano flex items-center justify-between font-bold text-(--sw-text-muted) border-b border-(--sw-border) shrink-0 px-3 py-2.5;
+    @apply sw-title flex items-center justify-between font-bold text-(--sw-text-muted) border-b border-(--sw-border) shrink-0 px-3 py-2.5;
   }
 
   .icon-btn {
@@ -159,14 +159,14 @@
   }
 
   .group-naam {
-    @apply font-medium text-(--sw-text-sub) sw-body-sm;
+    @apply font-medium text-(--sw-text-sub) text-base;
   }
   .group-row--active .group-naam {
     @apply text-primary-700;
   }
 
   .item-count {
-    @apply font-semibold text-(--sw-text-muted) bg-(--sw-bg-muted) rounded-full text-center shrink-0 min-w-5 sw-micro;
+    @apply font-semibold text-(--sw-text-muted) bg-(--sw-bg-muted) rounded-full text-center shrink-0 min-w-5 text-xs;
     padding: 0.05rem 0.375rem;
     transition: opacity var(--sw-duration-fast);
   }

@@ -144,6 +144,6 @@
   /* ── Avatar color (layout handled by shared .edit-hdr-avatar) ────────── */
   :deep(.qe-avatar) {
     background: linear-gradient(135deg, var(--p-primary-400) 0%, var(--p-primary-600) 100%);
-    @apply text-white font-bold tracking-[0.03em] text-sm;
+    @apply text-white font-bold tracking-[0.03em] text-base;
   }
 </style>

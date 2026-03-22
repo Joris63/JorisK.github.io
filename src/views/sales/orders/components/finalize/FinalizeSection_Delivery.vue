@@ -110,7 +110,7 @@ const deferredProcessing = ref(false);
           <span class="form-label" />
           <div class="flex items-center gap-2">
             <ToggleSwitch v-model="alternativeDeliveryAddress" />
-            <span class="text-sm text-gray-500">Afwijkend bezorgadres</span>
+            <span class="text-base text-gray-500">Afwijkend bezorgadres</span>
           </div>
         </div>
         <Transition name="fade-slide">
@@ -254,7 +254,7 @@ const deferredProcessing = ref(false);
           </div>
         </div>
         <div
-          class="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5"
+          class="text-base text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-2.5"
         >
           Kies een pickup point waar de bestelling naartoe verzonden wordt.
         </div>
@@ -264,7 +264,7 @@ const deferredProcessing = ref(false);
           <button
             v-for="point in pickupPoints"
             :key="point.id"
-            class="flex items-center w-full px-4 py-2.5 text-sm text-left hover:bg-gray-50 transition-colors bg-white gap-3"
+            class="flex items-center w-full px-4 py-2.5 text-base text-left hover:bg-gray-50 transition-colors bg-white gap-3"
             :class="{ 'bg-primary-50!': selectedPickupPoint === point.id }"
             @click="selectedPickupPoint = point.id"
           >
@@ -306,7 +306,7 @@ const deferredProcessing = ref(false);
       <span class="form-label">Uitgestelde verwerking</span>
       <div class="flex items-center gap-2">
         <ToggleSwitch v-model="deferredProcessing" />
-        <i class="pi pi-info-circle text-gray-400 text-sm" />
+        <i class="pi pi-info-circle text-gray-400 text-base" />
       </div>
     </div>
   </div>
@@ -324,6 +324,6 @@ const deferredProcessing = ref(false);
 }
 
 .form-label {
-  @apply text-(--sw-text-label) text-sm pt-1.5;
+  @apply text-(--sw-text-label) text-base pt-1.5;
 }
 </style>

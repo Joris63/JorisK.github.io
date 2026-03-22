@@ -162,7 +162,7 @@
                   class="flex-1"
                   placeholder="Startdatum"
                 />
-                <span class="text-gray-300 text-sm shrink-0">→</span>
+                <span class="text-gray-300 text-base shrink-0">→</span>
                 <DatePicker
                   v-model="detailsDraft.endDate"
                   date-format="dd-mm-yy"

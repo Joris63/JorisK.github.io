@@ -53,11 +53,11 @@ function formatDate(date: Date | null) {
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-2">
               <Checkbox v-model="row.closed" binary :input-id="`closed-${row.day}`" />
-              <label :for="`closed-${row.day}`" class="text-sm text-surface-500 cursor-pointer">Gesloten</label>
+              <label :for="`closed-${row.day}`" class="text-base text-surface-500 cursor-pointer">Gesloten</label>
             </div>
             <template v-if="!row.closed">
               <InputText v-model="row.from" class="exception-time" placeholder="09:00" />
-              <span class="text-surface-400 text-sm">–</span>
+              <span class="text-surface-400 text-base">–</span>
               <InputText v-model="row.to" class="exception-time" placeholder="17:30" />
             </template>
           </div>
@@ -77,13 +77,13 @@ function formatDate(date: Date | null) {
           <div class="exception-header">
             <span class="exception-date">{{ formatDate(ex.date) }}</span>
             <span v-if="ex.closed" class="status-badge status-badge--no">Gesloten</span>
-            <span v-else class="fr-value text-sm">{{ ex.from }} – {{ ex.to }}</span>
+            <span v-else class="fr-value text-base">{{ ex.from }} – {{ ex.to }}</span>
           </div>
           <div class="exception-reasons">
             <div class="exception-reasons-header">Reden per siteview</div>
             <div v-for="sv in siteviews" :key="sv.key" class="exception-reason-row">
               <span class="exception-reason-site">{{ sv.label }}</span>
-              <span :class="ex.reason[sv.key] ? 'fr-value text-sm' : 'fr-empty text-sm'">{{
+              <span :class="ex.reason[sv.key] ? 'fr-value text-base' : 'fr-empty text-base'">{{
                 ex.reason[sv.key] || '—'
               }}</span>
             </div>
@@ -101,11 +101,11 @@ function formatDate(date: Date | null) {
             <DatePicker v-model="ex.date" date-format="dd-mm-yy" placeholder="dd-mm-jj" class="w-[9rem]" />
             <div class="flex items-center gap-2">
               <Checkbox v-model="ex.closed" binary :input-id="`ex-closed-${ex.id}`" />
-              <label :for="`ex-closed-${ex.id}`" class="text-sm text-surface-600 cursor-pointer">Gesloten</label>
+              <label :for="`ex-closed-${ex.id}`" class="text-base text-surface-600 cursor-pointer">Gesloten</label>
             </div>
             <template v-if="!ex.closed">
               <InputText v-model="ex.from" class="exception-time" placeholder="09:00" />
-              <span class="text-surface-400 text-sm">–</span>
+              <span class="text-surface-400 text-base">–</span>
               <InputText v-model="ex.to" class="exception-time" placeholder="17:30" />
             </template>
             <Button
@@ -153,7 +153,7 @@ function formatDate(date: Date | null) {
   @apply flex items-center bg-(--sw-bg-subtle) border-b border-(--sw-border-md) gap-2.5 px-3 py-2;
 }
 .exception-date {
-  @apply text-sm font-semibold text-(--sw-text-strong) min-w-[6rem];
+  @apply text-base font-semibold text-(--sw-text-strong) min-w-[6rem];
 }
 .exception-time {
   @apply w-[5.5rem];
@@ -162,7 +162,7 @@ function formatDate(date: Date | null) {
   @apply flex flex-col gap-0 p-0;
 }
 .exception-reasons-header {
-  @apply sw-nano text-(--sw-text-muted) border-b border-(--sw-border) px-3 pt-1.5 pb-1;
+  @apply sw-title text-(--sw-text-muted) border-b border-(--sw-border) px-3 pt-1.5 pb-1;
 }
 .exception-reason-row {
   @apply flex items-center border-b border-(--sw-border) gap-2.5 px-3 py-2;
@@ -171,6 +171,6 @@ function formatDate(date: Date | null) {
   @apply border-b-0;
 }
 .exception-reason-site {
-  @apply sw-body-sm font-medium text-(--sw-text-label) w-[8.5rem] shrink-0;
+  @apply text-base font-medium text-(--sw-text-label) w-[8.5rem] shrink-0;
 }
 </style>

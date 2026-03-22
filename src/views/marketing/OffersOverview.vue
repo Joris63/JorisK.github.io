@@ -251,12 +251,12 @@
       </Column>
       <Column field="startdatum" header="Startdatum" style="width: 8rem">
         <template #body="{ data }">
-          <span class="text-surface-600 text-sm tabular-nums">{{ data.startdatum }}</span>
+          <span class="text-surface-600 text-base tabular-nums">{{ data.startdatum }}</span>
         </template>
       </Column>
       <Column field="einddatum" header="Einddatum" style="width: 8rem">
         <template #body="{ data }">
-          <span class="text-surface-600 text-sm tabular-nums">{{ data.einddatum }}</span>
+          <span class="text-surface-600 text-base tabular-nums">{{ data.einddatum }}</span>
         </template>
       </Column>
       <Column field="status" header="Status" style="width: 7rem">
@@ -280,8 +280,8 @@
       </Column>
       <Column field="lastTask" header="Laatste taak" style="width: 9rem">
         <template #body="{ data }">
-          <span v-if="data.lastTask" class="text-surface-600 text-sm">{{ data.lastTask }}</span>
-          <span v-else class="text-surface-300 text-sm italic">Geen taak</span>
+          <span v-if="data.lastTask" class="text-surface-600 text-base">{{ data.lastTask }}</span>
+          <span v-else class="text-surface-300 text-base italic">Geen taak</span>
         </template>
       </Column>
       <Column header="" style="width: 3rem">

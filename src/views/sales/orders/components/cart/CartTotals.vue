@@ -108,19 +108,19 @@ const {
         />
       </div>
 
-      <div class="flex justify-between text-sm">
+      <div class="flex justify-between text-base">
         <span class="text-gray-500">Subtotaal</span>
         <span>{{ formatPrice(cartSubtotal) }}</span>
       </div>
-      <div v-if="cartDiscount > 0" class="flex justify-between text-sm">
+      <div v-if="cartDiscount > 0" class="flex justify-between text-base">
         <span class="text-gray-500">Kortingen</span>
         <span class="discount-price">−{{ formatPrice(cartDiscount) }}</span>
       </div>
-      <div v-if="orderDiscountValue > 0" class="flex justify-between text-sm">
+      <div v-if="orderDiscountValue > 0" class="flex justify-between text-base">
         <span class="text-gray-500">Orderkorting</span>
         <span class="discount-price">−{{ formatPrice(orderDiscountValue) }}</span>
       </div>
-      <div class="flex justify-between text-sm">
+      <div class="flex justify-between text-base">
         <span class="text-gray-500">Verzendkosten</span>
         <span :class="shippingCostValue === 0 ? 'text-primary font-medium' : ''">
           {{ shippingCostValue === 0 ? 'Gratis' : formatPrice(shippingCostValue) }}

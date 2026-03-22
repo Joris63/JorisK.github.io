@@ -86,7 +86,7 @@
             <Column header="Opmerking" field="text" />
             <Column header="Voor" style="width: 9rem">
               <template #body="{ data }">
-                <span class="text-sm text-gray-600">{{ data.for || '—' }}</span>
+                <span class="text-base text-gray-600">{{ data.for || '—' }}</span>
               </template>
             </Column>
             <Column header="Gebruiker" field="user" style="width: 10rem" />
@@ -145,7 +145,7 @@
     transition:
       color var(--sw-duration-base) var(--sw-ease),
       border-color var(--sw-duration-base) var(--sw-ease);
-    @apply bg-transparent border-0 border-b-2 cursor-pointer text-(--sw-text-label) font-medium whitespace-nowrap py-2.5 px-4 text-sm -mb-px;
+    @apply bg-transparent border-0 border-b-2 cursor-pointer text-(--sw-text-label) font-medium whitespace-nowrap py-2.5 px-4 text-base -mb-px;
   }
   .comm-tab:hover {
     @apply text-(--sw-text-strong);

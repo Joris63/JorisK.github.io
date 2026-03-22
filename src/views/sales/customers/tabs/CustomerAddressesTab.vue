@@ -175,10 +175,10 @@
   }
 
   .addr-name {
-    @apply font-semibold text-(--p-surface-800) text-sm;
+    @apply font-semibold text-(--p-surface-800) text-base;
   }
   .addr-line {
-    @apply text-(--p-surface-600) text-sm;
+    @apply text-(--p-surface-600) text-base;
   }
 
   .addr-chips {
@@ -193,7 +193,7 @@
     @apply cursor-default;
   }
   .addr-chip--active {
-    @apply bg-[var(--p-primary-50)] border-[var(--p-primary-200)] text-[var(--p-primary-700)];
+    @apply bg-(--p-primary-50) border-(--p-primary-200) text-(--p-primary-700);
   }
   .addr-chip--inactive {
     @apply bg-white border-(--p-gray-300) text-(--p-surface-500);

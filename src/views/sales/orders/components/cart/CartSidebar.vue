@@ -62,7 +62,7 @@ function toggleGroupMenu(event: Event) {
           :class="{ 'sidebar-group-item--active': props.activeGroupId === group.id }"
           @click="emit('scrollToGroup', group.id)"
         >
-          <span class="truncate text-sm flex-1">{{ group.name }}</span>
+          <span class="truncate text-base flex-1">{{ group.name }}</span>
           <div class="sidebar-item-end">
             <span v-if="group.items.length > 0" class="sidebar-count group-hover:opacity-0">{{
               group.items.length
@@ -115,7 +115,7 @@ function toggleGroupMenu(event: Event) {
 }
 
 .sidebar-label {
-  @apply sw-micro font-bold uppercase tracking-[0.06em] text-(--sw-text-muted);
+  @apply text-xs font-bold uppercase tracking-[0.06em] text-(--sw-text-muted);
 }
 
 .sidebar-add-btn {
@@ -130,7 +130,7 @@ function toggleGroupMenu(event: Event) {
   transition:
     background var(--sw-duration-fast) var(--sw-ease),
     color var(--sw-duration-fast) var(--sw-ease);
-  @apply flex items-center relative rounded-md cursor-pointer text-(--sw-text-sub) gap-1.5 py-1.5 px-2.5 text-sm;
+  @apply flex items-center relative rounded-md cursor-pointer text-(--sw-text-sub) gap-1.5 py-1.5 px-2.5 text-base;
 }
 
 .sidebar-group-item:hover {
@@ -151,7 +151,7 @@ function toggleGroupMenu(event: Event) {
 
 .sidebar-count {
   transition: opacity var(--sw-duration-fast) var(--sw-ease);
-  @apply sw-micro bg-(--sw-border-md) text-(--sw-text-label) rounded-full leading-[1.3] whitespace-nowrap px-1.5;
+  @apply text-xs bg-(--sw-border-md) text-(--sw-text-label) rounded-full leading-[1.3] whitespace-nowrap px-1.5;
 }
 
 .sidebar-group-item--active .sidebar-count {

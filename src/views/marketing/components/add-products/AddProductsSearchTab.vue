@@ -156,7 +156,7 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.09);
   }
   .ac-empty {
-    @apply text-sm text-[var(--p-gray-400)] px-4 py-3;
+    @apply text-base text-[var(--p-gray-400)] px-4 py-3;
   }
   .ac-item {
     @apply flex items-center justify-between w-full cursor-pointer text-left border-b border-[var(--p-gray-100)] gap-3 px-3 py-2;
@@ -172,13 +172,13 @@
     background: var(--p-primary-50);
   }
   .sr-naam {
-    @apply text-sm font-medium text-[var(--p-surface-700)] flex-1 whitespace-nowrap overflow-hidden;
+    @apply text-base font-medium text-[var(--p-surface-700)] flex-1 whitespace-nowrap overflow-hidden;
     text-overflow: ellipsis;
   }
   .sr-code {
     @apply text-[var(--p-gray-500)] shrink-0;
     font-family: monospace;
-    font-size: 0.775rem;
+    @apply text-xs;
   }
 
   .selected-list {
@@ -190,7 +190,7 @@
   }
   .sel-count {
     @apply font-semibold bg-[var(--p-primary-100)] text-[var(--p-primary-700)] rounded-full;
-    font-size: 0.6875rem;
+    @apply text-xs;
     padding: 0.1rem 0.5rem;
   }
   .selected-items {

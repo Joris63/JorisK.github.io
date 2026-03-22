@@ -43,7 +43,7 @@ const createAccount = ref(false);
       >
         <div class="mode-card__icon"><i class="pi pi-search" /></div>
         <div class="flex flex-col text-left">
-          <span class="font-semibold text-sm">Bestaande klant of afspraak</span>
+          <span class="font-semibold text-base">Bestaande klant of afspraak</span>
           <span class="text-xs text-gray-400 mt-0.5">Zoek op e-mail</span>
         </div>
         <i
@@ -58,7 +58,7 @@ const createAccount = ref(false);
       >
         <div class="mode-card__icon"><i class="pi pi-user-plus" /></div>
         <div class="flex flex-col text-left">
-          <span class="font-semibold text-sm">Nieuwe klant aanmaken</span>
+          <span class="font-semibold text-base">Nieuwe klant aanmaken</span>
           <span class="text-xs text-gray-400 mt-0.5">Vul de klantgegevens handmatig in</span>
         </div>
         <i v-if="customerMode === 'new'" class="pi pi-check-circle ml-auto text-primary shrink-0" />
@@ -69,7 +69,7 @@ const createAccount = ref(false);
       <div v-if="customerMode === 'search' && customerFound" class="customer-indicator">
         <div class="customer-indicator__avatar"><i class="pi pi-user" /></div>
         <div class="flex flex-col leading-snug">
-          <span class="text-sm font-semibold">{{ mockFoundCustomer.name }}</span>
+          <span class="text-base font-semibold">{{ mockFoundCustomer.name }}</span>
           <span class="text-xs text-gray-400">{{ mockFoundCustomer.email }}</span>
         </div>
         <Button
@@ -182,12 +182,12 @@ const createAccount = ref(false);
           <span class="form-label">Voorkeuren</span>
           <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
-              <ToggleSwitch v-model="newsletter" /><span class="text-sm text-gray-600"
+              <ToggleSwitch v-model="newsletter" /><span class="text-base text-gray-600"
                 >Inschrijven voor nieuwsbrief</span
               >
             </div>
             <div class="flex items-center gap-2">
-              <ToggleSwitch v-model="createAccount" /><span class="text-sm text-gray-600"
+              <ToggleSwitch v-model="createAccount" /><span class="text-base text-gray-600"
                 >Account aanmaken via e-mail uitnodiging</span
               >
             </div>
@@ -209,7 +209,7 @@ const createAccount = ref(false);
 }
 
 .form-label {
-  @apply text-(--sw-text-label) text-sm pt-1.5;
+  @apply text-(--sw-text-label) text-base pt-1.5;
 }
 
 .mode-card {
@@ -231,7 +231,7 @@ const createAccount = ref(false);
 }
 
 .mode-card__icon {
-  font-size: 0.95rem;
+  @apply text-base;
   transition: background var(--sw-duration-base) var(--sw-ease);
   @apply rounded-full bg-primary-100 text-primary-600 flex items-center justify-center shrink-0 w-9 h-9;
 }
@@ -245,7 +245,7 @@ const createAccount = ref(false);
 }
 
 .customer-indicator__avatar {
-  @apply rounded-full bg-primary-200 text-primary-700 flex items-center justify-center shrink-0 w-8 h-8 text-sm;
+  @apply rounded-full bg-primary-200 text-primary-700 flex items-center justify-center shrink-0 w-8 h-8 text-base;
 }
 
 .fade-enter-active,

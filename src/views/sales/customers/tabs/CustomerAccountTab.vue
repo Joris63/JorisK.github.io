@@ -110,9 +110,9 @@
 <style scoped>
 @reference "@/assets/style.css";
   .acct-status-badge {
-    @apply w-fit inline-flex rounded bg-(--p-green-100) text-(--p-green-700) font-semibold py-0.5 px-2 text-sm;
+    @apply w-fit inline-flex rounded bg-(--p-green-100) text-(--p-green-700) font-semibold py-0.5 px-2 text-base;
   }
   .acct-desc {
-    @apply text-(--p-surface-500) leading-[1.5] m-0 text-sm;
+    @apply text-(--p-surface-500) leading-[1.5] m-0 text-base;
   }
 </style>

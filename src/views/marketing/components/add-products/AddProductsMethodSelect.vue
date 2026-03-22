@@ -83,7 +83,7 @@
   }
   .method-card__title {
     @apply font-semibold text-[var(--p-surface-700)];
-    font-size: 0.8125rem;
+    @apply text-base;
   }
   .method-card__desc {
     @apply text-xs text-[var(--p-gray-400)] leading-[1.4];

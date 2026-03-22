@@ -50,12 +50,12 @@
             <Column header="Omschrijving" field="description" />
             <Column header="Aantal" style="width: 5rem">
               <template #body="{ data }">
-                <span class="text-sm">{{ data.quantity ?? '—' }}</span>
+                <span class="text-base">{{ data.quantity ?? '—' }}</span>
               </template>
             </Column>
             <Column header="Prijs" style="width: 7rem">
               <template #body="{ data }">
-                <span class="text-sm">
+                <span class="text-base">
                   {{ data.price != null ? `€\u00a0${data.price.toFixed(2).replace('.', ',')}` : '—' }}
                 </span>
               </template>
@@ -105,7 +105,7 @@
     border-bottom: 2px solid transparent;
     transition: color var(--sw-duration-base) var(--sw-ease), border-color var(--sw-duration-base) var(--sw-ease);
     margin-bottom: -1px;
-    @apply bg-transparent border-0 cursor-pointer text-(--sw-text-label) font-medium py-2.5 px-4 text-sm;
+    @apply bg-transparent border-0 cursor-pointer text-(--sw-text-label) font-medium py-2.5 px-4 text-base;
   }
   .log-tab:hover { @apply text-(--sw-text-strong); }
   .log-tab--active {

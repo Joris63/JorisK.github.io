@@ -121,7 +121,7 @@
             :disabled="isVerlopen"
             placeholder="Startdatum"
           />
-          <span class="text-(--sw-border-input) text-sm shrink-0">→</span>
+          <span class="text-(--sw-border-input) text-base shrink-0">→</span>
           <DatePicker
             v-model="form.einddatum"
             date-format="dd-mm-yy"

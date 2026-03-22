@@ -28,7 +28,7 @@
   @apply sw-heading;
 }
 .edit-hdr-subtitle {
-  @apply text-sm text-(--sw-text-muted);
+  @apply text-base text-(--sw-text-muted);
 }
 .edit-hdr-stats {
   @apply flex items-center border-l border-(--sw-border) mx-2 px-1;
@@ -37,7 +37,7 @@
   @apply flex flex-col items-center px-4;
 }
 .edit-hdr-stat-val {
-  @apply text-base font-bold text-(--sw-text) leading-[1.3] whitespace-nowrap;
+  @apply text-base font-semibold text-(--sw-text) leading-[1.3] whitespace-nowrap;
 }
 .edit-hdr-stat-lbl {
   @apply sw-caption whitespace-nowrap;
@@ -51,11 +51,11 @@
   @apply flex border-b border-(--sw-border-md) bg-(--sw-bg) shrink-0 pt-2;
 }
 .edit-tab {
-  @apply flex items-center text-sm font-normal text-(--sw-text-label) bg-none border-none border-b-2 border-b-transparent cursor-pointer whitespace-nowrap gap-1.5 px-4 py-2.5;
+  @apply flex items-center text-base font-normal text-(--sw-text-label) bg-none border-none border-b-2 border-b-transparent cursor-pointer whitespace-nowrap gap-1.5 px-4 py-2.5;
   margin-bottom: -1px;
   transition: color var(--sw-duration-base);
 }
-.edit-tab .pi { @apply text-sm; }
+.edit-tab .pi { @apply text-base; }
 .edit-tab:not(:disabled):hover { @apply text-(--sw-text-sub); }
 .edit-tab--active {
   @apply text-(--sw-text) font-medium border-b-primary-500;
@@ -70,7 +70,7 @@
   @apply bg-primary-100 text-primary-600;
 }
 .tab-soon {
-  @apply sw-nano bg-primary-100 text-primary-600 rounded-full py-0.5 px-1.5;
+  @apply text-xs font-semibold bg-primary-100 text-primary-600 rounded-full py-0.5 px-1.5;
 }
 
 /* ── Edit page sidebar nav ────────────────────────────────────────── */
@@ -78,10 +78,10 @@
   @apply w-52 shrink-0 border-r border-(--sw-border) overflow-y-auto bg-(--sw-bg) pt-2 pb-4;
 }
 .edit-nav-group {
-  @apply sw-nano text-(--sw-text-faint) pt-4 px-5 pb-1;
+  @apply sw-title text-(--sw-text-faint) pt-4 px-5 pb-1 uppercase;
 }
 .edit-nav-item {
-  @apply flex items-center w-full text-left bg-none border-none border-l-2 border-l-transparent cursor-pointer text-sm text-(--sw-text-label) gap-2 py-2 pr-4 pl-4.5;
+  @apply flex items-center w-full text-left bg-none border-none border-l-2 border-l-transparent cursor-pointer text-base text-(--sw-text-label) gap-2 py-2 pr-4 pl-4.5;
   transition: background var(--sw-duration-fast), color var(--sw-duration-fast);
 }
 .edit-nav-item:not(.edit-nav-item--active):hover {
@@ -91,7 +91,7 @@
   @apply text-primary-600 font-medium bg-primary-50 border-l-primary-500;
 }
 .edit-nav-icon {
-  @apply text-sm text-center shrink-0 opacity-70 w-4;
+  @apply text-base text-center shrink-0 opacity-70 w-4;
 }
 .edit-nav-item--active .edit-nav-icon { @apply opacity-100; }
 .edit-nav-badge {

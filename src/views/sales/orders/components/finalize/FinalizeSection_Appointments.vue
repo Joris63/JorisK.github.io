@@ -64,6 +64,6 @@ const createTask = ref(false);
 }
 
 .form-label {
-  @apply text-(--p-gray-500) text-sm pt-1.5;
+  @apply text-(--p-gray-500) text-base pt-1.5;
 }
 </style>

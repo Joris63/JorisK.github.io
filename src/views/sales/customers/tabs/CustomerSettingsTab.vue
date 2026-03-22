@@ -53,7 +53,7 @@
             <label class="fr-label">Reviews</label>
             <div class="flex items-center gap-3">
               <ToggleSwitch v-model="customer.reviewsActive" input-id="reviews" />
-              <label for="reviews" class="text-sm text-surface-600 cursor-pointer"
+              <label for="reviews" class="text-base text-surface-600 cursor-pointer"
                 >Reviews actief</label
               >
             </div>
@@ -138,7 +138,7 @@
             <label class="fr-label">Betalen op rekening</label>
             <div class="flex items-center gap-3">
               <ToggleSwitch v-model="customer.canPayOnAccount" input-id="betalen-rekening" />
-              <label for="betalen-rekening" class="text-sm text-surface-600 cursor-pointer"
+              <label for="betalen-rekening" class="text-base text-surface-600 cursor-pointer"
                 >Kan betalen op rekening</label
               >
             </div>
@@ -165,7 +165,7 @@
                     style="width: 8rem"
                     placeholder="14"
                   />
-                  <span class="text-sm text-surface-500">Dagen</span>
+                  <span class="text-base text-surface-500">Dagen</span>
                 </div>
               </div>
               <div class="fr-row">
@@ -175,7 +175,7 @@
                     v-model="customer.allowTemporaryCredit"
                     input-id="tijdelijk-krediet"
                   />
-                  <label for="tijdelijk-krediet" class="text-sm text-surface-600 cursor-pointer"
+                  <label for="tijdelijk-krediet" class="text-base text-surface-600 cursor-pointer"
                     >Tijdelijk krediet toestaan</label
                   >
                 </div>

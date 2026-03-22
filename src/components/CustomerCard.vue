@@ -11,7 +11,7 @@
   <div class="customer-indicator">
     <div class="customer-indicator__avatar"><i class="pi pi-user" /></div>
     <div class="flex flex-col leading-snug">
-      <span class="text-sm font-semibold">{{ naam }}</span>
+      <span class="text-base font-semibold">{{ naam }}</span>
       <span class="text-xs text-gray-400">{{ email }}</span>
     </div>
     <Button

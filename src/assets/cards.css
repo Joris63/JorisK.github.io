@@ -16,7 +16,7 @@
   @apply flex items-center justify-between border-b border-(--sw-border) bg-(--sw-bg-subtle) sticky z-10 pt-2 pr-3 pb-2 pl-5 min-h-11 rounded-t-[0.625rem] -top-6;
 }
 .view-card-title {
-  @apply sw-title;
+  @apply text-base font-semibold text-(--sw-text);
 }
 .view-card-body {
   @apply px-5 py-3.5;
@@ -39,17 +39,17 @@
   @apply text-(--p-red-500);
 }
 .fr-value {
-  @apply text-sm text-(--sw-text);
+  @apply text-base text-(--sw-text);
 }
 .fr-empty {
-  @apply text-sm text-(--sw-text-faint);
+  @apply text-base text-(--sw-text-faint);
 }
 
 .ce-table th {
   @apply text-xs font-semibold uppercase tracking-[0.04em] text-(--sw-text-muted) bg-transparent border-b border-(--sw-border-md) px-4 py-2.5;
 }
 .ce-table td {
-  @apply border-b border-(--sw-border) text-sm text-(--sw-text-sub) px-4 py-3;
+  @apply border-b border-(--sw-border) text-base text-(--sw-text-sub) px-4 py-3;
 }
 .ce-table td.col-right {
   @apply text-right;
@@ -65,7 +65,7 @@
   @apply sw-caption italic;
 }
 .table-subtotal {
-  @apply flex justify-between text-sm font-semibold text-(--sw-text-sub) px-4 py-3;
+  @apply flex justify-between text-base font-semibold text-(--sw-text-sub) px-4 py-3;
 }
 
 .ce-tab-toolbar {

@@ -25,7 +25,7 @@
     @apply grid gap-2;
   }
   .form-label {
-    @apply text-(--sw-text-label) text-sm pt-1.5;
+    @apply text-(--sw-text-label) text-base pt-1.5;
   }
 
   .mode-card {
@@ -49,7 +49,7 @@
     @apply flex items-center border-[1.5px] border-(--sw-border-input) rounded-lg bg-(--sw-bg-subtle) gap-3 py-3 px-4;
   }
   .customer-indicator__avatar {
-    @apply rounded-full bg-(--sw-border-md) text-(--sw-text-sub) flex items-center justify-center shrink-0 w-8 h-8 text-sm;
+    @apply rounded-full bg-(--sw-border-md) text-(--sw-text-sub) flex items-center justify-center shrink-0 w-8 h-8 text-base;
   }
 
   .fade-enter-active, .fade-leave-active { transition: opacity var(--sw-duration-slow) var(--sw-ease); }
@@ -58,7 +58,7 @@
 
 <template>
   <div class="flex flex-col gap-3">
-    <span class="text-sm font-medium text-(--sw-text-label)">Ben je aanbevolen door iemand?</span>
+    <span class="text-base font-medium text-(--sw-text-label)">Ben je aanbevolen door iemand?</span>
     <div class="grid grid-cols-2 gap-3">
       <button
         class="mode-card mode-card--neutral"
@@ -67,7 +67,7 @@
       >
         <div class="mode-card__icon mode-card__icon--neutral"><i class="pi pi-search" /></div>
         <div class="flex flex-col text-left">
-          <span class="font-semibold text-sm">Bestaande klant zoeken</span>
+          <span class="font-semibold text-base">Bestaande klant zoeken</span>
           <span class="text-xs text-(--sw-text-muted) mt-0.5">Zoek op e-mail</span>
         </div>
         <i v-if="mode === 'search'" class="pi pi-check-circle ml-auto text-(--sw-text-muted) shrink-0" />
@@ -79,7 +79,7 @@
       >
         <div class="mode-card__icon mode-card__icon--neutral"><i class="pi pi-pencil" /></div>
         <div class="flex flex-col text-left">
-          <span class="font-semibold text-sm">Handmatig invoeren</span>
+          <span class="font-semibold text-base">Handmatig invoeren</span>
           <span class="text-xs text-(--sw-text-muted) mt-0.5">Vul de gegevens handmatig in</span>
         </div>
         <i v-if="mode === 'manual'" class="pi pi-check-circle ml-auto text-(--sw-text-muted) shrink-0" />
@@ -100,7 +100,7 @@
           <div v-if="found" class="customer-indicator">
             <div class="customer-indicator__avatar"><i class="pi pi-building" /></div>
             <div class="flex flex-col leading-snug">
-              <span class="text-sm font-semibold">{{ mockCustomer.name }}</span>
+              <span class="text-base font-semibold">{{ mockCustomer.name }}</span>
               <span class="text-xs text-(--sw-text-muted)">{{ mockCustomer.email }}</span>
             </div>
             <Button

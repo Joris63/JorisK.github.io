@@ -240,7 +240,7 @@
 <style scoped>
 @reference "@/assets/style.css";
   .drw-site {
-    @apply font-medium text-(--sw-text-label) sw-body-sm;
+    @apply font-medium text-(--sw-text-label) text-base;
   }
 
   .drw-collapsible {
@@ -253,7 +253,7 @@
     @apply text-primary-400;
   }
   .drw-chevron {
-    @apply text-(--sw-text-muted) sw-micro;
+    @apply text-(--sw-text-muted) text-xs;
     transition: color var(--sw-duration-fast);
   }
   .drw-collapsible-body {
@@ -268,7 +268,7 @@
     @apply flex items-center justify-between bg-(--sw-bg-subtle) border-b border-(--sw-border) px-3 py-2;
   }
   .opt-card__title {
-    @apply flex items-center font-semibold text-(--sw-text-strong) sw-body-sm gap-2;
+    @apply flex items-center font-semibold text-(--sw-text-strong) text-base gap-2;
   }
   .opt-card__title .pi {
     @apply text-[0.8rem] text-(--sw-text-muted);
@@ -277,7 +277,7 @@
     @apply flex flex-col py-3.5 px-4 gap-3.5;
   }
   .opt-remove {
-    @apply flex items-center justify-center rounded shrink-0 cursor-pointer text-(--sw-text-muted) w-[1.375rem] h-[1.375rem] bg-none border-none sw-micro;
+    @apply flex items-center justify-center rounded shrink-0 cursor-pointer text-(--sw-text-muted) w-[1.375rem] h-[1.375rem] bg-none border-none text-xs;
     transition: background var(--sw-duration-fast), color var(--sw-duration-fast);
   }
   .opt-remove:hover {
@@ -292,7 +292,7 @@
     @apply border-t border-(--sw-border) mt-1 pt-3;
   }
   .opt-add-btn {
-    @apply flex items-center cursor-pointer text-sm text-(--sw-text-label) rounded-md text-left gap-2 py-1.5 px-2 border-none bg-none;
+    @apply flex items-center cursor-pointer text-base text-(--sw-text-label) rounded-md text-left gap-2 py-1.5 px-2 border-none bg-none;
     transition: background var(--sw-duration-fast), color var(--sw-duration-fast);
   }
   .opt-add-btn:hover {
@@ -302,7 +302,7 @@
     @apply text-primary-500;
   }
   .opt-add-btn__icon {
-    @apply sw-micro text-(--sw-text-muted);
+    @apply text-xs text-(--sw-text-muted);
     transition: color var(--sw-duration-fast);
   }
 

@@ -57,7 +57,7 @@ const city = ref('');
                 "
               />
               <div class="flex flex-col text-left leading-snug">
-                <span class="text-sm font-medium">{{ addr.street }}</span>
+                <span class="text-base font-medium">{{ addr.street }}</span>
                 <span class="text-xs text-gray-400">{{ addr.postcode }} {{ addr.city }}</span>
               </div>
             </button>
@@ -76,7 +76,7 @@ const city = ref('');
               />
               <div class="flex flex-col text-left leading-snug">
                 <span
-                  class="text-sm font-medium"
+                  class="text-base font-medium"
                   :class="{ 'text-gray-500': !addingNewAddress }"
                   >Nieuw adres toevoegen</span
                 >
@@ -127,7 +127,7 @@ const city = ref('');
               </div>
             </Transition>
           </div>
-          <p v-else class="text-sm text-gray-400 italic">
+          <p v-else class="text-base text-gray-400 italic">
             Selecteer eerst een klant hierboven.
           </p>
         </Transition>
@@ -163,7 +163,7 @@ const city = ref('');
         </div>
       </div>
 
-      <p v-else key="addr-empty" class="text-sm text-(--sw-text-muted) italic">
+      <p v-else key="addr-empty" class="text-base text-(--sw-text-muted) italic">
         Selecteer eerst een klant hierboven.
       </p>
     </Transition>
@@ -178,7 +178,7 @@ const city = ref('');
 }
 
 .form-label {
-  @apply text-(--sw-text-label) text-sm pt-1.5;
+  @apply text-(--sw-text-label) text-base pt-1.5;
 }
 
 .address-card {

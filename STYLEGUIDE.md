@@ -407,7 +407,76 @@ Every custom class must use `@apply` for Tailwind utilities. Raw CSS properties 
 
 ---
 
-## 9. Shared Component Classes
+## 9. PrimeVue Styling — `pt` vs Global CSS
+
+PrimeVue 4 exposes every internal DOM element through the **PassThrough (pt)** API. This is the correct way to apply Tailwind classes or override styles on PrimeVue internals — not `:style` bindings or deep CSS selectors.
+
+### Decision tree
+
+| Goal | Approach |
+|---|---|
+| Style an internal part of one component instance | `:pt="{ root: { class: '...' } }"` |
+| Style an internal part of every instance of a component | Global pt in `main.ts` via `app.use(PrimeVue, { pt: { ... } })` |
+| Style a PrimeVue element that has no pt key | Scoped `<style>` with `:deep(.p-xxx)` |
+| Style a custom button variant globally | `style.css` — `.p-button.btn-*` class |
+| Dynamic sizing (computed from data) | `:style="{ width: ... }"` — only when truly dynamic |
+
+### Using `pt` on a single instance
+
+```html
+<!-- Apply Tailwind classes to PrimeVue internals without :style or :deep -->
+<Drawer
+  :pt="{
+    content: { class: 'flex flex-col p-0 overflow-hidden' },
+    header: { class: 'border-b border-(--sw-border-md) px-5 py-4' },
+  }"
+/>
+
+<DataTable
+  :pt="{
+    thead: { class: 'bg-(--sw-bg-subtle)' },
+  }"
+/>
+```
+
+### Finding `pt` keys
+
+Run a component in the browser, inspect the DOM, and look for `data-pc-section` attributes — those are the `pt` key names.
+
+```html
+<!-- In the rendered DOM you'll see: -->
+<div data-pc-section="content">...</div>
+<!-- → use pt key: content -->
+```
+
+### When `:deep()` is still acceptable
+
+Use `:deep()` only when:
+1. The element has no `pt` key, **and**
+2. The override is scoped to one component (not app-wide)
+
+```css
+/* Acceptable — no pt key available, scoped to this component */
+.my-wrapper :deep(.p-autocomplete-input) {
+  @apply text-sm;
+}
+```
+
+### What to avoid
+
+```html
+<!-- ❌ :style for static values — use pt instead -->
+<Column style="width: 8rem" />
+
+<!-- ✅ Use pt -->
+<Column :pt="{ root: { style: 'width: 8rem' } }" />
+<!-- or Tailwind class where supported -->
+<Column header-class="w-32" />
+```
+
+---
+
+## 10. Shared Component Classes
 
 ### View card (read-only display on edit tabs)
 ```html
@@ -571,7 +640,8 @@ Standard sizes for PrimeVue icons:
 | Reusable Vue transition | `cards.css` (or `filter.css` for filter-specific) |
 | Component-specific styles | `<style scoped>` in the `.vue` file |
 | One-off size overrides | Tailwind arbitrary value: `class="text-[0.8125rem]"` |
-| PrimeVue component sizing | `:style` binding (unavoidable PrimeVue constraint) |
+| PrimeVue internal styling | `:pt="{ key: { class: '...' } }"` — see section 9 |
+| PrimeVue dynamic sizing | `:style` binding only when value is computed from data |
 | Custom button styles | `style.css` — `.p-button.btn-*` |
 
 ---
@@ -583,7 +653,7 @@ Standard sizes for PrimeVue icons:
 - [ ] No `font-size:` with unlisted decimal rem values — use a defined arbitrary value from section 2
 - [ ] No `padding:` or `margin:` raw properties — use `@apply py-x px-x` etc.
 - [ ] No hardcoded `transition` durations (`0.1s`, `0.15s`) — use `var(--sw-duration-*)` tokens
-- [ ] All `<style scoped>` blocks start with `@reference "tailwindcss"`
+- [ ] All `<style scoped>` blocks start with `@reference "@/assets/style.css"` (not `"tailwindcss"` — that misses project theme colors and custom utilities)
 - [ ] Reusable Vue transitions added to `cards.css`, not duplicated per component
 - [ ] Drawer widths use one of the three standard sizes (28rem / 34rem / 42rem)
 - [ ] Button uses an established archetype from section 5

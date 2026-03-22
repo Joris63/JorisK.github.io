@@ -7,7 +7,7 @@
 /* ── DataTable ───────────────────────────────────────────────────────── */
 
 .overview-table th {
-  @apply sw-nano text-(--sw-text-muted) bg-transparent border-b border-(--sw-border-md) px-3 py-2.5;
+  @apply sw-title text-(--sw-text-muted) bg-transparent border-b border-(--sw-border-md) px-3 py-2.5;
 }
 
 .overview-table td {

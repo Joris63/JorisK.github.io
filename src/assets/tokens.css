@@ -36,9 +36,9 @@
    Transitions
    ────────────────────────────────────────────────────────────────
    Three speed tiers. Use in `transition:` declarations only.
-   Fast  → hover effects, micro-interactions (color, bg, border)
-   Base  → standard visibility changes (opacity, scale)
-   Slow  → larger movements (slide-in panels, max-height reveals)
+   Fast  -> hover effects, micro-interactions (color, bg, border)
+   Base  -> standard visibility changes (opacity, scale)
+   Slow  -> larger movements (slide-in panels, max-height reveals)
    ════════════════════════════════════════════════════════════════ */
 
 :root {
@@ -51,55 +51,37 @@
 /* ════════════════════════════════════════════════════════════════
    Typography Utilities
    ────────────────────────────────────────────────────────────────
-   Defined with @utility so they can be used with @apply anywhere
-   in the project, and as class names directly in templates.
+   Four-step scale: xs (12px) / sm (14px) / base (16px) / 2xl (24px)
+   Use these semantic utilities instead of raw text-* classes so
+   meaning is encoded once and propagates everywhere.
    ════════════════════════════════════════════════════════════════ */
 
-/* Card and section headers — ALL CAPS, xs, muted */
+/* Section / column headers — 12px, uppercase, spaced */
 @utility sw-title {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--sw-text-label);
 }
 
-/* Page / card headings */
+/* Page / card headings — 16px bold */
 @utility sw-heading {
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   font-weight: 600;
   line-height: 1.2;
   color: var(--sw-text);
 }
 
-/* Standard form field labels */
+/* Standard form field labels — 14px medium */
 @utility sw-label {
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
+  font-weight: 500;
   color: var(--sw-text-label);
 }
 
-/* Hints, descriptions, empty state captions */
+/* Hints, descriptions, captions — 12px muted */
 @utility sw-caption {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   color: var(--sw-text-muted);
-}
-
-/* Small body text — secondary values, table cells, sub-labels (~13px) */
-@utility sw-body-sm {
-  font-size: 0.8125rem;
-  line-height: 1.4;
-}
-
-/* Micro label — type chips, tree tags, compact badges (~11px) */
-@utility sw-micro {
-  font-size: 0.6875rem;
-  line-height: 1.3;
-}
-
-/* Nano text — step numbers, SOON badges, filter module labels (10px) */
-@utility sw-nano {
-  font-size: 0.625rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }

@@ -68,10 +68,10 @@
       @click="setOpenNavItem(isOpen ? null : props.item.label)"
     >
       <i
-        :class="`pi ${props.item.icon} text-sm shrink-0 ${hasActiveChild ? 'text-primary-500' : 'text-gray-400'}`"
+        :class="`pi ${props.item.icon} text-base shrink-0 ${hasActiveChild ? 'text-primary-500' : 'text-gray-400'}`"
       />
       <template v-if="!collapsed">
-        <span class="flex-1 text-left text-sm font-normal">{{ props.item.label }}</span>
+        <span class="flex-1 text-left text-base font-normal">{{ props.item.label }}</span>
         <i :class="`pi ${isOpen ? 'pi-chevron-up' : 'pi-chevron-down'} text-gray-400 text-xs`" />
       </template>
     </button>
@@ -112,10 +112,10 @@
   >
     <i
       v-if="props.item.icon"
-      :class="`pi ${props.item.icon} text-sm shrink-0 ${isActive ? 'text-primary-500' : 'text-gray-400'}`"
+      :class="`pi ${props.item.icon} text-base shrink-0 ${isActive ? 'text-primary-500' : 'text-gray-400'}`"
     />
     <template v-if="!collapsed">
-      <span class="flex-1 text-left text-sm">{{ props.item.label }}</span>
+      <span class="flex-1 text-left text-base">{{ props.item.label }}</span>
       <i v-if="isOldAdminRoute" class="pi pi-external-link text-gray-400 text-xs shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
     </template>
   </button>

@@ -185,7 +185,7 @@
       </Column>
       <Column field="lastModified" header="Laatst aangepast">
         <template #body="{ data }">
-          <span class="text-surface-400 text-sm">{{ data.lastModified }}</span>
+          <span class="text-surface-400 text-base">{{ data.lastModified }}</span>
         </template>
       </Column>
       <Column header="" style="width: 3rem">

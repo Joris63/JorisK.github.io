@@ -6,10 +6,10 @@
 
 /* ── Verlopen banner ─────────────────────────────────────────── */
 .verlopen-banner {
-  @apply flex items-center border border-(--p-blue-200) rounded-lg bg-(--p-blue-50) text-sm text-(--p-blue-700) shrink-0 gap-2.5 px-4 py-3 mt-3.5 mx-5;
+  @apply flex items-center border border-(--p-blue-200) rounded-lg bg-(--p-blue-50) text-base text-(--p-blue-700) shrink-0 gap-2.5 px-4 py-3 mt-3.5 mx-5;
 }
 .verlopen-copy-btn {
-  @apply ml-auto text-sm font-semibold text-(--p-blue-700) bg-none border-[1.5px] border-(--p-blue-300) rounded-md cursor-pointer py-1 px-3;
+  @apply ml-auto text-base font-semibold text-(--p-blue-700) bg-none border-[1.5px] border-(--p-blue-300) rounded-md cursor-pointer py-1 px-3;
   transition: background 0.15s;
 }
 .verlopen-copy-btn:hover {
@@ -33,7 +33,7 @@
   @apply flex flex-col min-w-40;
 }
 .ctx-item {
-  @apply flex items-center w-full text-left text-sm text-(--sw-text-sub) bg-none border-none cursor-pointer rounded gap-2 px-3 py-2;
+  @apply flex items-center w-full text-left text-base text-(--sw-text-sub) bg-none border-none cursor-pointer rounded gap-2 px-3 py-2;
   transition: background var(--sw-duration-fast) var(--sw-ease);
 }
 .ctx-item:hover {

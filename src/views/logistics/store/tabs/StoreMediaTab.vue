@@ -84,7 +84,7 @@ function applyImageFile(file: File | undefined, setter: (url: string) => void) {
             <div v-else class="img-file-row">
               <img :src="store.heroImage" class="img-file-thumb" alt="Hero" />
               <div class="flex flex-col gap-1">
-                <span class="text-sm font-medium text-surface-700">Hero afbeelding</span>
+                <span class="text-base font-medium text-surface-700">Hero afbeelding</span>
                 <button class="img-select-btn" @click="heroInput?.click()">Vervangen</button>
               </div>
               <button class="img-remove-btn ml-auto" @click="store.heroImage = ''">
@@ -131,7 +131,7 @@ function applyImageFile(file: File | undefined, setter: (url: string) => void) {
             <div v-else class="img-file-row">
               <img :src="store.overviewImage" class="img-file-thumb" alt="Overzicht" />
               <div class="flex flex-col gap-1">
-                <span class="text-sm font-medium text-surface-700">Overzicht afbeelding</span>
+                <span class="text-base font-medium text-surface-700">Overzicht afbeelding</span>
                 <button class="img-select-btn" @click="overviewInput?.click()">Vervangen</button>
               </div>
               <button class="img-remove-btn ml-auto" @click="store.overviewImage = ''">
@@ -178,7 +178,7 @@ function applyImageFile(file: File | undefined, setter: (url: string) => void) {
             <div v-else class="img-file-row">
               <img :src="img" class="img-file-thumb" :alt="`Sfeerimpressie ${i + 1}`" />
               <div class="flex flex-col gap-1">
-                <span class="text-sm font-medium text-surface-700">Sfeerimpressie {{ i + 1 }}</span>
+                <span class="text-base font-medium text-surface-700">Sfeerimpressie {{ i + 1 }}</span>
                 <button class="img-select-btn" @click="sfeerInputs[i]?.click()">Vervangen</button>
               </div>
               <button class="img-remove-btn ml-auto" @click="store.atmosphereImages[i] = ''">
@@ -232,7 +232,7 @@ function applyImageFile(file: File | undefined, setter: (url: string) => void) {
   transition:
     border-color var(--sw-duration-base),
     background var(--sw-duration-base);
-  @apply flex flex-col items-center border-2 border-dashed border-gray-200 rounded-lg cursor-pointer text-gray-400 text-sm text-center gap-1.5 py-7 px-6;
+  @apply flex flex-col items-center border-2 border-dashed border-gray-200 rounded-lg cursor-pointer text-gray-400 text-base text-center gap-1.5 py-7 px-6;
 }
 .img-drop-zone:hover,
 .img-drop-zone--over {
@@ -240,7 +240,7 @@ function applyImageFile(file: File | undefined, setter: (url: string) => void) {
 }
 .img-select-btn {
   transition: color var(--sw-duration-fast);
-  @apply text-sm font-semibold text-[var(--p-primary-600)] bg-transparent border-0 p-0 cursor-pointer;
+  @apply text-base font-semibold text-[var(--p-primary-600)] bg-transparent border-0 p-0 cursor-pointer;
 }
 .img-select-btn:hover {
   @apply text-[var(--p-primary-800)] underline;

@@ -84,7 +84,7 @@
         <h1 class="text-2xl font-bold text-gray-900 tracking-tight">
           {{ mode === 'order' ? 'Bestelling geplaatst!' : 'Offerte opgeslagen!' }}
         </h1>
-        <p class="mt-2 text-sm text-gray-500 leading-relaxed max-w-xs mx-auto">
+        <p class="mt-2 text-base text-gray-500 leading-relaxed max-w-xs mx-auto">
           <template v-if="mode === 'order'">
             Top gedaan — de bestelling is verwerkt en de klant wordt op de hoogte gesteld.
           </template>
@@ -107,7 +107,7 @@
         <i class="pi pi-user text-xs text-gray-400 shrink-0" />
         <span class="text-xs text-gray-600">Jan de Vries</span>
         <div class="pill-divider" />
-        <span class="text-sm font-semibold text-gray-900">€ 1.249,00</span>
+        <span class="text-base font-semibold text-gray-900">€ 1.249,00</span>
       </div>
 
       <!-- Actions -->
@@ -137,23 +137,23 @@
       style="width: 22rem"
     >
       <div class="flex flex-col gap-5 px-1 pt-1">
-        <p class="text-sm text-gray-500">Print PDF met:</p>
+        <p class="text-base text-gray-500">Print PDF met:</p>
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
             <Checkbox v-model="printLetterhead" binary input-id="print-briefpapier" />
-            <label for="print-briefpapier" class="text-sm cursor-pointer select-none"
+            <label for="print-briefpapier" class="text-base cursor-pointer select-none"
               >Briefpapier</label
             >
           </div>
           <div class="flex items-center gap-3">
             <Checkbox v-model="printProductCodes" binary input-id="print-productcodes" />
-            <label for="print-productcodes" class="text-sm cursor-pointer select-none"
+            <label for="print-productcodes" class="text-base cursor-pointer select-none"
               >Toon productcodes</label
             >
           </div>
           <div class="flex items-center gap-3">
             <Checkbox v-model="printDiscount" binary input-id="print-korting" />
-            <label for="print-korting" class="text-sm cursor-pointer select-none"
+            <label for="print-korting" class="text-base cursor-pointer select-none"
               >Toon korting per product</label
             >
           </div>
@@ -161,7 +161,7 @@
             <Checkbox v-model="printExclVat" binary input-id="print-btw" />
             <label
               for="print-btw"
-              class="text-sm cursor-pointer select-none flex items-center gap-1.5"
+              class="text-base cursor-pointer select-none flex items-center gap-1.5"
             >
               Toon exclusief BTW
               <i class="pi pi-info-circle text-xs text-gray-400" />
@@ -191,17 +191,17 @@
       style="width: 22rem"
     >
       <div class="flex flex-col gap-5 px-1 pt-1">
-        <p class="text-sm text-gray-500">Print PDF met:</p>
+        <p class="text-base text-gray-500">Print PDF met:</p>
         <div class="flex flex-col gap-4">
           <div class="flex items-center gap-3">
             <Checkbox v-model="mailProductCodes" binary input-id="mail-productcodes" />
-            <label for="mail-productcodes" class="text-sm cursor-pointer select-none"
+            <label for="mail-productcodes" class="text-base cursor-pointer select-none"
               >Toon productcodes</label
             >
           </div>
           <div class="flex items-center gap-3">
             <Checkbox v-model="mailDiscount" binary input-id="mail-korting" />
-            <label for="mail-korting" class="text-sm cursor-pointer select-none"
+            <label for="mail-korting" class="text-base cursor-pointer select-none"
               >Toon korting per product</label
             >
           </div>
@@ -209,7 +209,7 @@
             <Checkbox v-model="mailExclVat" binary input-id="mail-btw" />
             <label
               for="mail-btw"
-              class="text-sm cursor-pointer select-none flex items-center gap-1.5"
+              class="text-base cursor-pointer select-none flex items-center gap-1.5"
             >
               Toon exclusief BTW
               <i class="pi pi-info-circle text-xs text-gray-400" />
@@ -219,7 +219,7 @@
         <Divider class="my-0!" />
         <div class="drw-field">
           <label class="drw-label"> Mail inhoud </label>
-          <Textarea v-model="mailContent" rows="7" class="w-full text-sm" auto-resize />
+          <Textarea v-model="mailContent" rows="7" class="w-full text-base" auto-resize />
         </div>
       </div>
       <template #footer>
@@ -250,7 +250,7 @@
   }
 
   .drw-label {
-    @apply font-medium text-(--p-surface-700) text-sm;
+    @apply font-medium text-(--p-surface-700) text-base;
   }
 
   /* ── Confetti ──────────────────────────────────────────────── */
@@ -325,7 +325,7 @@
 
   /* ── Summary pill ─────────────────────────────────────────── */
   .summary-pill {
-    @apply flex items-center bg-(--sw-bg-subtle) border border-(--sw-border-md) rounded-full gap-3 py-3 px-5 text-sm;
+    @apply flex items-center bg-(--sw-bg-subtle) border border-(--sw-border-md) rounded-full gap-3 py-3 px-5 text-base;
   }
 
   .pill-divider {

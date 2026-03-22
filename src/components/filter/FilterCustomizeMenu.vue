@@ -80,7 +80,7 @@
   }
 
   .customize-popover__title {
-    @apply sw-nano m-0 mb-2 text-(--sw-text-muted);
+    @apply sw-title m-0 mb-2 text-(--sw-text-muted);
   }
 
   .customize-list {
@@ -88,7 +88,7 @@
   }
 
   .customize-item {
-    @apply flex items-center cursor-pointer text-sm text-(--sw-text) gap-2.5 px-3 py-2;
+    @apply flex items-center cursor-pointer text-base text-(--sw-text) gap-2.5 px-3 py-2;
     transition: background var(--sw-duration-fast);
   }
 
@@ -105,10 +105,10 @@
   }
 
   .customize-item__lock {
-    @apply ml-auto text-(--sw-text-muted) sw-micro;
+    @apply ml-auto text-(--sw-text-muted) text-xs;
   }
 
   .customize-empty {
-    @apply text-(--sw-text-muted) sw-body-sm text-center italic p-3;
+    @apply text-(--sw-text-muted) text-base text-center italic p-3;
   }
 </style>

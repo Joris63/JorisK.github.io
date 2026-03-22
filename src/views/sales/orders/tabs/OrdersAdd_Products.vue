@@ -129,8 +129,8 @@
         v-if="hasPendingOrders && pendingBannerVisible"
         class="flex items-center gap-3 px-6 py-2.5 bg-amber-50 border-b border-amber-200 text-amber-900 shrink-0"
       >
-        <i class="pi pi-history text-amber-500 text-sm shrink-0" />
-        <span class="text-sm flex-1">
+        <i class="pi pi-history text-amber-500 text-base shrink-0" />
+        <span class="text-base flex-1">
           Je hebt onafgeronde bestellingen —
           <button class="font-semibold underline underline-offset-2 bg-transparent border-0 p-0 cursor-pointer text-amber-800 hover:text-amber-600">
             verder gaan
@@ -185,9 +185,9 @@
           >
             <template v-if="searchMode === 'nested'">
               <div class="search-row flex items-center gap-3 px-4 py-2.5 cursor-pointer" @click="selectProduct(SW1175_RESULT.parent)">
-                <span class="flex-1 text-sm">{{ SW1175_RESULT.parent.naam }}</span>
-                <span class="font-bold text-sm text-gray-700 shrink-0">{{ SW1175_RESULT.parent.code }}</span>
-                <span class="text-sm text-gray-600 w-20 text-right shrink-0">{{ formatSearchPrice(SW1175_RESULT.parent.prijs) }}</span>
+                <span class="flex-1 text-base">{{ SW1175_RESULT.parent.naam }}</span>
+                <span class="font-bold text-base text-gray-700 shrink-0">{{ SW1175_RESULT.parent.code }}</span>
+                <span class="text-base text-gray-600 w-20 text-right shrink-0">{{ formatSearchPrice(SW1175_RESULT.parent.prijs) }}</span>
               </div>
               <div
                 v-for="child in SW1175_RESULT.children"
@@ -195,10 +195,10 @@
                 class="search-row search-row--child flex items-center gap-2 pl-6 pr-4 py-2 cursor-pointer"
                 @click="selectProduct(child)"
               >
-                <span class="text-amber-400 text-sm shrink-0 -translate-y-0.5">↳</span>
-                <span class="flex-1 text-sm text-gray-700 truncate">{{ child.naam }}</span>
-                <span class="font-bold text-sm text-gray-600 shrink-0">{{ child.code }}</span>
-                <span class="text-sm text-gray-500 w-20 text-right shrink-0">{{ formatSearchPrice(child.prijs) }}</span>
+                <span class="text-amber-400 text-base shrink-0 -translate-y-0.5">↳</span>
+                <span class="flex-1 text-base text-gray-700 truncate">{{ child.naam }}</span>
+                <span class="font-bold text-base text-gray-600 shrink-0">{{ child.code }}</span>
+                <span class="text-base text-gray-500 w-20 text-right shrink-0">{{ formatSearchPrice(child.prijs) }}</span>
               </div>
             </template>
             <template v-else-if="searchMode === 'flat'">
@@ -208,9 +208,9 @@
                 class="search-row flex items-center gap-3 px-4 py-2.5 cursor-pointer"
                 @click="selectProduct(product)"
               >
-                <span class="flex-1 text-sm">{{ product.naam }}</span>
-                <span class="font-bold text-sm text-gray-700 shrink-0">{{ product.code }}</span>
-                <span class="text-sm text-gray-600 w-20 text-right shrink-0">{{ formatSearchPrice(product.prijs) }}</span>
+                <span class="flex-1 text-base">{{ product.naam }}</span>
+                <span class="font-bold text-base text-gray-700 shrink-0">{{ product.code }}</span>
+                <span class="text-base text-gray-600 w-20 text-right shrink-0">{{ formatSearchPrice(product.prijs) }}</span>
               </div>
             </template>
           </div>
@@ -263,7 +263,7 @@
   /* ── Search targeted state (persistent ring while group is set) ── */
   .search-targeted :deep(.p-inputtext) {
     transition: border-color var(--sw-duration-slow) var(--sw-ease), box-shadow var(--sw-duration-slow) var(--sw-ease);
-    @apply pr-40 border-[var(--p-primary-400)]!;
+    @apply pr-40 border-(--p-primary-400)!;
   }
 
   /* ── Search flash (prominent one-shot attention pulse) ───── */

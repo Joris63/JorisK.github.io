@@ -193,7 +193,7 @@ function onRowContextMenu(event: any) {
                     <i v-else class="pi pi-image text-gray-300" style="font-size: 0.9rem" />
                   </div>
                   <div class="flex flex-col leading-snug min-w-0">
-                    <span class="font-medium text-sm truncate">{{ data.name }}</span>
+                    <span class="font-medium text-base truncate">{{ data.name }}</span>
                     <span class="text-xs text-gray-400">{{ data.productCode }}</span>
                   </div>
                 </div>
@@ -240,7 +240,7 @@ function onRowContextMenu(event: any) {
                     >{{ formatPrice(data.price) }}</span
                   >
                   <span
-                    class="text-sm font-medium"
+                    class="text-base font-medium"
                     :class="
                       data.discountPercent > 0 || data.discountAmount > 0 ? 'discount-price' : ''
                     "
@@ -262,7 +262,7 @@ function onRowContextMenu(event: any) {
             <Column header="Totaal">
               <template #body="{ data }">
                 <span
-                  class="text-sm font-semibold"
+                  class="text-base font-semibold"
                   :class="
                     data.discountPercent > 0 || data.discountAmount > 0 ? 'discount-price' : ''
                   "
@@ -366,7 +366,7 @@ function onRowContextMenu(event: any) {
             </template>
 
             <template #empty>
-              <div class="px-4 py-3 text-sm text-gray-400 italic">
+              <div class="px-4 py-3 text-base text-gray-400 italic">
                 Nog geen producten toegevoegd
               </div>
             </template>

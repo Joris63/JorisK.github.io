@@ -209,7 +209,7 @@
     @apply flex flex-col gap-1.5;
   }
   .drw-label {
-    @apply text-sm font-medium text-(--sw-text-strong);
+    @apply text-base font-medium text-(--sw-text-strong);
   }
   .drw-req {
     @apply text-red-500;
@@ -222,7 +222,7 @@
   }
 
   .date-sep {
-    @apply text-sm text-(--sw-text-faint) shrink-0;
+    @apply text-base text-(--sw-text-faint) shrink-0;
   }
 
   /* ── Footer ────────────────────────────────────────────────────────── */

@@ -158,7 +158,7 @@
     @apply flex flex-col flex-1 min-w-0 text-left;
   }
   .cust-naam {
-    @apply text-sm font-medium text-(--sw-text-sub) truncate;
+    @apply text-base font-medium text-(--sw-text-sub) truncate;
   }
   .cust-sub {
     @apply text-xs text-(--sw-text-muted) truncate mt-0.5;

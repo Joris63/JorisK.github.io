@@ -62,7 +62,7 @@
       <DataTable :value="log" class="ce-table">
         <Column header="Gebruiker" style="width: 17rem">
           <template #body="{ data }">
-            <a href="#" class="text-primary-600 hover:underline text-sm">{{ data.user }}</a>
+            <a href="#" class="text-primary-600 hover:underline text-base">{{ data.user }}</a>
             <div class="text-xs text-gray-400 mt-0.5">{{ data.date }}</div>
           </template>
         </Column>
@@ -90,12 +90,12 @@
 @reference "@/assets/style.css";
   .log-prop {
     font-family: ui-monospace, monospace;
-    @apply inline-block rounded-[3px] bg-(--p-gray-100) text-(--p-surface-600) py-0.5 px-1.5 text-sm;
+    @apply inline-block rounded-[3px] bg-(--p-gray-100) text-(--p-surface-600) py-0.5 px-1.5 text-base;
   }
   .log-old {
-    @apply text-(--p-surface-400) line-through text-sm;
+    @apply text-(--p-surface-400) line-through text-base;
   }
   .log-new {
-    @apply text-(--p-green-700) font-medium text-sm;
+    @apply text-(--p-green-700) font-medium text-base;
   }
 </style>

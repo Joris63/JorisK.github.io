@@ -29,12 +29,12 @@
       <DataTable :value="quotation.tasks" class="ce-table">
         <Column header="Omschrijving">
           <template #body="{ data }">
-            <span class="text-sm text-gray-600">{{ data.description }}</span>
+            <span class="text-base text-gray-600">{{ data.description }}</span>
           </template>
         </Column>
         <Column header="Deadline" style="width: 9rem">
           <template #body="{ data }">
-            <span class="text-sm text-gray-600">{{ data.deadline }}</span>
+            <span class="text-base text-gray-600">{{ data.deadline }}</span>
           </template>
         </Column>
         <Column header="Status" style="width: 9rem">
@@ -46,17 +46,17 @@
         </Column>
         <Column header="Afdeling" style="width: 8rem">
           <template #body="{ data }">
-            <span class="text-sm text-gray-600">{{ data.department }}</span>
+            <span class="text-base text-gray-600">{{ data.department }}</span>
           </template>
         </Column>
         <Column header="Gebruiker" style="width: 10rem">
           <template #body="{ data }">
-            <span class="text-sm text-gray-600">{{ data.user }}</span>
+            <span class="text-base text-gray-600">{{ data.user }}</span>
           </template>
         </Column>
         <Column header="Eigenaar" style="width: 10rem">
           <template #body="{ data }">
-            <span class="text-sm text-gray-600">{{ data.owner }}</span>
+            <span class="text-base text-gray-600">{{ data.owner }}</span>
           </template>
         </Column>
         <Column style="width: 2.5rem">
@@ -75,7 +75,7 @@
 <style scoped>
 @reference "@/assets/style.css";
   .task-link {
-    @apply text-[var(--p-primary-600)] no-underline font-medium text-sm;
+    @apply text-(--p-primary-600) no-underline font-medium text-base;
   }
   .task-link:hover {
     @apply underline;
